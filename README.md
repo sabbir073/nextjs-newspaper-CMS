@@ -18,13 +18,13 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/newspaper.git
+   git clone https://github.com/sabbir073/nextjs-newspaper-CMS.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd newspaper
+   cd nextjs-newspaper-CMS
    ```
 
 3. Install the dependencies:
