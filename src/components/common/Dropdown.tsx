@@ -32,33 +32,33 @@ const Dropdown: React.FC = () => {
             {isOpen && (
                 <ul className="dropdown-content absolute bg-white shadow-md mt-2 w-[200px] z-10 p-5 space-y-4 text-sm capitalize">
                     <li>
-                        <a className='flex items-center gap-2' href='#' target='_blank' rel="noopener noreferrer">
-                            <FontAwesomeIcon className='w-[20px]' icon={faYoutube} />
-                            <p>youtube</p>
+                        <a className='flex items-center gap-2 text-lg' href='#' target='_blank' rel="noopener noreferrer">
+                            <FontAwesomeIcon className='w-[20px] text-red-600' icon={faYoutube} />
+                            <p>ইউটিউব</p>
                         </a>
                     </li>
                     <li>
-                        <a className='flex items-center gap-2' href='#' target='_blank' rel="noopener noreferrer">
-                            <FontAwesomeIcon className='w-[20px]' icon={faFacebook} />
-                            <p>facebook</p>
+                        <a className='flex items-center gap-2 text-lg' href='#' target='_blank' rel="noopener noreferrer">
+                            <FontAwesomeIcon className='w-[20px] text-blue-600' icon={faFacebook} />
+                            <p>ফেসবুক</p>
                         </a>
                     </li>
                     <li>
-                        <a className='flex items-center gap-2' href='#' target='_blank' rel="noopener noreferrer">
-                            <FontAwesomeIcon className='w-[20px]' icon={faTwitter} />
-                            <p>twitter</p>
+                        <a className='flex items-center gap-2 text-lg' href='#' target='_blank' rel="noopener noreferrer">
+                            <FontAwesomeIcon className='w-[20px] text-blue-400' icon={faTwitter} />
+                            <p>টুইটার</p>
                         </a>
                     </li>
                     <li>
-                        <a className='flex items-center gap-2' href='#' target='_blank' rel="noopener noreferrer">
-                            <FontAwesomeIcon className='w-[20px]' icon={faLinkedin} />
-                            <p>linkedIn</p>
+                        <a className='flex items-center gap-2 text-lg' href='#' target='_blank' rel="noopener noreferrer">
+                            <FontAwesomeIcon className='w-[20px] text-blue-700' icon={faLinkedin} />
+                            <p>লিঙ্কডিন</p>
                         </a>
                     </li>
                     <li>
-                        <a className='flex items-center gap-2' href='#' target='_blank' rel="noopener noreferrer">
-                            <FontAwesomeIcon className='w-[20px]' icon={faInstagram} />
-                            <p>instagram</p>
+                        <a className='flex items-center gap-2 text-lg' href='#' target='_blank' rel="noopener noreferrer">
+                            <FontAwesomeIcon className='w-[20px] text-purple-600' icon={faInstagram} />
+                            <p>ইন্সট্রাগ্রাম</p>
                         </a>
                     </li>
                 </ul>

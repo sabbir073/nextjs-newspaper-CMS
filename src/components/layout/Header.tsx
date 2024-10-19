@@ -2,7 +2,7 @@
 import logo from '@/assets/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaBars, FaCertificate } from "react-icons/fa6";
+import { FaBars } from "react-icons/fa6";
 import { IoSearchSharp } from "react-icons/io5";
 import Ad from '../common/Ad';
 import ad from "@/assets/bangla-bid-ad.jpg";
@@ -94,16 +94,16 @@ const Header: React.FC = () => {
                             <p className=''>{formattedDate} <br className='md:block hidden' /> <span>{formattedDateBn}</span></p>
                         </div>
                         <div className='md:w-auto md:order-2 order-1'>
-                            <Link href='/'><Image className='lg:w-[230px] md:w-[160px] w-[160px] mx-auto lg:ml-14 md:ml-14 ml-0' src={logo} alt='logo' priority={true} /></Link>
+                            <Link href='/'><Image className='lg:w-[230px] md:w-[160px] w-[160px] mx-auto ml-0' src={logo} alt='logo' priority={true} /></Link>
                         </div>
                         <div className='lg:justify-end justify-center order-3 flex lg:w-auto w-full'>
                             <div className='items-center flex'>
                                 <Dropdown />
                             </div>
                             <div className="divider w-0 mx-0 divider-neutral divider-horizontal"></div>
-                            <div>
+                            {/* <div>
                                 <Link href={'#'} className='flex items-center gap-2 md:leading-[2px] leading-[2px] text-lg md:text-xl font-bold px-[12px]'><FaCertificate /> সার্টিফিকেট</Link>
-                            </div>
+                            </div> */}
                             <div className="divider w-0 mx-0 divider-neutral divider-horizontal"></div>
                             <div>
                             <Link
@@ -148,13 +148,12 @@ const Header: React.FC = () => {
                     </div>
 
                     {/* menu item */}
-                    <div className="navbar md:pt-3">
-                        <div className="navbar-start"></div>
-                        <div className="navbar-center w-full justify-center lg:flex">
-                            <div className="menu menu-horizontal justify-center items-center pb-0">
+                    <nav className="navbar md:pt-3">
+                        <div className="navbar-center w-full justify-center lg:flex sticky top-0 shadow bg-base-content">
+                            <div className="menu menu-horizontal justify-center items-center p-0">
                                 {menuItems.map(menuItem => (
                                     <li key={menuItem.text}>
-                                        <Link className='md:text-left text-center sm:inline-block hidden font-bold text-xl md:text-[22px]' href={menuItem.link} replace={false}>{menuItem.text}</Link>
+                                        <Link className='hover:bg-primary rounded-none md:text-left text-center sm:inline-block hidden text-white text-xl md:text-[22px]' href={menuItem.link} replace={false}>{menuItem.text}</Link>
                                     </li>
                                 ))}
                                 <FaBars
@@ -162,7 +161,7 @@ const Header: React.FC = () => {
                                         const megaMenuModal = document.getElementById('megaMenuModal') as HTMLDialogElement;
                                         megaMenuModal?.showModal();
                                     }}
-                                    className='text-xl cursor-pointer sm:block hidden'
+                                    className='text-xl cursor-pointer sm:block hidden text-white'
                                 />
 
                                 <dialog id="megaMenuModal" className="modal overflow-scroll bg-[#0000008e]">
@@ -219,16 +218,16 @@ const Header: React.FC = () => {
                                                 <div className="w-[.5px] bg-black h-auto"></div>
                                                 <div className='lg:w-[34%] md:w-[100%]'>
                                                     <StayTuned colon={true} />
-                                                    <div className='my-6 py-5 border-y border-black'>
+                                                    <div className='mt-6 py-5'>
                                                         <DownloadApp colon={true} />
                                                     </div>
                                                     {/* special program */}
-                                                    <div className='md:text-left text-center'>
+                                                    {/* <div className='md:text-left text-center'>
                                                         <h5 className='text-xl md:text-2xl mb-1'>বিশেষ প্রোগ্রাম:</h5>
                                                         <Link href={'#'} onClick={() => closeDialog()} className='mt-3 flex items-center md:justify-start justify-center gap-2 md:leading-[2px] leading-[2px] text-lg md:text-xl font-bold px-[12px]'><FaCertificate /> সার্টিফিকেট</Link>
-                                                    </div>
+                                                    </div> */}
                                                     {/* important links */}
-                                                    <ul style={{ listStyleType: 'disc' }} className='flex flex-wrap text-lg md:text-[23px] font-bold gap-y-0 list-disc border-t border-black pt-3 mt-6 justify-between'>
+                                                    <ul style={{ listStyleType: 'disc' }} className='flex flex-wrap text-lg md:text-[23px] font-bold gap-y-0 list-disc border-t border-black pt-3 justify-between'>
                                                         <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />আমাদের সম্পর্কে</Link></li>
                                                         <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />বিজ্ঞাপন নীতিমালা</Link></li>
                                                         <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />মন্তব্যের নীতিমালা</Link></li>
@@ -243,7 +242,7 @@ const Header: React.FC = () => {
                                 </dialog>
                             </div>
                         </div>
-                    </div>
+                    </nav>
                 </div>
             </BodyContainer>
             {/* header ad starts here */}

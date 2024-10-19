@@ -7,7 +7,7 @@ interface AdProps {
 
 const Ad: React.FC<AdProps> = ({ image, link }) => {
     return (
-        <div className='text-center h-fit p-0 lg:p-3 bg-[#F1EFEF]'>
+        <div className='text-center h-fit p-0 lg:p-3 bg-transparent'>
             <Link className='mx-auto text-center h-fit' target='_blank' href={link}>
                 <Image className='mx-auto h-fit' src={image} alt='ad' />
             </Link>
