@@ -35,12 +35,12 @@ const Footer: React.FC = () => {
                 <div className='bg-base-content py-1 px-5 my-4 md:my-8'>
                     <BodyContainer>
                         <ul className='flex flex-wrap lg:justify-between justify-center md:gap-x-8 gap-x-5 gap-y-2 md:gap-y-3 text-white text-lg md:text-2xl'>
-                            <li><Link href={"/about"}>আমাদের সম্পর্কে</Link></li>
-                            <li><Link href={"/advertisement"}>বিজ্ঞাপন নীতিমালা</Link></li>
-                            <li><Link href={"/comment-policy"}>মন্তব্যের নীতিমালা</Link></li>
-                            <li><Link href={"/privacy-policy"}>গোপনীয়তা নীতি</Link></li>
-                            <li><Link href={"/contact"}>যোগাযোগ</Link></li>
-                            <li><Link href={"/"}>ইউনিকোড কনভার্টার</Link></li>
+                            <li className="hover:text-blue-500"><Link href={"/about"}>আমাদের সম্পর্কে</Link></li>
+                            <li className="hover:text-blue-500"><Link href={"/advertisement"}>বিজ্ঞাপন নীতিমালা</Link></li>
+                            <li className="hover:text-blue-500"><Link href={"/comment-policy"}>মন্তব্যের নীতিমালা</Link></li>
+                            <li className="hover:text-blue-500"><Link href={"/privacy-policy"}>গোপনীয়তা নীতি</Link></li>
+                            <li className="hover:text-blue-500"><Link href={"/contact"}>যোগাযোগ</Link></li>
+                            <li className="hover:text-blue-500"><Link href={"/"}>ইউনিকোড কনভার্টার</Link></li>
                         </ul>
                     </BodyContainer>
                 </div>

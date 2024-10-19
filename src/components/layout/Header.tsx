@@ -186,28 +186,28 @@ const Header: React.FC = () => {
                                                     <ul>
                                                         {megaMenuItems.slice(0, 6).map(megaMenuItem => (
                                                             <li key={megaMenuItem.text}>
-                                                                <Link className='md:text-left text-center inline-block' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
+                                                                <Link className='md:text-left text-center inline-block hover:text-blue-500' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
                                                             </li>
                                                         ))}
                                                     </ul>
                                                     <ul>
                                                         {megaMenuItems.slice(6, 12).map(megaMenuItem => (
                                                             <li key={megaMenuItem.text}>
-                                                                <Link className='md:text-left text-center inline-block' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
+                                                                <Link className='md:text-left text-center inline-block hover:text-blue-500' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
                                                             </li>
                                                         ))}
                                                     </ul>
                                                     <ul>
                                                         {megaMenuItems.slice(12, 18).map(megaMenuItem => (
                                                             <li key={megaMenuItem.text}>
-                                                                <Link className='md:text-left text-center inline-block' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
+                                                                <Link className='md:text-left text-center inline-block hover:text-blue-500' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
                                                             </li>
                                                         ))}
                                                     </ul>
                                                     <ul>
                                                         {megaMenuItems.slice(18, 24).map(megaMenuItem => (
                                                             <li key={megaMenuItem.text}>
-                                                                <Link className='md:text-left text-center inline-block' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
+                                                                <Link className='md:text-left text-center inline-block hover:text-blue-500' href={megaMenuItem.link} onClick={() => closeDialog()}>{megaMenuItem.text}</Link>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -228,12 +228,12 @@ const Header: React.FC = () => {
                                                     </div> */}
                                                     {/* important links */}
                                                     <ul style={{ listStyleType: 'disc' }} className='flex flex-wrap text-lg md:text-[23px] font-bold gap-y-0 list-disc border-t border-black pt-3 justify-between'>
-                                                        <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />আমাদের সম্পর্কে</Link></li>
-                                                        <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />বিজ্ঞাপন নীতিমালা</Link></li>
-                                                        <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />মন্তব্যের নীতিমালা</Link></li>
-                                                        <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />গোপনীয়তা নীতি</Link></li>
-                                                        <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />যোগাযোগ</Link></li>
-                                                        <li><Link className='flex items-center gap-1' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />ইউনিকোড কনভার্টার</Link></li>
+                                                        <li><Link className='flex items-center gap-1 hover:text-blue-500' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />আমাদের সম্পর্কে</Link></li>
+                                                        <li><Link className='flex items-center gap-1 hover:text-blue-500' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />বিজ্ঞাপন নীতিমালা</Link></li>
+                                                        <li><Link className='flex items-center gap-1 hover:text-blue-500' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />মন্তব্যের নীতিমালা</Link></li>
+                                                        <li><Link className='flex items-center gap-1 hover:text-blue-500' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />গোপনীয়তা নীতি</Link></li>
+                                                        <li><Link className='flex items-center gap-1 hover:text-blue-500' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />যোগাযোগ</Link></li>
+                                                        <li><Link className='flex items-center gap-1 hover:text-blue-500' href={"/"} onClick={() => closeDialog()}><GoDotFill className='text-sm' />ইউনিকোড কনভার্টার</Link></li>
                                                     </ul>
                                                 </div>
                                             </div>
