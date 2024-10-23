@@ -1,24 +1,24 @@
+// src/app/api/users/route.ts
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
+// Initialize Prisma Client
 const prisma = new PrismaClient();
 
-function isError(error: unknown): error is Error {
-  return error instanceof Error;
-}
-
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   try {
+    // Query PostgreSQL directly using Prisma
     const users = await prisma.user.findMany();
-    return NextResponse.json({ success: true, data: users });
+
+    // Return the result as a JSON response
+    return NextResponse.json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
-
-    // Use the type guard to safely access the error message
-    const errorMessage = isError(error) ? error.message : 'Unknown error occurred';
-
-    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   } finally {
-    await prisma.$disconnect();
+    await prisma.$disconnect(); // Ensure the Prisma client disconnects properly
   }
 }
