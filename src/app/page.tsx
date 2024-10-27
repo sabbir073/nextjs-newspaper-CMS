@@ -1,9 +1,10 @@
 // src/app/dashboard/page.tsx (or the relevant path)
 import Image from 'next/image';
+import HomeLayout from '@/components/layouts/HomeLayout';
 
 export default function DashboardPage() {
   return (
-    <div>
+    <HomeLayout>
       <h1>Hello</h1>
       <Image
         src={`${process.env.NEXT_IMAGE_URL}/selfie.png`}
@@ -12,6 +13,6 @@ export default function DashboardPage() {
         height={300}
         priority // Optional: Loads the image with higher priority
       />
-    </div>
+    </HomeLayout>
   );
 }

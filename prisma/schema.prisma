@@ -1,25 +1,53 @@
 // schema.prisma
 
-// Define the datasource
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-// Define the generator
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
-// Define the User model
+// User model with role management
 model User {
-    id                     Int      @id @default(autoincrement())
-    name                   String   
-    email                  String   @unique
-    password               String
-    role                   String   @default("User")
-    display_name           String?  
-    created_at             DateTime @default(now())
-    updated_at             DateTime @updatedAt
-    forget_password_token  String?
+  id                    Int      @id @default(autoincrement())
+  name                  String
+  email                 String   @unique
+  password              String   // Store bcrypt hashed password
+  role                  Role     @default(USER) // Role-based access
+  display_name          String?
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+  sessions              Session[]
+  accounts              Account[]
+  forget_password_token String?  // Password recovery flow
+}
+
+// Session model for NextAuth.js
+model Session {
+  id           String   @id @default(cuid())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+  sessionToken String   @unique
+}
+
+// OAuth account model (optional for future integrations)
+model Account {
+  id                 Int      @id @default(autoincrement())
+  userId             Int
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider           String
+  providerAccountId  String   @unique
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+}
+
+// Enum for role management
+enum Role {
+  ADMIN
+  EDITOR
+  USER
 }

@@ -6,22 +6,37 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
-    // Hash the password
-    const hashedPassword = await bcrypt.hash('DemoPassword123!', 10);
+    // Hash passwords
+    const password = await bcrypt.hash('DemoPassword123!', 10);
 
-    // Create a demo user
-    await prisma.user.create({
-        data: {
-            name: 'John Doe',
-            email: 'john.doe@example.com',
-            password: hashedPassword, // Ensure this field is recognized in your schema
-            role: 'User',             // Role field
-            display_name: null,       // Nullable field
-            forget_password_token: null,
-        },
+    // Create users with different roles
+    await prisma.user.createMany({
+        data: [
+            {
+                name: 'Admin User',
+                email: 'admin@example.com',
+                password: password,
+                role: 'ADMIN',
+                display_name: 'Admin',
+            },
+            {
+                name: 'Editor User',
+                email: 'editor@example.com',
+                password: password,
+                role: 'EDITOR',
+                display_name: 'Editor',
+            },
+            {
+                name: 'Regular User',
+                email: 'user@example.com',
+                password: password,
+                role: 'USER',
+                display_name: 'User',
+            },
+        ],
     });
 
-    console.log('Demo user created');
+    console.log('Users created successfully');
 }
 
 main()

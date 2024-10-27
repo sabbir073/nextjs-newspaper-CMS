@@ -95,6 +95,12 @@ Before you begin, ensure you have the following installed:
    npx prisma migrate dev --name delete_table_name
    ```
 
+### See the DB tables
+
+```bash
+npx prisma studio
+```
+
 ### Running the Project
 
 To start the development server, run:
