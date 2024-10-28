@@ -47,7 +47,7 @@ const authOptions = {
   ],
   session: {
     strategy: "jwt" as SessionStrategy, // Ensure proper type casting
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 24 * 60 * 60, // 24 hours
     updateAge: 24 * 60 * 60, // 24 hours
   },
   callbacks: {

@@ -11,6 +11,7 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: session, status } = useSession();
   const router = useRouter();
 

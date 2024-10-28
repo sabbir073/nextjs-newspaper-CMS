@@ -17,16 +17,16 @@ export default function LoginPage() {
     (role: string) => {
       switch (role) {
         case "ADMIN":
-          router.push("/dashboard/admin");
+          router.replace("/dashboard/admin");
           break;
         case "EDITOR":
-          router.push("/dashboard/editor");
+          router.replace("/dashboard/editor");
           break;
         case "USER":
-          router.push("/dashboard/user");
+          router.replace("/dashboard/user");
           break;
         default:
-          router.push("/login");
+          router.replace("/login");
       }
     },
     [router]
@@ -36,7 +36,6 @@ export default function LoginPage() {
     if (status === "authenticated" && session?.user?.role) {
       redirectToDashboard(session.user.role);
     }
-    
   }, [status, session, redirectToDashboard]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,41 +53,46 @@ export default function LoginPage() {
     }
   };
 
-  // Show the LoadingSpinner if session is loading
-  if (status === "loading") {
+  // **Show spinner if session status is loading or authenticated** to prevent flickering.
+  if (status === "loading" || status === "authenticated") {
     return <LoadingSpinner />;
   }
 
-  return (
-    <LoginLayout>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-          <h1 className="mb-6 text-2xl font-semibold text-center text-gray-700">Login</h1>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-            />
-            <button
-              type="submit"
-              className="w-full px-4 py-2 font-semibold text-white bg-indigo-500 rounded-md hover:bg-indigo-600"
-            >
-              Login
-            </button>
-            {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
-          </form>
+  // Render the login form only when the user is unauthenticated.
+  if (status === "unauthenticated") {
+    return (
+      <LoginLayout>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+            <h1 className="mb-6 text-2xl font-semibold text-center text-gray-700">Login</h1>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              />
+              <button
+                type="submit"
+                className="w-full px-4 py-2 font-semibold text-white bg-indigo-500 rounded-md hover:bg-indigo-600"
+              >
+                Login
+              </button>
+              {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+            </form>
+          </div>
         </div>
-      </div>
-    </LoginLayout>
-  );
+      </LoginLayout>
+    );
+  }
+
+  return null; // Prevent rendering anything if session status is undefined.
 }
