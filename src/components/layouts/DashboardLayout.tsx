@@ -3,7 +3,9 @@
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-
+import Footer from "../layout/adminFooter";
+import Header from "../layout/adminHeader";
+import Sidebar from '../common/Sidebar'
 interface DashboardLayoutProps {
   children: ReactNode;
 }
@@ -25,16 +27,25 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   }
 
   return (
-    
+
     <div className="dashboard-layout">
-      <header>
-        <nav>
-          <h1>Dashboard</h1>
-          <p>Welcome, {session?.user.email}</p>
-        </nav>
-      </header>
-      <main>{children}</main>
+
+      <div className="dashboard-layout">
+        <Header />
+        <div className="py-6 sm:py-6 max-w-7x mx-auto md:flex ">
+          <div className="hidden md:block w-[25%] ">
+            <Sidebar />
+          </div>
+          <main className="w-full">
+            {/* <p>Welcome, {session?.user.email}</p> */}
+            {children}
+          </main>
+        </div>
+      </div>
+      <Footer />
     </div>
-    
+
   );
 }
+
+

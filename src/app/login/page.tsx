@@ -59,28 +59,35 @@ export default function LoginPage() {
     return <LoadingSpinner />;
   }
 
-  
-
   return (
     <LoginLayout>
-      <div className="login-container">
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Login</button>
-          {error && <p className="error">{error}</p>}
-        </form>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+          <h1 className="mb-6 text-2xl font-semibold text-center text-gray-700">Login</h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+            />
+            <button
+              type="submit"
+              className="w-full px-4 py-2 font-semibold text-white bg-indigo-500 rounded-md hover:bg-indigo-600"
+            >
+              Login
+            </button>
+            {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+          </form>
+        </div>
       </div>
     </LoginLayout>
   );
