@@ -16,7 +16,7 @@ const Sidebar = () => {
     // console.log("pathname",pathname);
 
     const navigation = [
-        { name: "View All News", href: "/dashboard", icon: RxDashboard },
+        { name: "View All News", href: "/dashboard/admin/viewallnews", icon: RxDashboard },
         { name: "Add New News", href: "/dashboard/admin/addnews", icon: RiAddCircleLine },
         {
             name: "News Categories",
@@ -42,7 +42,7 @@ const Sidebar = () => {
                         href={item.href}
                         className={classNames(
                             isActive ? "bg-gray-50 text-black" : "",
-                            "px-4 text-center mx-auto group hover:bg-indigo-50 rounded my-auto py-2 flex text-xs lg:text-sm leading-6 font-semibold"
+                            "px-4 text-center  group hover:bg-indigo-50 rounded my-auto py-2 flex text-xs lg:text-sm leading-6 font-semibold"
                         )}
                     >
                         <item.icon
