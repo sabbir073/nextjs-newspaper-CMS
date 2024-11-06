@@ -11,40 +11,41 @@ import NewsCardHorizontal from '../HorizontalCard'
 
 import ShortNewsCard from '../FeatureNews/ShortNewsCard'
 
+
+
 const SportsNewsSection: React.FC = () => {
     return (
-        <div className="xl:max-w-7xl lg:max-w-5xl md:max-w-[768px] sm:max-w-[640px] xl:px-4 md:mx-auto lg:px-6 sm:mx-auto sm:px-4 px-3 ">
-            <div className="border-l-8 border-red-500 mb-2 mt-2">
-                <h1 className="text-black text-2xl md:text-4xl ml-4 cursor-pointer hover:text-red-500">
-                    খেলা
-                </h1>
+        <BodyContainer className="mt-5 ">
+            <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
+            <div className="bg-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            খেলা
             </div>
-            <div className='border-b-2 border-gray-500 mb-2 '></div>
-
+           
+            <div className="bg-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+              আরও
+            </div>
+          </div>
 
             <div
-                className=" lg:flex md:space-x-2 lg:space-x-4 space-y-4 md:space-y-0 pt-4 " >
+                className=" lg:flex space-y-4 md:space-y-0 pt-4 md:space-x-4 " >
 
                 <div className=" w-full lg:w-1/3">
                     {/* left side  */}
                     <NewsCard
                         title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
                         description="
-                        বাংলাদেশ ফুটবল দল বর্তমানে কুয়েতে অবস্থান করছে। আগামীকাল কুয়েতের সময় রাত সাড়ে নয়টায় মাঠে ফিলিস্তিনের বিপক্ষে বিশ্বকাপের বাছাইপর্বের ম্যাচ খেলবেন জামাল ভূঁইয়ারা। সৌদিতে দুই সপ্তাহ ক্যাপ শেষে এবার কুয়েতের আবহাওয়া কন্ডিশনে এবং ফিলিস্তিনের বিপক্ষে ম্যাচকে সামনে রেখে শেষবারের মতো নিজেদের ঝালিয়ে নিতে অনুশীলনে ব্যস্ত সময় পার করছে বাংলাদেশ দল। আসন্ন ম্যাচে ফিলিস্তিনের আক্রমণভাগই আগামীকাল কুয়েতের সময় রাত   আগামীকাল কুয়েতের সময় রাত 
-                        
-                                 "
+                        বাংলাদেশ ফুটবল দল বর্তমানে কুয়েতে অবস্থান করছে। আগামীকাল কুয়েতের সময় রাত সাড়ে নয়টায় মাঠে ফিলিস্তিনের বিপক্ষে বিশ্বকাপের বাছাইপর্বের ম্যাচ খেলবেন জামাল ভূঁইয়ারা। সৌদিতে দুই সপ্তাহ ক্যাপ শেষে এবার কুয়েতের আবহাওয়া কন্ডিশনে এবং ফিলিস্তিনের বিপক্ষে ম্যাচকে সামনে রেখে শেষবারের মতো নিজেদের ঝালিয়ে নিতে অনুশীলনে ব্যস্ত সময় পার করছে বাংলাদেশ দল। আসন্ন ম্যাচে ফিলিস্তিনের আক্রমণভাগই আগামীকাল কুয়েতের সময় রাত   আগামীকাল কুয়েতের সময় রাত আগামীকাল কুয়েতের সময় রাত আগামীকাল কুয়েতের সময় রাত আগামীকাল কুয়েতের সময় রাত "
                         imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
                         clamp={6}
-                        maxLength={410}
+                        maxLength={495}
                         onClick={() => alert('News card clicked!')}
                     />
                 </div>
 
                 <div className="block lg:w-2/3 ">
                     {/* right side  */}
-
-                    <div className="  2xl:pt-10 w-full md:flex">
-                        <div className="w-full md:w-5/12 space-y-5 px-0 md:px-4 ">
+                    <div className="  2xl:pt-10 w-full md:flex md:pt-">
+                        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 md:w-[50%] gap-4  ">
                             <ShortNewsCard
                                 title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
                                 imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
@@ -59,7 +60,8 @@ const SportsNewsSection: React.FC = () => {
                             />
 
                         </div>
-                        <div className=" w-full md:w-7/12 grid grid-cols-1 pt-4 md:pt-0 md:pl-4  space-y-4">
+
+                        <div className=" w-full md:w-[50%] grid grid-cols-1 pt-4 md:pt-0 md:pl-4  space-y-4">
 
                             <NewsCardHorizontal
                                 imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
@@ -107,7 +109,7 @@ const SportsNewsSection: React.FC = () => {
 
 
             </div>
-        </div>
+        </BodyContainer>
     );
 };
 

@@ -1,4 +1,3 @@
-
 // "use client"
 // import React from 'react';
 // import Image from 'next/image';
@@ -59,15 +58,11 @@
 
 //             }
 
-
-
-
 //         </div>
 //     );
 // };
 
 // export default ShortNewsCard;
-
 
 "use client";
 import React from "react";
@@ -91,12 +86,12 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
   right,
 }) => {
   const SideImage = (
-    <div className="relative  flex-shrink-0 overflow-hidden rounded-lg w-24 md:w-32 lg:w-40">
+    <div className="relative flex-shrink-0 overflow-hidden w-40 lg:w-[180px]">
       <Image
         src={imageSrc}
         alt="Blog Image"
         fill
-        className="object-cover rounded-lg"
+        className="object-fill rounded-l-lg"
         priority
       />
     </div>
@@ -104,7 +99,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
 
   return (
     <div
-      className="flex w-full h-28  cursor-pointer bg-white rounded-lg shadow-xl	 overflow-hidden"
+      className="flex w-full h-28 md:h-[120px] cursor-pointer bg-white border rounded-lg shadow-md group"
       onClick={onClick}
     >
       {left && SideImage}
@@ -115,7 +110,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
             {highlight}
           </h1>
         )}
-        <h2 className="text-black text-base md:text-lg lg:text-xl font-semibold line-clamp-2 hover:text-red-500">
+        <h2 className="text-black text-base md:text-lg lg:text-xl font-semibold line-clamp-2 group-hover:text-red-500">
           {title}
         </h2>
       </div>
