@@ -9,7 +9,7 @@ import BodyContainer from '../../common/BodyContainer';
 import Ad from '../../common/Ad';
 import ad from "@/assets/bangla-bid-ad.jpg";
 import NewsFeatureRightSide from "./NewsFeatureRightSide"
-import Container from '@/components/Container';
+import Container from '@/components/common/Container';
 
 
 interface BlogCardProps {

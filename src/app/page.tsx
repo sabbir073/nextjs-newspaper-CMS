@@ -15,6 +15,7 @@ import LiteratureNews from "@/components/home/literature/literatureNews"
 import ReligionNews from "@/components/home/ReligionNews/ReligionNews"
 import SliderNews from "@/components/home/photoslider/slider"
 import OpinionSection from "@/components/home/OpinionNews/OpinionNews"
+import VideoSection from "@/components/home/videoSection/VideoSection"
 
 export default function DashboardPage() {
   return (
@@ -28,6 +29,7 @@ export default function DashboardPage() {
         priority // Optional: Loads the image with higher priority
       /> */}
       <NewsFeatureSection />
+      <VideoSection />
       <NationalNewsSection />
       <OpinionSection />
       <CountryNewsSection />

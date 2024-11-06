@@ -15,17 +15,17 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === "loading") return; // Wait for session to load
+  // useEffect(() => {
+  //   if (status === "loading") return; // Wait for session to load
 
-    if (status === "unauthenticated") {
-      router.push("/login"); // Redirect if not logged in
-    }
-  }, [status, router]);
+  //   if (status === "unauthenticated") {
+  //     router.push("/login"); // Redirect if not logged in
+  //   }
+  // }, [status, router]);
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
+  // if (status === "loading") {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
 
