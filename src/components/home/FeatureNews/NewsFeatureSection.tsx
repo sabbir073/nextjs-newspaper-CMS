@@ -2,25 +2,68 @@
 import React from 'react';
 import Image from 'next/image';
 
-import NewsCard from './NewsCard'
+// import NewsCard from './NewsCard'
 import ShortNewsCard from './ShortNewsCard'
 import HorizontalCard from '../HorizontalCard'
 import BodyContainer from '../../common/BodyContainer';
 import Ad from '../../common/Ad';
 import ad from "@/assets/bangla-bid-ad.jpg";
 import NewsFeatureRightSide from "./NewsFeatureRightSide"
+import Container from '@/components/common/Container';
 
+
+interface BlogCardProps {
+  imageSrc: string;
+  title?: string;
+  description?: string;
+  clamp?: number;
+  maxLength?: number;
+  onClick?: () => void;
+}
+
+const truncateString = (input: string, maxLength: number): string => {
+  return input.length > maxLength ? `${input.substring(0, maxLength)}...` : input;
+};
+
+const NewsCard: React.FC<BlogCardProps> = ({ imageSrc, title, description = '', clamp = 2,maxLength=100 , onClick }) => {
+  return (
+      <div
+          className="w-full pb-4 group cursor-pointer shadow-car shadow-md rounded-xl "
+          onClick={onClick}
+      >
+          <Image
+              width={900}
+              height={900}
+              src={imageSrc}
+              alt="Blog Image"
+              className="w-full h-[200px] md:h-[400px] aspect-[4/3 object-fill rounded-t-xl"
+              priority
+          />
+         <div className="px-2">
+         <h1 
+          className="text-black pt-3 px-2 text-2xl xl:text-4xl font-bold group-hover:text-red-500 line-clamp-2">
+              {title}
+          </h1>
+          <article className="text-wrap px-2 py-2">
+              <p className={`line-clamp-${clamp} text-xl`}>
+                  {truncateString(description, maxLength)}
+              </p>
+          </article>
+         </div>
+      </div>
+  );
+};
 
 
 
 const NewsFeatureSection: React.FC = () => {
   return (
-    <div className="">
-      <div className="xl:max-w-7xl lg:max-w-5xl md:max-w-[768px] sm:max-w-[640px] xl:px-4 md:mx-auto lg:px-6 sm:mx-auto sm:px-4 px-3  lg:flex md:space-x-2 lg:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-0">
+    <Container className="mt-4 ">
+      <div className=" lg:flex md:space-x-2 lg:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-0">
         <div className=" w-full lg:w-3/4 ">
           {/* left side  */}
-          <div className="space-y-1 md:space-y-0 md:space-x-1 2xl:pt-10 w-full md:flex">
-            <div className="w-full md:w-2/3 pr-0 md:pr-4">
+          <div className="space-y-4 md:space-y-0 md:space-x-5 w-full md:flex">
+            <div className="w-full md:w-2/3 ">
               
               <NewsCard
                 title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
@@ -55,7 +98,7 @@ const NewsFeatureSection: React.FC = () => {
           </div>
 
           <div className='py-2'>
-            <div className="grid grid-cols-2 gap-6  md:grid-cols-3 py-2">
+            <div className="grid grid-cols-2 gap-4  md:grid-cols-3 py-2">
               <ShortNewsCard
                 title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
                 imageSrc="https://d1uo68v5hl2ge5.cloudfront.net/selfie.png"
@@ -134,9 +177,9 @@ const NewsFeatureSection: React.FC = () => {
 
       </div>
       <BodyContainer>
-        <Ad image={ad} link={'#'} />
+        {/* <Ad image={ad} link={'#'} /> */}
       </BodyContainer>
-    </div>
+    </Container>
   );
 };
 

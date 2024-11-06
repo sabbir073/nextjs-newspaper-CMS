@@ -57,26 +57,26 @@ interface BlogCardProps {
 const ShortNewsCard: React.FC<BlogCardProps> = ({ imageSrc, title, highlight, onClick }) => {
     return (
         <div
-            className="w-full cursor-pointer h-[325px]  bg-white rounded-lg shadow-lg "
+            className="w-full cursor-pointer bg-white rounded-xl shadow-md group"
             onClick={onClick}
         >
-            <div className="relative w-full h-[160px] md:h-[200px] rounded-t-lg overflow-hidden">
+            <div className="relative w-full h-[180px]  rounded-t-lg overflow-hidden">
                 <Image
-                    width={400}
-                    height={240}
+                    width={800}
+                    height={840}
                     src={imageSrc}
                     alt="Blog Image"
-                    className="object-cover w-full h-full"
+                    className="object-fill w-full h-full rounded-t-xl"
                     priority
                 />
             </div>
             <div className="p-4">
                 {highlight && (
-                    <h1 className="text-red-500 text-xl lg:text-2xl font-bold line-clamp-1">
+                    <h1 className="text-red-500 text-xl lg:text-2xl font-bold line-clamp-2">
                         {highlight}
                     </h1>
                 )}
-                <h2 className="text-black mt-1 text-lg md:text-xl lg:text-2xl font-semibold line-clamp-2 hover:text-red-500">
+                <h2 className=" md:h-[70px] text-black mt-1 text-lg md:text-xl lg:text-2xl font-semibold line-clamp-2 group-hover:text-red-500">
                     {title}
                 </h2>
             </div>

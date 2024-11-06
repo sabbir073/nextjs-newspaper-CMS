@@ -1,7 +1,6 @@
 // src/app/dashboard/page.tsx (or the relevant path)
 import Image from 'next/image';
 import HomeLayout from '@/components/layouts/HomeLayout';
-import HorizontalScrollableText from "@/components/home/FeatureNews/HorizontalScrollableText"
 
 import NewsFeatureSection from "@/components/home/FeatureNews/NewsFeatureSection"
 import CountryNewsSection from "@/components/home/CountryNews/CountryNews"
@@ -16,6 +15,7 @@ import LiteratureNews from "@/components/home/literature/literatureNews"
 import ReligionNews from "@/components/home/ReligionNews/ReligionNews"
 import SliderNews from "@/components/home/photoslider/slider"
 import OpinionSection from "@/components/home/OpinionNews/OpinionNews"
+import VideoSection from "@/components/home/videoSection/VideoSection"
 
 export default function DashboardPage() {
   return (
@@ -28,8 +28,8 @@ export default function DashboardPage() {
         height={300}
         priority // Optional: Loads the image with higher priority
       /> */}
-      <HorizontalScrollableText text='অভ্যন্তরীণ বাজারে সরবরাহ ঠিক রাখতে গত ৭ ডিসেম্বর পেঁয়াজ রপ্তানি বন্ধ করে ভারত সরকার। এই ঘোষণার পরপরই অস্থিতিশীল হতে শুরু করে বাংলাদেশের পেঁয়াজের বাজার। হু হু করে বাড়তে থাকে দাম। '/>
       <NewsFeatureSection />
+      <VideoSection />
       <NationalNewsSection />
       <OpinionSection />
       <CountryNewsSection />
@@ -42,9 +42,6 @@ export default function DashboardPage() {
       <LiteratureNews />
       <ReligionNews />
       <SliderNews/>
-
-
-
     </HomeLayout>
   );
 }

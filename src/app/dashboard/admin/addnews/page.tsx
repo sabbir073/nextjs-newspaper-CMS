@@ -155,101 +155,6 @@ export default function AdminDashboard() {
   };
 
   const handleAddNews = async (values: any, { resetForm }: any) => {
-
-    let featuredImageName = '';
-    let metaImageName = '';
-
-    // if (featuredImgFile) {
-
-    //   const formData = new FormData();
-    //   formData.append('file', values.featured_image);
-
-    //   try {
-    //     const response = await axios.post('/api/upload', formData, {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data'
-    //       }
-    //     });
-    //     console.log('Featured image uploaded successfully');
-    //     featuredImageName = response.data.fileName;
-    //   } catch (error) {
-    //     console.error('Error uploading featured image: ', error);
-    //   }
-
-    // }
-    // else {
-    //   featuredImageName = values.featured_image_url;
-    // }
-
-    // if (metaImgFile) {
-
-    //   const formData = new FormData();
-    //   formData.append('file', values.meta_image);
-
-    //   try {
-    //     const response = await axios.post('/api/upload', formData, {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data'
-    //       }
-    //     });
-    //     console.log('Meta image uploaded successfully');
-    //     metaImageName = response.data.fileName;
-    //   } catch (error) {
-    //     console.error('Error uploading meta image: ', error);
-    //   }
-
-    // }
-    // else {
-    //   metaImageName = values.meta_image_url;
-    // }
-
-    const categoriesString = Array.isArray(selectedCategories) ? selectedCategories.join(', ') : selectedCategories;
-
-    const formDataFinal = {
-      title: values.news_title,
-      description: editorValue,
-      featured_image: featuredImageName,
-      category: categoriesString,
-      highlight: values.highlight,
-      reporter_name: values.reporter_name,
-      // created_by: userGlobalData?.display_name,
-      // published_by: userGlobalData?.display_name,
-      // last_modified_by: userGlobalData?.display_name,
-      publish_status: selectedPublishStatus,
-      tags: values.tag,
-      meta_title: values.meta_title,
-      meta_description: values.meta_description,
-      meta_image: metaImageName,
-      focus_keyword: values.focus_keyword,
-      // Add other fields as needed
-    };
-
-    console.log(formDataFinal);
-
-    // Call add-news API with all the necessary data
-    // try {
-    //   const response = await axios.post(`${apiUrl}/api/news/add-news`, formDataFinal, { withCredentials: true });
-    //   console.log('news added succesfully');
-    //   Swal.fire({
-    //     icon: 'success',
-    //     title: 'News added successfully',
-    //     timer: 1000,
-    //     showConfirmButton: false
-    //   });
-    //   resetForm(); // Reset the form after successful submission
-
-    //   setSelectedPublishStatus("");
-    //   setSelectedCategories([]);
-    //   setEditorValue("");
-    // } catch (error: any) {
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops... Something went wrong!',
-    //     text: error.response?.data?.message || 'Failed to add News',
-    //     timer: 3000,
-    //     showConfirmButton: true
-    //   });
-    // }
   };
 
 
@@ -387,18 +292,10 @@ export default function AdminDashboard() {
                       <div className="p-4 pt-2 font-semibold text-white-dark">
                         <div className="flex justify-between items-center gap-2 mb-3">
                           <span>File</span>
-                          <label className="relative mt-2">
-                            <input onChange={() => setFeaturedImgFile(!featuredImgFile)} type="checkbox" className="custom_switch absolute w-[35px] h-full opacity-0 z-10 cursor-pointer peer" id="custom_switch_checkbox1" />
-                            <span className="w-[35px] outline_checkbox border-2 border-[#ebedf2] dark:border-white-dark block h-[19px] rounded-full before:absolute before:left-1 before:bg-[#ebedf2] dark:before:bg-white-dark before:bottom-1 before:w-[11.5px] before:h-[11.5px] before:rounded-full peer-checked:before:left-5 peer-checked:border-primary peer-checked:before:bg-primary before:transition-all before:duration-300"></span>
-                          </label>
-                          <span>URL</span>
                         </div>
-                        {
-                          featuredImgFile ?
+              
                             <input name="featured_image" type="file" id="featured_image" className="form-input h-12 mb-2" onChange={(event: any) => { setFieldValue('featured_image', event.currentTarget.files[0]); }} />
-                            :
-                            <Field name="featured_image_url" type="text" id="featured_image_url" placeholder="Enter Image URL" className="form-input h-12 mb-2 appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" ></Field>
-                        }
+                                                    
                         {errors.featured_image && touched.featured_image && <p className="text-red-500">{errors.featured_image}</p>}
 
                       </div>
