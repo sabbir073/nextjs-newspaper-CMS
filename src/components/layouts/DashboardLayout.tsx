@@ -46,11 +46,7 @@ const navigation = [
     href: "/Dashboard",
     icon: FaHome,
   },
-  {
-    name: "new",
-    href: "/new",
-    icon: RxDashboard,
-  },
+ 
   {
     name: "View All News",
     href: "/dashboard/admin/viewallnews",
