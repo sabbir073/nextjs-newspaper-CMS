@@ -17,7 +17,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <SessionProvider>
-      <html lang="en" className={`${solaiman.variable} font-solaiman`}>
+      <html lang="en" className={`${solaiman.variable} font-solaiman `}>
         <body>{children}</body>
       </html>
     </SessionProvider>

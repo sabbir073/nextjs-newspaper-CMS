@@ -1,63 +1,77 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-
 import BodyContainer from "../../common/BodyContainer";
-import Ad from "../..//common/Ad";
-import ad from "@/assets/bangla-bid-ad.jpg";
-import ShortNewsCard from "../FeatureNews/ShortNewsCard";
 import NewsCardHorizontal from "../HorizontalCard";
 import NewsCard from "../FeatureNews/NewsCard";
-
-import SubtitleTitle from "../SubtitleTitle";
+import NewsItem from "../FeatureNews/NewsItem";
 
 const EcomomyNews: React.FC = () => {
+  const handleItemClick = (text: string) => {
+    alert(`You clicked on: ${text}`);
+    // You could also navigate to a new page, fetch more details, etc.
+  };
   return (
-    <BodyContainer className="">
-      <div className=" md:flex md:space-x-2 lg:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-6">
-        <div className=" w-full md:w-1/2 lg:w-[35%] ">
-         
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl md:text-3xl px-2 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-            অর্থনীতি
+    <BodyContainer>
+      <div className=" md:flex  space-y-4 md:space-y-0 pt-2 md:pt-6">
+        <div className=" w-full md:w-1/2 lg:w-[30%]">
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+              অর্থনীতি
             </div>
-            <div className="bg-red-500 text-2xl md:text-3xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
 
-          <div className="w-full space-y-4 sm:space-y-0 sm:space-x-4 pt-4 sm:flex md:flex-col md:space-x-0 md:space-y-4">
+          <div className="w-full space-y-4 sm:space-y-0  pt-4 sm:flex md:flex-col md:space-x-0 md:space-y-4 ">
             <div className="sm:w-1/2 md:w-full">
-              <ShortNewsCard
-                title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
+              <NewsCard
+                title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
+                description=""
                 imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                clamp={3}
+                maxLength={180}
                 onClick={() => alert("News card clicked!")}
-                highlight=""
               />
             </div>
-            <div className="space-y-4 sm:w-1/2 md:w-full">
-              <SubtitleTitle title="শ্রমিকদের ১৮ দফা দাবি বাস্তবায়নে সম্মত হয়েছে" />
-              <SubtitleTitle
-                subtitle="মালিকপক্ষ: উপদেষ্টা আসিফ"
-                title="শ্রমিকদের ১৮ দফা দাবি বাস্তবায়নে সম্মত হয়েছে"
+            <div className="space-y-9   sm:w-1/2 md:w-full">
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
+                  )
+                }
+                Icon={false}
+              />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={false}
               />
             </div>
           </div>
         </div>
+        <div className="w-[5%]"></div>
 
-        <div className="block md:w-1/2 lg:w-[65%] ">
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+        <div className="block md:w-1/2 lg:w-[65%]">
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 mr-0 md:mr-6">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               ফিচার
             </div>
 
-            <div className="bg-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 pt-4">
-            {["", "", "", "", "", "", "", ""].map((item, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5 pt-4">
+            {["", "", "", "", "", "", "", "","",""].map((item, index) => (
               <NewsCardHorizontal
                 key={index}
                 imageSrc="https://d1uo68v5hl2ge5.cloudfront.net/selfie.png"

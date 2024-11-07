@@ -21,7 +21,7 @@ const truncateString = (input: string, maxLength: number): string => {
 const NewsCard: React.FC<BlogCardProps> = ({ imageSrc, title, description = '', clamp = 2,maxLength=100 , onClick }) => {
     return (
         <div
-            className="w-full pb-4 group cursor-pointer shadow-car shadow-md rounded-xl "
+            className="w-full md:w-[380px] pb-4 group cursor-pointer  shadow-md rounded-xl "
             onClick={onClick}
         >
             <Image
@@ -29,7 +29,7 @@ const NewsCard: React.FC<BlogCardProps> = ({ imageSrc, title, description = '', 
                 height={900}
                 src={imageSrc}
                 alt="Blog Image"
-                className="w-full h-[200px] md:h-[250px] object-fill rounded-t-xl"
+                className="w-full md:w-[380px] h-[200px] md:h-[250px] object-fill rounded-t-xl"
                 priority
             />
            <div className="px-2">

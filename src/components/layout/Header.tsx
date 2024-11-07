@@ -93,8 +93,8 @@ const Header: React.FC = () => {
     <>
       {/* header top */}
       <BodyContainer>
-        <div className="mx-auto">
-          <div className="sm:flex hidden flex-wrap md:gap-3 gap-6 justify-center md:justify-between items-center lg:pt-9 md:pt-7 pt-5 lg:px-3 md:px-5 px-3">
+        <div className="mx-auto ">
+          <div className="sm:flex hidden flex-wrap md:gap-3 gap-6 justify-center md:justify-between items-center lg:pt-9 md:pt-7 pt-5 lg:px-3 md:px-5 ">
             <div className="md:w-auto w-full md:order-1 order-2 text-xl md:text-[22px] md:text-left text-center sm:block hidden">
               <p className="">
                 {formattedDate} <br className="md:block hidden" />{" "}

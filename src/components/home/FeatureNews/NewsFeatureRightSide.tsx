@@ -18,8 +18,8 @@ const TabComponent: React.FC = () => {
   };
 
   return (
-    <div className="w-full pb-5 space-y-4 sm:space-y-0 lg:flex-col">
-      <div className="lg:block hidden">
+    <div className="w-full h-full pb-5 space-y-4 sm:space-y-0 flex flex-col justify-between">
+      <div className="flex flex-col  space-y-1 lg:flex-col md:space-x-0">
         <Image
           width={400}
           height={400}
@@ -28,9 +28,6 @@ const TabComponent: React.FC = () => {
           className=" xl:w-full xl:h-full rounded-xl mx-auto bg-gray-50 object-cover mb-4"
           priority
         />
-      </div>
-
-      <div className="flex flex-col space-y-4 lg:flex-col md:space-x-0">
         <div className=" relative right-0 rounded-md shadow-md w-full">
           <ul
             className="relative flex flex-wrap p-2 list-none rounded-t-md bg-slate-100"
@@ -55,9 +52,9 @@ const TabComponent: React.FC = () => {
           </ul>
 
           {/* Tab Content */}
-          <div className="h-fit mt-1 bg-white rounded-md ">
+          <div className="h-fit  bg-white rounded-md ">
             {activeTab === "সর্বশেষ" && (
-              <div className="h-[260px] lg:h-[500px  overflow-y-auto">
+              <div className="h-[260px] lg:h-[50%]  overflow-y-auto">
                 <NewsItem
                   text="মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
                   onClick={() =>
@@ -133,20 +130,11 @@ const TabComponent: React.FC = () => {
             <Btn text="সর্বশেষ সব খবর" />
           </div>
         </div>
+      </div>
 
-        <div className="w-full">
-          <div className="lg:hidden ">
-            <Image
-              width={400}
-              height={400}
-              src={Ad}
-              alt="Blog Image"
-              className=" xl:w-full xl:h-full rounded-xl mx-auto bg-gray-50 object-cover mb-4"
-              priority
-            />
-          </div>
-          <AreaNews />
-        </div>
+      <div className="w-full">
+        
+        <AreaNews />
       </div>
     </div>
   );

@@ -1,62 +1,116 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import ShortNewsCard from "../FeatureNews/ShortNewsCard";
-
 import SubtitleTitle from "../SubtitleTitle";
 import BodyContainer from "@/components/common/BodyContainer";
+interface BlogCardProps {
+  imageSrc: string;
+  title?: string;
+  description?: string;
+  clamp?: number;
+  maxLength?: number;
+  onClick?: () => void;
+}
+
+const truncateString = (input: string, maxLength: number): string => {
+  return input.length > maxLength ? `${input.substring(0, maxLength)}...` : input;
+};
+
+const NewsCard: React.FC<BlogCardProps> = ({ imageSrc, title, description = '', clamp = 2,maxLength=100 , onClick }) => {
+  return (
+      <div
+          className="w-full md:w-[398px] pb-4 group cursor-pointer  shadow-md rounded-xl "
+          onClick={onClick}
+      >
+          <Image
+              width={900}
+              height={900}
+              src={imageSrc}
+              alt="Blog Image"
+              className="w-full md:w-[398px] h-[200px]  object-fill rounded-t-xl"
+              priority
+          />
+         <div className="px-2">
+         <h1 
+          className="text-black pt-3 px-2 text-2xl xl:text-4xl font-bold group-hover:text-red-500 line-clamp-2">
+              {title}
+          </h1>
+          <article className="text-wrap px-2 py-2">
+              <p className={`line-clamp-${clamp} text-xl`}>
+                  {truncateString(description, maxLength)}
+              </p>
+          </article>
+         </div>
+      </div>
+  );
+};
+
+
 
 const LifestyleNews: React.FC = () => {
   return (
-    <BodyContainer className=" mt-6 ">
+    <BodyContainer>
       <div className=" md:flex space-y-6 md:space-y-0 md:space-x-4 lg:space-x-6 pt-4 ">
-       
         <div className=" w-full md:w-1/3 sm:pt-6 ">
           {/* left side  */}
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-            স্বাস্থ্য
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+              স্বাস্থ্য
             </div>
-            <div className="bg-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
 
           <div className="space-y-4 md:mt-6">
-            <ShortNewsCard
+            <NewsCard
               title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
+              description=""
               imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              clamp={3}
+              maxLength={180}
               onClick={() => alert("News card clicked!")}
-              highlight=""
             />
 
-            <SubtitleTitle subtitle="" title="লক্ষণ, কারণ ও করণীয়" />
+            <div className="space-y-4 ">
+            <SubtitleTitle
+              subtitle=""
+              title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
+            />
 
-            <SubtitleTitle subtitle="" title="মা হিসেবে আপনার করণীয়" />
+            <SubtitleTitle
+              subtitle=""
+              title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
+            />
 
             <SubtitleTitle
               subtitle=""
               title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'!"
             />
+            </div>
+
+           
           </div>
         </div>
 
         <div className="w-full md:w-1/3 sm:pt-6 ">
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-            লাইফস্টাইল
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+              লাইফস্টাইল
             </div>
-            <div className="bg-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
 
           <div className="space-y-4 md:mt-6">
-            <ShortNewsCard
-              title="অ্যাসিডিটি কমায় 'লাউ'"
+          <NewsCard
+              title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
+              description=""
               imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              clamp={3}
+              maxLength={180}
               onClick={() => alert("News card clicked!")}
-              highlight=""
             />
             <SubtitleTitle subtitle="" title="সানবার্ন এবং সান পয়জনিং কী? " />
 
@@ -67,22 +121,23 @@ const LifestyleNews: React.FC = () => {
         </div>
 
         <div className="w-full md:w-1/3 sm:pt-6 ">
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-            প্রবাস
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+              প্রবাস
             </div>
-            <div className="bg-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
 
-
           <div className="space-y-4 md:mt-6">
-            <ShortNewsCard
-              title="সত্যি কি মিথ্যানিয়মিত লিপস্টিক ব্যবহার করলে ঠোঁট কালো হয়?"
+          <NewsCard
+              title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
+              description=""
               imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              clamp={3}
+              maxLength={180}
               onClick={() => alert("News card clicked!")}
-              highlight=""
             />
 
             <div className="space-y-4">

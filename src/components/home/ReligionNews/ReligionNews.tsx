@@ -1,23 +1,58 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import ShortNewsCard from "../FeatureNews/ShortNewsCard";
-
 import SubtitleTitle from "../SubtitleTitle";
 import BodyContainer from "@/components/common/BodyContainer";
 
+
+interface BlogCardProps {
+  imageSrc: string;
+  title: string;
+  highlight: string;
+  onClick?: () => void;
+}
+
+const ShortNewsCard: React.FC<BlogCardProps> = ({ imageSrc, title, highlight, onClick }) => {
+  return (
+      <div
+          className="w-full h-[200px] md:h-[280px]  cursor-pointer bg-white rounded-xl shadow-md group"
+          onClick={onClick}
+      >
+          <div className="relative w-full h-[150px]  md:h-[180px]  rounded-t-lg overflow-hidden">
+              <Image
+                  width={800}
+                  height={840}
+                  src={imageSrc}
+                  alt="Blog Image"
+                  className="object-fill w-full h-full rounded-t-xl"
+                  priority
+              />
+          </div>
+          <div className="p-4">
+              {highlight && (
+                  <h1 className="text-red-500 text-xl lg:text-2xl font-bold line-clamp-2">
+                      {highlight}
+                  </h1>
+              )}
+              <h2 className="text-black mt-1 text-lg md:text-xl lg:text-2xl font-semibold line-clamp-1 md:line-clamp-2 group-hover:text-red-500">
+                  {title}
+              </h2>
+          </div>
+      </div>
+  );
+};
+
+
 const ReligionNews: React.FC = () => {
   return (
-    <BodyContainer className=" mt-6 ">
-      <div className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ">
+    <BodyContainer>
+      <div className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6  my-4">
         <div className=" w-full ">
-          {/* left side  */}
-
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-              ধর্ম
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+            ধর্ম
             </div>
-            <div className="bg-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
@@ -42,11 +77,12 @@ const ReligionNews: React.FC = () => {
         </div>
 
         <div className="w-full ">
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-              ভিন্নরকম
+     
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+            ভিন্নরকম
             </div>
-            <div className="bg-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
@@ -67,11 +103,11 @@ const ReligionNews: React.FC = () => {
         </div>
 
         <div className="w-full ">
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-              শিক্ষা
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+            শিক্ষা
             </div>
-            <div className="bg-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>
@@ -101,11 +137,12 @@ const ReligionNews: React.FC = () => {
         </div>
 
         <div className="w-full ">
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
+         
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
             পর্যটন
             </div>
-            <div className="bg-red-500 text-2xl  px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও
             </div>
           </div>

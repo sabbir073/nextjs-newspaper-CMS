@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { FaPlay } from "react-icons/fa";
 
@@ -10,9 +9,16 @@ interface VideoCardProps {
 
 const VideoCard: React.FC<VideoCardProps> = ({ videoUrl, title }) => {
   const [playing, setPlaying] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null; // Skip rendering until mounted
 
   return (
-    <div className="relative w-full max-w-sm mx-auto bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    <div className="relative w-full  bg-gray-800 rounded-lg overflow-hidden shadow-lg">
       <div className="relative h-48 w-full">
         {/* Video player */}
         <ReactPlayer
@@ -38,7 +44,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoUrl, title }) => {
         )}
       </div>
 
-      {/* Video description */}
       <div className="bg-white text-center py-2 line-clamp-2">
         <h3 className="text-lg font-semibold text-black">{title}</h3>
       </div>
