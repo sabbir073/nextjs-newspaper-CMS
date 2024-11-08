@@ -14,7 +14,7 @@ const VideoSection: React.FC = () => {
             আরও
           </div>
         </div>
-        <div className="w-full grid grid-col-1 md:grid-cols-2 xl:grid-cols-3  gap-4 mt-5 ">
+        <div className="w-full grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-7 mt-5 ">
           <VideoCard videoUrl="https://youtu.be/G1lAfJ5QJh4" title="মার্কিন নির্বাচন: এগিয়ে আছেন ট্রাম্প | US Presidential Election 2024" />
           <VideoCard videoUrl="https://youtu.be/G1lAfJ5QJh4" title="মার্কিন নির্বাচন: এগিয়ে আছেন ট্রাম্প | US Presidential Election 2024" />
           <VideoCard videoUrl="https://youtu.be/G1lAfJ5QJh4" title="মার্কিন নির্বাচন: এগিয়ে আছেন ট্রাম্প | US Presidential Election 2024" />

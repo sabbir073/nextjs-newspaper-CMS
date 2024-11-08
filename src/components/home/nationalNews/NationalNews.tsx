@@ -6,16 +6,20 @@ import NewsCard from "../FeatureNews/NewsCard";
 import NewsCardHorizontal from "../HorizontalCard";
 import NewsItem from "../FeatureNews/NewsItem";
 
+import Ad from '../../common/Ad'
+import ad from '../../../assets/bangla-bid-ad.jpg'
+
 const NationalNewsSection: React.FC = () => {
   const handleItemClick = (text: string) => {
     alert(`You clicked on: ${text}`);
   };
   return (
     <BodyContainer>
-      <div className="pt-5">
-        <div className=" xl:flex md:space-x-2 xl:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-5">
-          <div className=" w-full xl:w-[68%]">
-            <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 mr-0 md:mr-6">
+      <div className="pt-5 md:pt-8">
+        <div className=" xl:flex xl:space-x-5">
+        
+          <div className=" w-full xl:w-[67%]">
+            <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 ">
               <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
                 জাতীয়
               </div>
@@ -23,7 +27,7 @@ const NationalNewsSection: React.FC = () => {
                 আরও
               </div>
             </div>
-            <div className="space-y-1 md:space-y-0 w-full md:flex md:space-x-4 pt-5">
+            <div className="space-y-1 md:space-y-0 w-full md:flex md:space-x-4 pt-5 ">
               <div className="w-full md:w-1/2 ">
                 {/* Main Image */}
                 <NewsCard
@@ -38,7 +42,7 @@ const NationalNewsSection: React.FC = () => {
                 />
               </div>
 
-              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-[20.5px]  pt-4 md:pt-0 px-0 pr-0 md:pr-6 ">
+              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-[20px]  pt-4 md:pt-0 ">
                 <NewsCardHorizontal
                   imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
                   highlight=""
@@ -71,7 +75,7 @@ const NationalNewsSection: React.FC = () => {
             </div>
           </div>
 
-          <div className=" w-full xl:w-[32%] md:pt-4 xl:pt-0  ">
+          <div className=" w-full xl:w-[33%] pt-4 md:pt-4 xl:pt-0  ">
             {/* right side  */}
             <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
               <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
@@ -82,7 +86,7 @@ const NationalNewsSection: React.FC = () => {
               </div>
             </div>
 
-            <div className=" w-full grid grid-cols-1 gap-[22px] pt-4  ">
+            <div className=" w-full grid grid-cols-1 gap-[20.5px] pt-4  ">
               <NewsItem
                 text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
                 onClick={() =>
@@ -245,9 +249,9 @@ const NationalNewsSection: React.FC = () => {
         </div>
       </div> */}
 
-      {/* <BodyContainer>
+      <BodyContainer>
         <Ad image={ad} link={"#"} />
-      </BodyContainer> */}
+      </BodyContainer>
     </BodyContainer>
   );
 };

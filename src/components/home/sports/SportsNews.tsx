@@ -19,7 +19,7 @@ const SportsNewsSection: React.FC = () => {
         </div>
       </div>
 
-      <div className=" lg:flex space-y-4 md:space-y-0 pt-4 md:space-x-4 ">
+      <div className=" lg:flex space-y-4 md:space-y-4 lg:space-y-0 pt-4 lg:space-x-4  ">
         <div className=" w-full lg:w-1/3">
           {/* left side  */}
           <NewsCard
@@ -33,74 +33,76 @@ const SportsNewsSection: React.FC = () => {
           />
         </div>
 
-        <div className="block lg:w-2/3 ">
+        <div className="block lg:w-2/3 bg-red-40 md:flex">
           {/* right side  */}
-          <div className=" w-full md:flex ">
-            <div className="w-full md:w-[50%]">
-              <div className="flex flex-col md:flex-row  justify-between">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-                  <ShortNewsCard
-                    title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
-                    imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                    onClick={() => alert("News card clicked!")}
-                    highlight=""
-                  />
-                  <ShortNewsCard
-                    title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
-                    imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                    onClick={() => alert("News card clicked!")}
-                    highlight=""
-                  />
-                </div>
-                <Image
-                  width={400}
-                  height={400}
-                  src={SideAds}
-                  alt="Blog Image"
-                  className="hidden md:flex xl:w-[100px]  mb-4"
-                  priority
+
+          <div className="w-full md:w-[60%] lg:w-[60%] xl:w-full ">
+            <div className="flex flex-col md:flex-row md:space-x-4">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
+                <ShortNewsCard
+                  title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
+                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                  onClick={() => alert("News card clicked!")}
+                  highlight=""
+                />
+                <ShortNewsCard
+                  title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
+                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                  onClick={() => alert("News card clicked!")}
+                  highlight=""
                 />
               </div>
-            </div>
-
-            <div className=" w-full md:w-[50%] grid grid-cols-1 pt-4 md:pt-0 md:pl-4  space-y-4">
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
+              <Image
+                width={400}
+                height={400}
+                src={SideAds}
+                alt="Blog Image"
+                className="hidden md:flex md:w-[100px] lg:w-[90px] xl:w-[110px] object-fill mb-4"
+                priority
               />
             </div>
           </div>
+
+          <div className=" w-full md:w-[50%] lg:w-[40%] xl:w-full grid grid-cols-1 pt-4 md:pt-0 md:pl-4  space-y-4">
+            <NewsCardHorizontal
+              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              highlight=""
+              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+              right={false}
+              left={false}
+            />
+            <NewsCardHorizontal
+              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              highlight=""
+              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+              right={false}
+              left={false}
+            />
+            <NewsCardHorizontal
+              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              highlight=""
+              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+              right={false}
+              left={false}
+            />
+            <NewsCardHorizontal
+              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              highlight=""
+              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+              right={false}
+              left={false}
+            />
+            <NewsCardHorizontal
+              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+              highlight=""
+              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+              right={false}
+              left={false}
+            />
+          </div>
+
+
         </div>
       </div>
     </BodyContainer>

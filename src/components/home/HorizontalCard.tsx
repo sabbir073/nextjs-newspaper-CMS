@@ -86,7 +86,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
   right,
 }) => {
   const SideImage = (
-    <div className="relative flex-shrink-0 overflow-hidden w-[150px]">
+    <div className="relative flex-shrink-0 overflow-hidden h-[80px] md:h-[100px] w-[120px] md:w-[150px] ">
       {/* <Image
         src={imageSrc}
         alt="Blog Image"
@@ -111,7 +111,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
 
   return (
     <div
-      className="flex w-full h-28 md:h-[100px] cursor-pointer bg-white border rounded-lg shadow-md group"
+      className="flex w-full h-[80px] md:h-[100px] cursor-pointer bg-white border rounded-lg shadow-md group"
       onClick={onClick}
     >
       {left && SideImage}

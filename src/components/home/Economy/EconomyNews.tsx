@@ -12,9 +12,10 @@ const EcomomyNews: React.FC = () => {
   };
   return (
     <BodyContainer>
-      <div className=" md:flex  space-y-4 md:space-y-0 pt-2 md:pt-6">
-        <div className=" w-full md:w-1/2 lg:w-[30%]">
-          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+      <div className=" md:space-x-4 lg:space-x-5 md:flex space-y-4 md:space-y-0 pt-2 md:pt-6 ">
+        
+        <div className=" w-full md:w-1/2 lg:w-[35%] xl:w-[33%] ">
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 mt-4 sm:mt-0">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               অর্থনীতি
             </div>
@@ -24,8 +25,8 @@ const EcomomyNews: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full space-y-4 sm:space-y-0  pt-4 sm:flex md:flex-col md:space-x-0 md:space-y-4 ">
-            <div className="sm:w-1/2 md:w-full">
+          <div className=" w-full space-y-4 sm:space-y-0 sm:space-x-4 pt-4 sm:flex md:flex-col md:space-x-0 md:space-y-7 ">
+            <div className="sm:w-1/2 md:w-full ">
               <NewsCard
                 title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
                 description=""
@@ -35,7 +36,7 @@ const EcomomyNews: React.FC = () => {
                 onClick={() => alert("News card clicked!")}
               />
             </div>
-            <div className="space-y-9   sm:w-1/2 md:w-full">
+            <div className="space-y-5 sm:w-1/2 md:w-full">
               <NewsItem
                 text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
                 onClick={() =>
@@ -57,10 +58,10 @@ const EcomomyNews: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-[5%]"></div>
 
-        <div className="block md:w-1/2 lg:w-[65%]">
-          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 mr-0 md:mr-6">
+
+        <div className="block md:w-1/2 lg:w-[65%] xl:w-[66%]">
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               ফিচার
             </div>

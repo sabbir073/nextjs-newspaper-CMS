@@ -13,45 +13,52 @@ interface BlogCardProps {
 }
 
 const truncateString = (input: string, maxLength: number): string => {
-  return input.length > maxLength ? `${input.substring(0, maxLength)}...` : input;
+  return input.length > maxLength
+    ? `${input.substring(0, maxLength)}...`
+    : input;
 };
 
-const NewsCard: React.FC<BlogCardProps> = ({ imageSrc, title, description = '', clamp = 2,maxLength=100 , onClick }) => {
+const NewsCard: React.FC<BlogCardProps> = ({
+  imageSrc,
+  title,
+  description = "",
+  clamp = 2,
+  maxLength = 100,
+  onClick,
+}) => {
   return (
-      <div
-          className="w-full md:w-[398px] pb-4 group cursor-pointer  shadow-md rounded-xl "
-          onClick={onClick}
-      >
-          <Image
-              width={900}
-              height={900}
-              src={imageSrc}
-              alt="Blog Image"
-              className="w-full md:w-[398px] h-[200px]  object-fill rounded-t-xl"
-              priority
-          />
-         <div className="px-2">
-         <h1 
-          className="text-black pt-3 px-2 text-2xl xl:text-4xl font-bold group-hover:text-red-500 line-clamp-2">
-              {title}
-          </h1>
-          <article className="text-wrap px-2 py-2">
-              <p className={`line-clamp-${clamp} text-xl`}>
-                  {truncateString(description, maxLength)}
-              </p>
-          </article>
-         </div>
+    <div
+      // md:w-[398px]
+      className="w-full  pb-4 group cursor-pointer  shadow-md rounded-xl "
+      onClick={onClick}
+    >
+      <Image
+        width={900}
+        height={900}
+        src={imageSrc}
+        alt="Blog Image"
+        className="w-full h-[200px] xl:h-[240px] object-fill rounded-t-xl"
+        priority
+      />
+      <div className="px-2">
+        <h1 className="text-black pt-3 px-2 text-2xl xl:text-4xl font-bold group-hover:text-red-500 line-clamp-2">
+          {title}
+        </h1>
+        <article className="text-wrap px-2 py-2">
+          <p className={`line-clamp-${clamp} text-xl`}>
+            {truncateString(description, maxLength)}
+          </p>
+        </article>
       </div>
+    </div>
   );
 };
-
-
 
 const LifestyleNews: React.FC = () => {
   return (
     <BodyContainer>
-      <div className=" md:flex space-y-6 md:space-y-0 md:space-x-4 lg:space-x-6 pt-4 ">
-        <div className=" w-full md:w-1/3 sm:pt-6 ">
+      <div className="pt-5 md:pt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className=" w-full  sm:pt- ">
           {/* left side  */}
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
@@ -62,7 +69,7 @@ const LifestyleNews: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-4 md:mt-6">
+          <div className="space-y-4 sm:mt-4">
             <NewsCard
               title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
               description=""
@@ -73,27 +80,25 @@ const LifestyleNews: React.FC = () => {
             />
 
             <div className="space-y-4 ">
-            <SubtitleTitle
-              subtitle=""
-              title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
-            />
+              <SubtitleTitle
+                subtitle=""
+                title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
+              />
 
-            <SubtitleTitle
-              subtitle=""
-              title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
-            />
+              <SubtitleTitle
+                subtitle=""
+                title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
+              />
 
-            <SubtitleTitle
-              subtitle=""
-              title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'!"
-            />
+              <SubtitleTitle
+                subtitle=""
+                title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'!"
+              />
             </div>
-
-           
           </div>
         </div>
 
-        <div className="w-full md:w-1/3 sm:pt-6 ">
+        <div className="w-full  sm:pt- ">
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               লাইফস্টাইল
@@ -103,8 +108,8 @@ const LifestyleNews: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-4 md:mt-6">
-          <NewsCard
+          <div className="space-y-4 sm:mt-4">
+            <NewsCard
               title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
               description=""
               imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
@@ -120,7 +125,7 @@ const LifestyleNews: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/3 sm:pt-6 ">
+        <div className="w-full  sm:pt- ">
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               প্রবাস
@@ -130,8 +135,8 @@ const LifestyleNews: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-4 md:mt-6">
-          <NewsCard
+          <div className="space-y-4 sm:mt-4">
+            <NewsCard
               title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
               description=""
               imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}

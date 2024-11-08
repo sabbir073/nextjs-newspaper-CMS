@@ -17,10 +17,10 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
 }) => {
   return (
     <div
-      className="w-full md:w-[280px] md:h-[280px]  cursor-pointer bg-white rounded-xl shadow-md group"
+      className="mx-auto w-full  md:h-[280px] xl:w-full cursor-pointer bg-white rounded-xl shadow-md group"
       onClick={onClick}
     >
-      <div className="relative w-full md:w-[280px] h-[180px]  rounded-t-lg overflow-hidden">
+      <div className="relative w-full md:w-full h-[100px] md:h-[180px] xl:w-full rounded-t-lg overflow-hidden">
         <Image
           src={imageSrc} // Path to your image
           alt="Blog Image"
@@ -29,7 +29,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
           priority // Prioritizes this image for faster loading (ideal for LCP images)
           quality={75} // Adjusts quality for WebP/JPEG compression
           sizes="(max-width: 768px) 200px, (max-width: 1200px) 400px, 900px" // Responsive breakpoints
-          className="bject-fill  w-full h-full rounded-t-xl" // Adds custom styling
+          className="bject-fill w-full h-full rounded-t-xl" // Adds custom styling
         />
       </div>
       <div className="p-4">

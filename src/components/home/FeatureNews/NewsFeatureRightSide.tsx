@@ -18,124 +18,127 @@ const TabComponent: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full pb-5 space-y-4 sm:space-y-0 flex flex-col justify-between">
-      <div className="flex flex-col  space-y-1 lg:flex-col md:space-x-0">
+    <div className="w-full h-full md:pt-2 lg:pt-0 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-0 gap-4 lg:flex lg:flex-col">
+     
+      <div className="flex flex-col space-y-1 lg:flex-col md:space-x-0">
         <Image
           width={400}
           height={400}
           src={Ad}
           alt="Blog Image"
-          className=" xl:w-full xl:h-full rounded-xl mx-auto bg-gray-50 object-cover mb-4"
+          className=" xl:w-full xl:h-full rounded-xl mx-auto bg-gray-50 object-cover "
           priority
         />
-        <div className=" relative right-0 rounded-md shadow-md w-full">
-          <ul
-            className="relative flex flex-wrap p-2 list-none rounded-t-md bg-slate-100"
-            role="list"
-          >
-            {tabs.map((tab) => (
-              <li key={tab.name} className="flex-auto text-center">
-                <button
-                  onClick={() => setActiveTab(tab.name)}
-                  className={`flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out rounded-md cursor-pointer ${
-                    activeTab === tab.name
-                      ? "text-red-800 bg-white shadow-md text-center text-xl font-medium"
-                      : "text-slate-600 bg-inherit text-center text-xl font-medium"
-                  }`}
-                  role="tab"
-                  aria-selected={activeTab === tab.name}
-                >
-                  {tab.name}
-                </button>
-              </li>
-            ))}
-          </ul>
+      </div>
 
-          {/* Tab Content */}
-          <div className="h-fit  bg-white rounded-md ">
-            {activeTab === "সর্বশেষ" && (
-              <div className="h-[260px] lg:h-[50%]  overflow-y-auto">
-                <NewsItem
-                  text="মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
-                  onClick={() =>
-                    handleItemClick(
-                      "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
-                    )
-                  }
-                  Icon={true}
-                />
-                <NewsItem
-                  text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                  onClick={() =>
-                    handleItemClick(
-                      "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                    )
-                  }
-                  Icon={true}
-                />
-                <NewsItem
-                  text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                  onClick={() =>
-                    handleItemClick(
-                      "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                    )
-                  }
-                  Icon={true}
-                />
-                <NewsItem
-                  text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                  onClick={() =>
-                    handleItemClick(
-                      "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                    )
-                  }
-                  Icon={true}
-                />
-                <NewsItem
-                  text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                  onClick={() =>
-                    handleItemClick(
-                      "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                    )
-                  }
-                  Icon={true}
-                />
-              </div>
-            )}
-            {activeTab === "পঠিত" && (
-              <div>
-                <NewsItem
-                  text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-                  onClick={() =>
-                    handleItemClick(
-                      "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
-                    )
-                  }
-                  Icon={true}
-                />
-                <NewsItem
-                  text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-                  onClick={() =>
-                    handleItemClick(
-                      "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                    )
-                  }
-                  Icon={true}
-                />
-              </div>
-            )}
-          </div>
+      <div className=" max-w-[400px] mx-auto relative right-0 rounded-md shadow-md w-full">
+        <ul
+          className="relative flex flex-wrap p-2 list-none rounded-t-md bg-slate-100"
+          role="list"
+        >
+          {tabs.map((tab) => (
+            <li key={tab.name} className="flex-auto text-center">
+              <button
+                onClick={() => setActiveTab(tab.name)}
+                className={`flex items-center justify-center w-full px-0 py-2 mb-0 text-sm transition-all ease-in-out rounded-md cursor-pointer ${
+                  activeTab === tab.name
+                    ? "text-red-800 bg-white shadow-md text-center text-xl font-medium"
+                    : "text-slate-600 bg-inherit text-center text-xl font-medium"
+                }`}
+                role="tab"
+                aria-selected={activeTab === tab.name}
+              >
+                {tab.name}
+              </button>
+            </li>
+          ))}
+        </ul>
 
-          <div className="py-4 flex  w-full px-4">
-            <Btn text="সর্বশেষ সব খবর" />
-          </div>
+        {/* Tab Content */}
+        <div className=" bg-white rounded-md ">
+          {activeTab === "সর্বশেষ" && (
+            <div className="h-[360px]  overflow-y-auto">
+              <NewsItem
+                text="মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
+                onClick={() =>
+                  handleItemClick(
+                    "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
+                  )
+                }
+                Icon={true}
+              />
+              <NewsItem
+                text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={true}
+              />
+              <NewsItem
+                text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={true}
+              />
+              <NewsItem
+                text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={true}
+              />
+              <NewsItem
+                text="বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={true}
+              />
+            </div>
+          )}
+          {activeTab === "পঠিত" && (
+            <div className="h-[360px] overflow-y-auto">
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
+                  )
+                }
+                Icon={true}
+              />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={true}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="py-4 flex  w-full px-4">
+          <Btn text="সর্বশেষ সব খবর" />
         </div>
       </div>
 
-      <div className="w-full">
-        
+      <div className="max-w-[400px] mx-auto w-full">
         <AreaNews />
       </div>
+
+
     </div>
   );
 };

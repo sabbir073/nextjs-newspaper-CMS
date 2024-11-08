@@ -19,7 +19,7 @@ const TechnologyNews: React.FC = () => {
       </div>
 
       <div className=" lg:flex space-y-5 md:space-y-0 pt-5 ">
-        <div className=" w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:pr-4 ">
+        <div className=" w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:pr-4 mx-auto ">
           {/* left side  */}
 
           <ShortNewsCard
@@ -47,7 +47,7 @@ const TechnologyNews: React.FC = () => {
             height={800}
             src={Ad}
             alt="Blog Image"
-            className="w-full h-[180px] md:w-[280px] md:h-[280px]  rounded-md object-contain cursor-pointer"
+            className="w-full h-full mx-auto rounded-md object-contain cursor-pointer"
             priority
           />
         </div>

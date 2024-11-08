@@ -7,17 +7,17 @@ import BodyContainer from "@/components/common/BodyContainer";
 const EntertainmentNews: React.FC = () => {
   return (
     <BodyContainer>
-     
       <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-3 mt-6">
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-            বিনোদন
-            </div>
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-            আরও
-            </div>
-          </div>
+        <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+          বিনোদন
+        </div>
+        <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+          আরও
+        </div>
+      </div>
 
-      <div className=" lg:flex space-y-5 md:space-y-0 pt-4  ">
+      <div className=" lg:flex space-y-5 md:space-y-0 pt-4 lg:space-x-4 ">
+      
         <div className=" w-full lg:w-[30%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
           {/* left side  */}
           <NewsCardHorizontal
@@ -51,7 +51,7 @@ const EntertainmentNews: React.FC = () => {
         </div>
 
         <div className="space-y-4 md:space-y-0 md:space-x-4 md:flex md:pt-6 lg:pt-0 lg:w-[70%] ">
-          <div className="w-full flex justify-center items-center md:w-[50%] lg:w-[55%]">
+          <div className="w-full  md:w-[50%] lg:w-[55%]">
             {/* Main  */}
             <NewsCard
               title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
@@ -96,6 +96,7 @@ const EntertainmentNews: React.FC = () => {
             />
           </div>
         </div>
+
       </div>
     </BodyContainer>
   );

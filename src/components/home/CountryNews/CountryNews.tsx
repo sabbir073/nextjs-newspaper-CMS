@@ -13,7 +13,7 @@ import NewsCard from "../FeatureNews/NewsCard";
 const CountryNewsSection: React.FC = () => {
   return (
     <BodyContainer>
-      <div className="pt-6 ">
+      <div className="pt-6 md:pt-9">
         <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
           <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
             সারাদেশ
@@ -22,10 +22,12 @@ const CountryNewsSection: React.FC = () => {
             আরও
           </div>
         </div>
-        <div className=" xl:flex md:space-x-2 xl:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-5">
-          <div className=" w-full xl:w-[68%] ">
+        
+        <div className=" xl:flex space-y-4 md:space-y-0 xl:space-x-4 pt-4 md:pt-5">
+         
+          <div className=" w-full xl:w-[68%]">
             {/* left side  */}
-            <div className="space-y-1 md:space-y-0 w-full md:flex md:space-x-4">
+            <div className="space-y-1 md:space-y-0 w-full md:flex md:space-x-5 ">
               <div className="w-full md:w-1/2 ">
                 {/* Main Image */}
                 <NewsCard
@@ -40,7 +42,7 @@ const CountryNewsSection: React.FC = () => {
                 />
               </div>
 
-              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-7  pt-4 md:pt-0 px-0 pr-0 md:pr-6 ">
+              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-7  pt-4 md:pt-0 px-0 pr-0 ">
                 <NewsCardHorizontal
                   imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
                   highlight=""
@@ -101,13 +103,17 @@ const CountryNewsSection: React.FC = () => {
                 left={true}
               />
             </div>
+
+
           </div>
+
+          
         </div>
       </div>
 
-      <BodyContainer>
+      <div>
         <Ad image={ad} link={"#"} />
-      </BodyContainer>
+      </div>
     </BodyContainer>
   );
 };

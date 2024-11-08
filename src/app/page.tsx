@@ -27,7 +27,7 @@ export default function DashboardPage() {
         height={300}
         priority // Optional: Loads the image with higher priority
       /> */}
-      {/* <NewsFeatureSection /> */}
+      <NewsFeatureSection />
       <VideoSection />
       <NationalNewsSection />
       <OpinionSection />

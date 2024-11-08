@@ -14,13 +14,14 @@ const NationalNewsSection: React.FC = () => {
     // You could also navigate to a new page, fetch more details, etc.
   };
   return (
-    <BodyContainer >
-      <div className="pt-2">
-        <div className=" xl:flex md:space-x-2 xl:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-5">
-          <div className=" w-full xl:w-[68%] ">
+    <BodyContainer>
+      <div className="pt-2 ">
+        <div className=" xl:flex space-y-4 md:space-y-0 xl:space-x-5 pt-2 md:pt-5 ">
+         
+          <div className=" w-full mx-auto xl:w-[68%] ">
             {/* left side  */}
 
-            <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 mr-0 md:mr-6">
+            <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
               <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
                 আন্তর্জাতিক
               </div>
@@ -29,6 +30,7 @@ const NationalNewsSection: React.FC = () => {
                 আরও
               </div>
             </div>
+
             <div className="space-y-1 md:space-y-0 2xl:pt-10 w-full md:flex md:space-x-4">
               <div className="w-full md:w-1/2 mt-5">
                 {/* Main Image */}
@@ -44,124 +46,122 @@ const NationalNewsSection: React.FC = () => {
                 />
               </div>
 
-              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-2 pt-4 md:pt-5 px-0 pr-0 md:pr-6">
-
+              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-2 pt-4 md:pt-5 px-0 ">
                 <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
-              <NewsCardHorizontal
-                imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                highlight=""
-                title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-                right={false}
-                left={false}
-              />
+                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                  highlight=""
+                  title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+                  right={false}
+                  left={false}
+                />
+                <NewsCardHorizontal
+                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                  highlight=""
+                  title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+                  right={false}
+                  left={false}
+                />
+                <NewsCardHorizontal
+                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                  highlight=""
+                  title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+                  right={false}
+                  left={false}
+                />
+                <NewsCardHorizontal
+                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                  highlight=""
+                  title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+                  right={false}
+                  left={false}
+                />
+                <NewsCardHorizontal
+                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
+                  highlight=""
+                  title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
+                  right={false}
+                  left={false}
+                />
               </div>
             </div>
           </div>
 
-          <div className=" w-full xl:w-[32%] md:pt-4 xl:pt-0">
+          <div className=" w-full xl:w-[32%] pt-4 md:pt-4 xl:pt-0 bg-red-40">
             {/* right side  */}
 
             <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-            আইন-আদালত
-            </div>
+              <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+                আইন-আদালত
+              </div>
 
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              আরও
+              <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+                আরও
+              </div>
             </div>
-          </div>
 
             <div className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 mt-5">
-            <NewsItem
-              text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-              onClick={() =>
-                handleItemClick(
-                  "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
-                )
-              }
-              Icon={false}
-            />
-            <NewsItem
-              text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-              onClick={() =>
-                handleItemClick(
-                  "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                )
-              }
-              Icon={false}
-            />
-            <NewsItem
-              text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-              onClick={() =>
-                handleItemClick(
-                  "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                )
-              }
-              Icon={false}
-            />
-            <NewsItem
-              text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-              onClick={() =>
-                handleItemClick(
-                  "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                )
-              }
-              Icon={false}
-            />
-            <NewsItem
-              text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-              onClick={() =>
-                handleItemClick(
-                  "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                )
-              }
-              Icon={false}
-            />
-            <NewsItem
-              text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-              onClick={() =>
-                handleItemClick(
-                  "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                )
-              }
-              Icon={false}
-            />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
+                  )
+                }
+                Icon={false}
+              />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={false}
+              />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={false}
+              />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={false}
+              />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={false}
+              />
+              <NewsItem
+                text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
+                onClick={() =>
+                  handleItemClick(
+                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
+                  )
+                }
+                Icon={false}
+              />
             </div>
           </div>
         </div>
       </div>
-     
+
       <BodyContainer>
         <Ad image={ad} link={"#"} />
       </BodyContainer>
-      
     </BodyContainer>
   );
 };
