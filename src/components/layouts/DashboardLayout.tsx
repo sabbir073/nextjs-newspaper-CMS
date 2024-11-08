@@ -127,7 +127,7 @@ export default function Layout({ children }: LayoutProps) {
                 const isActive = pathname === item.href;
 
                 return (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className={classNames(
@@ -139,7 +139,7 @@ export default function Layout({ children }: LayoutProps) {
                   >
                     <item.icon className="h-6 w-6 text-gray-400" />
                     {item.name}
-                  </a>
+                  </Link>
                 );
               })}
               
@@ -169,7 +169,7 @@ export default function Layout({ children }: LayoutProps) {
               const isActive = pathname === item.href;
 
               return (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   className={classNames(
@@ -181,7 +181,7 @@ export default function Layout({ children }: LayoutProps) {
                 >
                   <item.icon className="h-6 w-6 text-gray-400" />
                   {item.name}
-                </a>
+                </Link>
               );
             })}
          

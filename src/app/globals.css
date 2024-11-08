@@ -478,3 +478,8 @@ h5 {
 .animate-scroll {
   animation: scroll 40s linear infinite;
 }
+
+.navbar{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
