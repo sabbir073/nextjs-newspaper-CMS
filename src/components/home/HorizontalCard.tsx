@@ -71,9 +71,9 @@ import Image from "next/image";
 interface BlogCardProps {
   imageSrc: string;
   title: string;
-  highlight: string;
-  left: boolean;
-  right: boolean;
+  highlight?: string;
+  left?: boolean;
+  right?: boolean;
   onClick?: () => void;
 }
 
@@ -86,12 +86,24 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
   right,
 }) => {
   const SideImage = (
-    <div className="relative flex-shrink-0 overflow-hidden w-40 lg:w-[180px]">
-      <Image
+    <div className="relative flex-shrink-0 overflow-hidden h-[80px] md:h-[100px] w-[120px] md:w-[150px] ">
+      {/* <Image
         src={imageSrc}
         alt="Blog Image"
         fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Adjust as needed
         className="object-fill rounded-l-lg"
+        priority
+      /> */}
+
+      <Image
+        src={imageSrc}
+        alt="Blog Image"
+        layout="fill" // Use fill to make the image occupy the entire div
+        objectFit="object-fill" // Ensures the image covers the space while maintaining its aspect ratio
+        sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 20vw" // Adjust the size for different breakpoints
+        className="rounded-lg"
+        quality={85}
         priority
       />
     </div>
@@ -99,7 +111,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
 
   return (
     <div
-      className="flex w-full h-28 md:h-[120px] cursor-pointer bg-white border rounded-lg shadow-md group"
+      className="flex w-full h-[80px] md:h-[100px] cursor-pointer bg-white border rounded-lg shadow-md group"
       onClick={onClick}
     >
       {left && SideImage}

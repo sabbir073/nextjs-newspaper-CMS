@@ -91,11 +91,11 @@ const SliderNews: React.FC = () => {
   return (
     <BodyContainer>
       <div className=" lg:flex md:space-x-2 lg:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-8 mb-4">
-        <div className="w-full lg:w-2/3">
-        
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100  border-indigo-500 text-red-500 text-2xl md:text-3xl px-8 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
-            ছবি
+        <div className="w-full lg:w-[68%]">
+      
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
+              ছবি
             </div>
           </div>
 
@@ -182,9 +182,9 @@ const SliderNews: React.FC = () => {
           </div>
         </div>
 
-        <div className="block lg:w-1/3 ">
-          <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-            <div className="bg-gray-100  border-indigo-500 text-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
+        <div className="block lg:w-[32%] ">
+          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               সঙ্গে থাকুন
             </div>
           </div>

@@ -13,20 +13,21 @@ import NewsCard from "../FeatureNews/NewsCard";
 const CountryNewsSection: React.FC = () => {
   return (
     <BodyContainer>
-      <div className=" pt-4 mb-4 ">
-        <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-          <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
+      <div className="pt-6 md:pt-9">
+        <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+          <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
             সারাদেশ
           </div>
-          <div className="bg-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+          <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
             আরও
           </div>
         </div>
-
-        <div className=" xl:flex md:space-x-2 xl:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-5">
-          <div className=" w-full xl:w-[68%] ">
+        
+        <div className=" xl:flex space-y-4 md:space-y-0 xl:space-x-4 pt-4 md:pt-5">
+         
+          <div className=" w-full xl:w-[68%]">
             {/* left side  */}
-            <div className="space-y-1 md:space-y-0 2xl:pt-10 w-full md:flex md:space-x-4">
+            <div className="space-y-1 md:space-y-0 w-full md:flex md:space-x-5 ">
               <div className="w-full md:w-1/2 ">
                 {/* Main Image */}
                 <NewsCard
@@ -36,12 +37,12 @@ const CountryNewsSection: React.FC = () => {
                                  তবে সীমান্ত দিয়ে চোরাইপথে আসা পেঁয়াজে ভরে গেছে চট্টগ্রামের খাতুনগঞ্জের আড়ত। এতে মাত্র ১০ দিনের ব্যবধানে ভোগ্যপণ্যে দেশের দ্বিতীয় বৃহৎ পাইকারি বাজারটিতে ভারতীয় পেঁয়াজের দাম কমেছে কেজিপ্রতি ৫৫-৬০ টাকা। কমেছে দেশি পেঁয়াজের দামও।"
                   imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
                   clamp={3}
-                  maxLength={260}
+                  maxLength={180}
                   onClick={() => alert("News card clicked!")}
                 />
               </div>
 
-              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-4 pt-4 md:pt-0 px-0 ">
+              <div className=" w-full md:w-1/2 grid grid-cols-1 gap-7  pt-4 md:pt-0 px-0 pr-0 ">
                 <NewsCardHorizontal
                   imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
                   highlight=""
@@ -51,21 +52,21 @@ const CountryNewsSection: React.FC = () => {
                 />
                 <NewsCardHorizontal
                   imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                  highlight="এমভি আবদুল্লাহ"
+                  highlight=""
                   title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
                   right={false}
                   left={true}
                 />
                 <NewsCardHorizontal
                   imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                  highlight="এমভি আবদুল্লাহ"
+                  highlight=""
                   title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
                   right={false}
                   left={true}
                 />
                 <NewsCardHorizontal
                   imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                  highlight="এমভি আবদুল্লাহ"
+                  highlight=""
                   title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
                   right={false}
                   left={true}
@@ -74,7 +75,7 @@ const CountryNewsSection: React.FC = () => {
             </div>
           </div>
 
-          <div className=" w-full xl:w-[32%] md:pt-4 xl:pt-0">
+          <div className=" w-full flex flex-col justify-between xl:w-[32%] md:pt-4 xl:pt-0  ">
             {/* right side  */}
 
             <Image
@@ -82,7 +83,7 @@ const CountryNewsSection: React.FC = () => {
               height={500}
               src={ad2}
               alt="Blog Image"
-              className="w-full h-[180px] mb-4 xl:w-full xl:h-[270px] rounded-md shadow-md"
+              className="w-full h-[180px] mb-4 xl:w-full xl:h-[240px] rounded-md shadow-md"
               priority
             />
 
@@ -102,13 +103,17 @@ const CountryNewsSection: React.FC = () => {
                 left={true}
               />
             </div>
+
+
           </div>
+
+          
         </div>
       </div>
 
-      <BodyContainer>
+      <div>
         <Ad image={ad} link={"#"} />
-      </BodyContainer>
+      </div>
     </BodyContainer>
   );
 };

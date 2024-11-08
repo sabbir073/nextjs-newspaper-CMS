@@ -1,4 +1,3 @@
-// src/app/dashboard/page.tsx (or the relevant path)
 import Image from 'next/image';
 import HomeLayout from '@/components/layouts/HomeLayout';
 

@@ -15,7 +15,7 @@ const OpinionCard: React.FC<OpinionCardProps> = ({
   author,
 }) => {
   return (
-    <div className="flex p-3 rounded-lg shadow-md bg-white border ">
+    <div className="flex p-3 rounded-lg shadow-md bg-white border cursor-pointer">
       <div className="relative w-28 h-28 xl:w-32 xl:h-32 rounded-lg overflow-hidden border-4 border-red-500">
         <img
           src={imageUrl}
@@ -24,8 +24,8 @@ const OpinionCard: React.FC<OpinionCardProps> = ({
         />
       </div>
       <div className="ml-4 py-2  ">
-        <h3 className="text-gray-900 font-bold text-xl">{title}</h3>
-        <p className="text-gray-500 text-xl mt-1">{author}</p>
+        <h3 className="text-gray-900 font-bold text-xl hover:text-red-500 cursor-pointer ">{title}</h3>
+        <p className="text-gray-500 text-xl mt-1 hover:text-red-500 cursor-pointer">{author}</p>
       </div>
     </div>
   );
@@ -34,17 +34,17 @@ const OpinionCard: React.FC<OpinionCardProps> = ({
 const OpinionSection: React.FC = () => {
   return (
     <BodyContainer>
-      <div className="pt-4 mb-4 ">
-        <div className="flex items-center justify-between border bg-white shadow-md rounded-xl py-3">
-          <div className="bg-gray-100 border-l-4 border-r-4 border-indigo-500 text-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer hover:bg-red-500 hover:text-white">
+      <div className="pt-6">
+        <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl  py-1">
+          <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
             মতামত
           </div>
-          <div className="bg-red-500 text-2xl md:text-3xl px-4 rounded-full ml-4 cursor-pointer text-white mr-4 hover:bg-gray-100 hover:text-red-500">
+          <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
             আরও
           </div>
         </div>
 
-        <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3  gap-4 mt-8">
+        <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3  gap-4 mt-5">
           <OpinionCard
             imageUrl="https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/news%2Fimages%2F1175fe2b-d770-45e0-aca9-24d2d9b58306.jpg?alt=media"
             title="স্মৃতি লিঙ্খন: কবি সৈয়দ আবদুস সাদিক"
