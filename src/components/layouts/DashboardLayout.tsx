@@ -1,10 +1,16 @@
-
 "use client";
 import { ReactNode, useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { FiHome, FiList, FiPlusSquare, FiX, FiChevronDown, FiMenu } from "react-icons/fi";
+import {
+  FiHome,
+  FiList,
+  FiPlusSquare,
+  FiX,
+  FiChevronDown,
+  FiMenu,
+} from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Footer from "../layout/adminFooter";
@@ -32,6 +38,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const pathname = usePathname();
+  const isActiveadmin = pathname ;
   // Redirect if not logged in
   useEffect(() => {
     if (status === "loading") return;
@@ -48,15 +55,26 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     if (status === "authenticated" && typedSession?.user.role) {
       const basePath = `/dashboard/${typedSession.user.role.toLowerCase()}`;
       const items = [
-        { title: "Dashboard", icon: FiHome, path: `${basePath}` },
+        // { title: "Dashboard", icon: FiHome, path: `${basePath}` },
         // { title: "Lists", icon: FiList, path: `${basePath}/lists` },
       ];
 
       if (typedSession.user.role === "ADMIN") {
-        items.push({ title: "Add News", icon: FiPlusSquare, path: `${basePath}/add-news` });
-        items.push({ title: "views-all-news", icon:  FiList, path: `${basePath}/views-all-news` });
-        // items.push({ title: "Institution", icon: FiPlusSquare, path: `${basePath}/institution` });
-       
+        items.push({
+          title: "Add News",
+          icon: FiPlusSquare,
+          path: `${basePath}/add-news`,
+        });
+        items.push({
+          title: "views-all-news",
+          icon: FiList,
+          path: `${basePath}/views-all-news`,
+        });
+        items.push({
+          title: "featured-news",
+          icon: FiPlusSquare,
+          path: `${basePath}/featured-news`,
+        });
       }
 
       return items;
@@ -68,11 +86,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     return <LoadingSpinner />;
   }
 
-
-
   if (status === "authenticated" && typedSession) {
     const { user } = typedSession;
-
 
     return (
       <div className="flex min-h-screen bg-gray-100">
@@ -95,24 +110,41 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="px-6 pb-4 text-gray-300 text-lg font-semibold">
             Hi, {user.display_name}
           </div>
-          
+
           {/* Sidebar Menu */}
-          <nav className="space-y-2 px-4">
+
+          <Link
+              href={"/dashboard/admin"}
+              className={`${isActiveadmin==="/dashboard/admin" ? "bg-gray-700":""}  flex items-cente px-2 py-2 hover:bg-gray-700 rounded-md  ml-5 mr-4 mb-2 `}
+            >
+              <FiHome className="my-auto" />
+             <h1 className="my-auto text-cente mt-1.5 ml-2"> Dashboard </h1>
+            </Link>
+            <div
+             
+              className={`bg-gray-500   flex items-cente  py-2 `}
+            >
+              
+             <h1 className="my-auto text-cente mt-1.5 ml-5"> NEWS </h1>
+            </div>
+          <nav className="space-y-2 px-4 mt-2">
             {menuItems.map((item) => {
               const isActive = pathname === item.path;
-              return(
+              return (
                 <Link
                   key={item.title}
                   href={item.path}
-                  className={`${isActive ? "bg-gray-700":""} flex items-center px-2 py-2 rounded-md hover:bg-gray-700`}
+                  className={`${
+                    isActive ? "bg-gray-700" : ""
+                  } flex items-center px-2 py-2 rounded-md hover:bg-gray-700`}
                 >
-                  <item.icon className="mr-3" />
-                  {item.title}
+                  <item.icon className=" my-auto" />
+                  
+                  <h1 className="my-auto text-cente mt-1.5 ml-2">{item.title}</h1>
+
                 </Link>
-              )
-            }
-            
-            )}
+              );
+            })}
           </nav>
         </aside>
 
@@ -162,9 +194,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
           <main className="flex-1 p-6 bg-gray-100">{children}</main>
 
-          <Footer/>
-
-        
+          <Footer />
         </div>
       </div>
     );
