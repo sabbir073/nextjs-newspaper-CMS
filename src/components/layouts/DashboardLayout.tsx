@@ -11,7 +11,11 @@ import {
   FiChevronDown,
   FiMenu,
 } from "react-icons/fi";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaRegNewspaper } from "react-icons/fa";
+import { PiNewspaper } from "react-icons/pi";
+
+import { LuBoxSelect } from "react-icons/lu";
+
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Footer from "../layout/adminFooter";
 import { usePathname } from "next/navigation";
@@ -38,7 +42,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const pathname = usePathname();
-  const isActiveadmin = pathname ;
   // Redirect if not logged in
   useEffect(() => {
     if (status === "loading") return;
@@ -55,24 +58,40 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     if (status === "authenticated" && typedSession?.user.role) {
       const basePath = `/dashboard/${typedSession.user.role.toLowerCase()}`;
       const items = [
-        // { title: "Dashboard", icon: FiHome, path: `${basePath}` },
+        { title: "Dashboard", icon: FiHome, path: `${basePath}` },
         // { title: "Lists", icon: FiList, path: `${basePath}/lists` },
       ];
 
       if (typedSession.user.role === "ADMIN") {
-        items.push({
-          title: "Add News",
-          icon: FiPlusSquare,
-          path: `${basePath}/add-news`,
-        });
         items.push({
           title: "views-all-news",
           icon: FiList,
           path: `${basePath}/views-all-news`,
         });
         items.push({
-          title: "featured-news",
+          title: "Add News",
           icon: FiPlusSquare,
+          path: `${basePath}/add-news`,
+        });
+        items.push({
+          title: "News Categories",
+          icon: LuBoxSelect,
+          path: `${basePath}/categories`,
+        });
+        items.push({
+          title: "News Scroll",
+          icon: FaRegNewspaper,
+          path: `${basePath}/news-scroll`,
+        });
+
+        items.push({
+          title: "Event News",
+          icon: FaRegNewspaper,
+          path: `${basePath}/event-news`,
+        });
+        items.push({
+          title: "featured-news",
+          icon: PiNewspaper,
           path: `${basePath}/featured-news`,
         });
       }
@@ -107,41 +126,38 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
 
           {/* Role-based Dashboard Label */}
-          <div className="px-6 pb-4 text-gray-300 text-lg font-semibold">
+          <div className="px-8 pb-3 text-gray-300 text-lg  font-normal">
             Hi, {user.display_name}
           </div>
-
           {/* Sidebar Menu */}
+          {/* <div className={`bg-gray-500   flex items-cente  py-2 `}>
+            <h1 className="my-auto text-cente mt-1.5 ml-5  font-normal">
+              {" "}
+              NEWS{" "}
+            </h1>
+          </div> */}
 
-          <Link
-              href={"/dashboard/admin"}
-              className={`${isActiveadmin==="/dashboard/admin" ? "bg-gray-700":""}  flex items-cente px-2 py-2 hover:bg-gray-700 rounded-md  ml-5 mr-4 mb-2 `}
-            >
-              <FiHome className="my-auto" />
-             <h1 className="my-auto text-cente mt-1.5 ml-2"> Dashboard </h1>
-            </Link>
-            <div
-             
-              className={`bg-gray-500   flex items-cente  py-2 `}
-            >
-              
-             <h1 className="my-auto text-cente mt-1.5 ml-5"> NEWS </h1>
-            </div>
-          <nav className="space-y-2 px-4 mt-2">
+          <nav className="space-y-1 px-4 ">
             {menuItems.map((item) => {
               const isActive = pathname === item.path;
               return (
                 <Link
                   key={item.title}
                   href={item.path}
-                  className={`${
-                    isActive ? "bg-gray-700" : ""
-                  } flex items-center px-2 py-2 rounded-md hover:bg-gray-700`}
+                  className={`group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                    isActive
+                      ? "bg-white text-gray-900 shadow-md"
+                      : "bg-transparent text-gray-50 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
                 >
-                  <item.icon className=" my-auto" />
-                  
-                  <h1 className="my-auto text-cente mt-1.5 ml-2">{item.title}</h1>
-
+                  <item.icon
+                    className={`w-5 h-5 transition-colors duration-200 ${
+                      isActive
+                        ? "text-gray-900"
+                        : "text-gray-50 group-hover:text-gray-900"
+                    }`}
+                  />
+                  <span className="text-sm font-normal">{item.title}</span>
                 </Link>
               );
             })}
@@ -159,7 +175,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <FiMenu size={24} />
             </button>
 
-            <span className="hidden md:block md:text-base  font-semibold">
+            <span className="hidden md:block md:text-base  font-normal">
               {user.role} Dashboard
             </span>
 
