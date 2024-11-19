@@ -111,7 +111,6 @@ const NewsScroll: React.FC = () => {
 
   return (
     <DashboardLayout>
-      <h6>NewsScroll</h6>
       <div className="w-full flex flex-col md:flex-row space-x-5">
         <div className="w-full md:w-1/3 ">
           <div className="max-w-sm mx-auto bg-white shadow-md rounded-md p-6">
@@ -164,7 +163,7 @@ const NewsScroll: React.FC = () => {
         </div>
         <div className="w-full md:w-2/3">
           <div className=" w-full">
-            <div className="flex flex-col md:flex-row justify-between w-full mt-4 md:mt-0">
+            <div className="flex flex-col md:flex-row justify-between items-center w-full mt-4 md:mt-0">
               <h6 className="text-base  text-gray-900">Scroll Items </h6>
 
               <input
