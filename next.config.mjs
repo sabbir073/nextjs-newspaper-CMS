@@ -12,7 +12,7 @@ const nextConfig = {
           },
           {
             protocol: 'https',
-            hostname: "images.unsplash.com" ,
+            hostname: "dainikdhaka24.com" ,
           },
         ],
       },
