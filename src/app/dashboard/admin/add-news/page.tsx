@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -34,7 +36,8 @@ export default function AdminDashboard() {
   const { data: session, status } = useSession(); // Get session data and status
   const router = useRouter();
   const [active, setActive] = useState<number>();
-  const [selectedPublishStatus, setSelectedPublishStatus] = useState<string>("");
+  const [selectedPublishStatus, setSelectedPublishStatus] =
+    useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [editorValue, setEditorValue] = useState<string>("");
 
@@ -63,13 +66,13 @@ export default function AdminDashboard() {
 
   const handleSelectChange = (
     newValue: SingleValue<OptionType>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     actionMeta: ActionMeta<OptionType>
   ) => {
     if (newValue) {
       setSelectedPublishStatus(newValue.value); // set only the value to the state
     }
   };
-
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -115,6 +118,7 @@ export default function AdminDashboard() {
     setActive((oldValue) => (oldValue === value ? 0 : value));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleAddNews = async (values: any, { resetForm }: any) => {};
 
   return (
@@ -122,8 +126,6 @@ export default function AdminDashboard() {
       {/* <p>Welcome, {session?.user.email}</p> */}
 
       <div className="w-full px-2 ">
-      <h4 className="text-2xl font-semibold mb-8">Add a news</h4>
-
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { resetForm }) =>
@@ -135,8 +137,14 @@ export default function AdminDashboard() {
               <div className="grid xl:grid-cols-4  gap-x-6 w-full ">
                 <div className="xl:col-span-3 lg:col-span-2 md:col-span-2">
                   <div className="flex flex-col">
+                    <h6 className="text-base py-2 text-gray-900">
+                      {" "}
+                      Add a news
+                    </h6>
 
-                    <label htmlFor="title" className="pb-2">Title</label>
+                    <label htmlFor="title" className="pb-2">
+                      Title
+                    </label>
                     <Field
                       name="news_title"
                       type="text"
@@ -148,7 +156,7 @@ export default function AdminDashboard() {
                       <p className="text-red-500">{errors.news_title}</p>
                     )}
 
-                    <label htmlFor="desc" className="mt-4">
+                    <label htmlFor="title" className="pb-2">
                       Description
                     </label>
                     <SimpleMdeReact
@@ -162,7 +170,7 @@ export default function AdminDashboard() {
                   <div>
                     <div className="rounded-t-md bg-white ">
                       <div
-                        className={`flex justify-between cursor-pointer p-4 font-semibold   hover:bg-[#EBEBEB] ${
+                        className={`flex justify-between cursor-pointer p-4  font-normal  hover:bg-[#EBEBEB] ${
                           active === 1 && "bg-[#EBEBEB] myAccordianHeading"
                         }`}
                         onClick={() => togglePara(1)}
@@ -191,7 +199,7 @@ export default function AdminDashboard() {
                         duration={50}
                         height={active === 1 ? "auto" : 0}
                       >
-                        <div className="p-4 pt-2 font-semibold text-white-dark">
+                        <div className="p-4 pt-2  font-normal text-white-dark">
                           <div className="mb-3 flex flex-col">
                             <label htmlFor="highlight">Highlight Text</label>
                             <Field
@@ -228,7 +236,7 @@ export default function AdminDashboard() {
                     </div>
                     <div className="border-y border-[#ebedf2] bg-white ">
                       <div
-                        className={`flex justify-between cursor-pointer p-4 font-semibold  hover:bg-[#EBEBEB] ${
+                        className={`flex justify-between cursor-pointer p-4  font-normal hover:bg-[#EBEBEB] ${
                           active === 2 && "bg-[#EBEBEB] myAccordianHeading"
                         }`}
                         onClick={() => togglePara(2)}
@@ -257,10 +265,9 @@ export default function AdminDashboard() {
                         duration={50}
                         height={active === 2 ? "auto" : 0}
                       >
-                        <div className="p-4 pt-2 flex flex-col font-semibold text-white-dark">
-                          <h5 className="font-semibold text-[13px] text-black mb-1">
-                            ADD NEW TAG
-                          </h5>
+                        <div className="p-4 pt-2 flex flex-col   text-white-dark">
+                          <span>ADD NEW TAG</span>
+
                           <Field
                             name="tag"
                             type="text"
@@ -277,7 +284,7 @@ export default function AdminDashboard() {
 
                     <div className="border-b border-[#ebedf2] bg-white ">
                       <div
-                        className={`flex justify-between cursor-pointer p-4 font-semibold hover:bg-[#EBEBEB]  ${
+                        className={`flex justify-between cursor-pointer p-4  font-normal hover:bg-[#EBEBEB]  ${
                           active === 3 && "bg-[#EBEBEB] myAccordianHeading"
                         }`}
                         onClick={() => togglePara(3)}
@@ -306,7 +313,7 @@ export default function AdminDashboard() {
                         duration={50}
                         height={active === 3 ? "auto" : 0}
                       >
-                        <div className="p-4 pt-2 font-semibold text-white-dark">
+                        <div className="p-4 pt-2  font-normal text-white-dark">
                           {categories.map((category) => (
                             <label
                               key={category.cat_id}
@@ -331,10 +338,9 @@ export default function AdminDashboard() {
                       </AnimateHeight>
                     </div>
 
-                  
                     <div className="border-b border-[#ebedf2] bg-white ">
                       <div
-                        className={`flex justify-between cursor-pointer p-4 font-semibold hover:bg-[#EBEBEB]  ${
+                        className={`flex justify-between cursor-pointer p-4  font-normal hover:bg-[#EBEBEB]  ${
                           active === 4 && "bg-[#EBEBEB] myAccordianHeading"
                         }`}
                         onClick={() => togglePara(4)}
@@ -363,7 +369,7 @@ export default function AdminDashboard() {
                         duration={50}
                         height={active === 4 ? "auto" : 0}
                       >
-                        <div className="p-4 pt-2 font-semibold text-white-dark">
+                        <div className="p-4 pt-2  font-normal text-white-dark">
                           <div className="flex justify-between items-center gap-2 mb-3">
                             <span>File</span>
                           </div>
@@ -392,7 +398,7 @@ export default function AdminDashboard() {
 
                     <div className="border-b border-[#ebedf2] bg-white ">
                       <div
-                        className={`flex justify-between cursor-pointer p-4 font-semibold hover:bg-[#EBEBEB]  ${
+                        className={`flex justify-between cursor-pointer p-4  font-normal hover:bg-[#EBEBEB]  ${
                           active === 5 && "bg-[#EBEBEB] myAccordianHeading"
                         }`}
                         onClick={() => togglePara(5)}
@@ -421,7 +427,7 @@ export default function AdminDashboard() {
                         duration={50}
                         height={active === 5 ? "auto" : 0}
                       >
-                        <div className="p-4 pt-2 font-semibold">
+                        <div className="p-4 pt-2  font-normal">
                           <div className="mb-2 flex flex-col">
                             <label htmlFor="metaTitle">Meta Title</label>
                             <Field
@@ -449,7 +455,7 @@ export default function AdminDashboard() {
                             <div className="flex justify-between items-center">
                               <label htmlFor="meta_image">Meta Image</label>
                             </div>
-                            { 
+                            {
                               <input
                                 name="meta_image"
                                 type="file"
@@ -462,7 +468,7 @@ export default function AdminDashboard() {
                                   );
                                 }}
                               />
-                              }
+                            }
                             {errors.meta_image && touched.meta_image && (
                               <p className="text-red-500">
                                 {errors.meta_image}

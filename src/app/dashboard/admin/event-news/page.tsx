@@ -1,12 +1,12 @@
 "use client";
-
+import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
-import LoadingSpinner from "@/components/LoadingSpinner"; // Import the spinner
 
-export default function AdminDashboard() {
+import DashboardLayout from "@/components/layouts/DashboardLayout";
+import LoadingSpinner from "@/components/LoadingSpinner";
+
+const EventNews: React.FC = () => {
   const { data: session, status } = useSession(); // Get session data and status
   const router = useRouter();
 
@@ -26,15 +26,11 @@ export default function AdminDashboard() {
     return <LoadingSpinner />;
   }
 
-  // Guard rendering: Prevent showing the dashboard content if unauthenticated
-  if (status === "unauthenticated" || session?.user.role !== "ADMIN") {
-    return null;
-  }
-
   return (
     <DashboardLayout>
-      <h6>Admin Dashboard</h6>
-      <p>Welcome, {session?.user.email}</p>
+      <h6>EventNews</h6>
     </DashboardLayout>
   );
-}
+};
+
+export default EventNews;

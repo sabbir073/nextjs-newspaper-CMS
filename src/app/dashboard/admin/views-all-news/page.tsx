@@ -1,28 +1,31 @@
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import Pagination from "../../../../components/common/Pagination";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { FaRegEye } from "react-icons/fa";
 import Link from "next/link";
-type NewsListType = {
+
+import DataTable from "react-data-table-component";
+import debounce from "lodash.debounce";
+
+interface NewsListType {
+  Id: string;
   title: string;
   Categories: string;
   Reporter: string;
   Status: string;
   PostedBy: string;
-  PublishedBy: string;
+  PublishedBy: string | null;
   ModifiedBy: string;
-  Id: string;
-  PosTime: string;
-  PublishedTime: string;
-  ModifyTime: string;
-};
+  PosTime: string | null;
+  PublishedTime: string | null;
+  ModifyTime: string | null;
+}
 
 const initialNewsList: NewsListType[] = [
   {
@@ -44,11 +47,9 @@ const initialNewsList: NewsListType[] = [
 export default function AdminDashboardAllNews() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof NewsListType;
-    direction: "asc" | "desc";
-  } | null>(null);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [loadingSearch, setLoadingSearch] = useState(false);
   const [filteredNews, setFilteredNews] = useState(initialNewsList);
 
   useEffect(() => {
@@ -59,49 +60,6 @@ export default function AdminDashboardAllNews() {
     }
   }, [session, status, router]);
 
-  useEffect(() => {
-    let sortedNews = [...initialNewsList];
-
-    // Filter news based on search term
-    if (searchTerm) {
-      sortedNews = sortedNews.filter((news) =>
-        Object.values(news).some((value) =>
-          String(value).toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    }
-
-    // Sort news based on sortConfig
-    if (sortConfig) {
-      sortedNews.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key])
-          return sortConfig.direction === "asc" ? -1 : 1;
-        if (a[sortConfig.key] > b[sortConfig.key])
-          return sortConfig.direction === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
-
-    setFilteredNews(sortedNews);
-  }, [searchTerm, sortConfig]);
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSort = (key: keyof NewsListType) => {
-    setSortConfig((prevSortConfig) => {
-      if (prevSortConfig && prevSortConfig.key === key) {
-        return {
-          key,
-          direction: prevSortConfig.direction === "asc" ? "desc" : "asc",
-        };
-      } else {
-        return { key, direction: "asc" };
-      }
-    });
-  };
-
   if (status === "loading") {
     return <LoadingSpinner />;
   }
@@ -110,17 +68,124 @@ export default function AdminDashboardAllNews() {
     return null;
   }
 
+  const handleSearch = debounce((value: string) => {
+    setSearch(value);
+  }, 500);
+
+  const columns = [
+    {
+      name: "Title",
+      selector: (row: NewsListType) => row.title,
+      sortable: true,
+      grow: 0,
+    },
+    {
+      name: "Categories",
+      selector: (row: NewsListType) => row.Categories,
+      sortable: true,
+    },
+    {
+      name: "Reporter",
+      selector: (row: NewsListType) => row.Reporter || "N/A",
+      sortable: true,
+      grow: 0,
+    },
+    {
+      name: "Status",
+      selector: (row: NewsListType) => row.Status || "N/A",
+      sortable: true,
+    },
+    {
+      name: "Posted By",
+      selector: (row: NewsListType) => row.PostedBy || "N/A",
+      sortable: true,
+    },
+    {
+      name: "Published By",
+      selector: (row: NewsListType) => row.PublishedBy || "N/A",
+      sortable: false,
+    },
+    {
+      name: "ID",
+      selector: (row: NewsListType) => row.Id,
+      sortable: true,
+    },
+
+    {
+      name: "PosTime",
+      selector: (row: NewsListType) =>
+        row.PosTime
+          ? new Date(row.PosTime).toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })
+          : "N/A",
+      sortable: true,
+    },
+    {
+      name: "PublishedTime",
+      selector: (row: NewsListType) =>
+        row.PublishedTime
+          ? new Date(row.PublishedTime).toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })
+          : "N/A",
+      sortable: true,
+    },
+    {
+      name: "ModifyTime",
+      selector: (row: NewsListType) =>
+        row.ModifyTime
+          ? new Date(row.ModifyTime).toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })
+          : "N/A",
+      sortable: true,
+    },
+
+    {
+      name: "Actions",
+      cell: () => (
+        <div className="flex space-x-3 text-lg">
+          <FaRegEye className="text-green-600 cursor-pointer" />
+          <BiEdit className="text-blue-600 cursor-pointer" />
+          <MdDelete className="text-red-600 cursor-pointer" />
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+      grow: 0,
+    },
+  ];
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: "rgb(44, 62, 80 / var(--tw-bg-opacity))",
+        fontSize: "16px",
+        fontWeight: "bold",
+      },
+    },
+  };
+
   return (
     <DashboardLayout>
       <div className=" w-full">
         <div className="lg:flex lg:items-center w-full">
           <div className="lg:flex-auto">
-            <h1 className="text-base font-semibold text-gray-900">All News</h1>
+            <h6 className="text-base  text-gray-900">All News</h6>
           </div>
+
           <div className="mt-2 mb-4 md:mb-0 lg:flex-none">
             <Link
-            href={"/dashboard/admin/add-news"}
-              className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-lg font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              href={"/dashboard/admin/add-news"}
+              className="block rounded-md shadow-md bg-white   px-3 py-2 text-center   text-black  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Add News
             </Link>
@@ -130,107 +195,28 @@ export default function AdminDashboardAllNews() {
         <div className=" mb-4">
           <input
             type="text"
-            placeholder="Search by title, ID, etc."
-            className="border border-gray-300 rounded-md p-2 w-full lg:w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            value={searchTerm}
-            onChange={handleSearchChange}
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search..."
+            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
           />
         </div>
 
-        {/* News Table */}     
-         <div className="mt-8 py-3  grid lg:grid-cols-1 grid-cols-1 ">
-          <div className=" overflow-x-auto  ">
-            <div className="inline-block  py-2 align-middle ">
-              <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 lg:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-300 ">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      {[
-                        "Title",
-                        "Categories",
-                        "Reporter",
-                        "Status",
-                        "Posted By",
-                        "Published By",
-                        "ID",
-                        "PosTime",
-                        "PublishedTime",
-                        "ModifyTime",
-                      ].map((heading, index) => (
-                        <th
-                          key={index}
-                          onClick={() =>
-                            handleSort(heading as keyof NewsListType)
-                          }
-                          className="px-3 min-w-[150px] py-3.5 text-left text-lg font-semibold text-gray-900"
-                        >
-                          {heading}
-                        </th>
-                      ))}
-                      <th className="px-3 py-3.5 text-left font-semibold text-gray-700">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
+        {/* News Table */}
+        {loadingSearch && <p className="text-gray-600 mb-4">Searching...</p>}
 
-                  <tbody className="divide-y divide-gray-100 bg-white">
-                    {filteredNews.map((news) => (
-                      <tr key={news.Id} className="hover:bg-gray-50">
-                        <td className=" whitespace-nowrap py-4 pl-4 pr-3 text-lg font-medium text-gray-900 lg:pl-6">
-                          {news.title}
-                        </td>
-                        <td className=" whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.Categories}
-                        </td>
-                        <td className=" whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.Reporter}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.Status}
-                        </td>
-                        <td className=" whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.PostedBy}
-                        </td>
-                        <td className="  whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.PublishedBy}
-                        </td>
-                        <td className=" whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.Id}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.PosTime}
-                        </td>
-                        <td className=" whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.PublishedTime}
-                        </td>
-                        <td className=" whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                          {news.ModifyTime}
-                        </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-lg font-medium lg:pr-6">
-                          <div className="flex space-x-3">
-                            <BiEdit className="w-6 h-6 cursor-pointer" />
-                            <MdDelete className="w-6 h-6 cursor-pointer" />
-                            <FaRegEye className="w-6 h-6 cursor-pointer" />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                  
-                </table>
-              </div>
-            </div>
-          </div>
-        </div> 
-
-
-        <Pagination />
+        <div className="mt-8 py-3  grid lg:grid-cols-1 grid-cols-1 ">
+          <DataTable
+            columns={columns}
+            data={filteredNews}
+            pagination
+            highlightOnHover
+            pointerOnHover={false}
+            responsive
+            striped
+            customStyles={customStyles}
+          />
+        </div>
       </div>
     </DashboardLayout>
   );
 }
-
-
-
-
-
