@@ -1,7 +1,7 @@
 import BodyContainer from '../common/BodyContainer';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo2.png";
 import StayTuned from '../common/StayTuned';
 import DownloadApp from '../common/DownloadApp';
 

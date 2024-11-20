@@ -1,5 +1,5 @@
 "use client";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo2.png";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa6";
@@ -174,12 +174,12 @@ const Header: React.FC = () => {
 
           {/* menu item */}
           <nav className="navbar md:pt-3">
-            <div className="navbar-center w-full justify-center lg:flex sticky top-0 shadow bg-base-content">
+            <div className="navbar-center w-full justify-center lg:flex sticky top-0 shadow-lg py-4">
               <div className="menu menu-horizontal justify-center items-center p-0">
                 {menuItems.map((menuItem) => (
                   <li key={menuItem.text}>
                     <Link
-                      className="hover:bg-primary rounded-none md:text-left text-center sm:inline-block hidden text-white text-xl md:text-[22px]"
+                      className="hover:text-primary rounded-none md:text-left text-center sm:inline-block hidden text-dark text-xl md:text-[22px] font-semibold"
                       href={menuItem.link}
                       replace={false}
                     >
@@ -194,7 +194,7 @@ const Header: React.FC = () => {
                     ) as HTMLDialogElement;
                     megaMenuModal?.showModal();
                   }}
-                  className="text-xl cursor-pointer sm:block hidden text-white"
+                  className="text-xl cursor-pointer sm:block hidden text-dark"
                 />
 
                 <dialog
