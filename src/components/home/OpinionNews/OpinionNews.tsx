@@ -17,7 +17,9 @@ const OpinionCard: React.FC<OpinionCardProps> = ({
   return (
     <div className="flex p-3 rounded-lg shadow-md bg-white border cursor-pointer">
       <div className="relative w-28 h-28 xl:w-32 xl:h-32 rounded-lg overflow-hidden border-4 border-red-500">
-        <img
+        <Image
+          width={150}
+          height={150}
           src={imageUrl}
           alt={title}
           className="object-cover w-full h-full"
@@ -46,19 +48,19 @@ const OpinionSection: React.FC = () => {
 
         <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3  gap-4 mt-5">
           <OpinionCard
-            imageUrl="https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/news%2Fimages%2F1175fe2b-d770-45e0-aca9-24d2d9b58306.jpg?alt=media"
+            imageUrl="https://d1uo68v5hl2ge5.cloudfront.net/selfie.png"
             title="স্মৃতি লিঙ্খন: কবি সৈয়দ আবদুস সাদিক"
             // subtitle="কবি মাহফুজ আহমেদ"
             author="কবি মাহফুজ আহমেদ"
           />
           <OpinionCard
-            imageUrl="https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/news%2Fimages%2F1175fe2b-d770-45e0-aca9-24d2d9b58306.jpg?alt=media"
+            imageUrl="https://d1uo68v5hl2ge5.cloudfront.net/selfie.png"
             title="স্মৃতি লিঙ্খন: কবি সৈয়দ আবদুস সাদিক"
             // subtitle="কবি মাহফুজ আহমেদ"
             author="কবি মাহফুজ আহমেদ"
           />
           <OpinionCard
-            imageUrl="https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/news%2Fimages%2F1175fe2b-d770-45e0-aca9-24d2d9b58306.jpg?alt=media"
+            imageUrl="https://d1uo68v5hl2ge5.cloudfront.net/selfie.png"
             title="স্মৃতি লিঙ্খন: কবি সৈয়দ আবদুস সাদিক"
             // subtitle="কবি মাহফুজ আহমেদ"
             author="কবি মাহফুজ আহমেদ"

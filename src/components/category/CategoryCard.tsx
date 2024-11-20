@@ -30,7 +30,7 @@ interface CardProps {
       >
         {/* Image section */}
         <div className={`${customClass} rounded overflow-hidden border border-gray-200 mb-4 md:mb-0`}>
-          <img src={imageUrl} alt="News" className="object-cover w-full h-full" />
+          <Image width={250} height={220} src={imageUrl} alt="News" className="object-cover w-full h-full" />
         </div>
   
         {/* Text Content */}
