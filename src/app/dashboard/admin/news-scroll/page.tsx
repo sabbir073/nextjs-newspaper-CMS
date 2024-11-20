@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -7,7 +9,9 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { BiEdit } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import Pagination from "../../../../components/common/Pagination";
+
+import DataTable from "react-data-table-component";
+import debounce from "lodash.debounce";
 
 type NewsListType = {
   title: string;
@@ -43,12 +47,11 @@ const initialNewsList: NewsListType[] = [
 const NewsScroll: React.FC = () => {
   const { data: session, status } = useSession(); // Get session data and status
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
 
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof NewsListType;
-    direction: "asc" | "desc";
-  } | null>(null);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+
   const [filteredNews, setFilteredNews] = useState(initialNewsList);
 
   useEffect(() => {
@@ -61,52 +64,116 @@ const NewsScroll: React.FC = () => {
       router.replace(`/dashboard/${session?.user.role.toLowerCase()}`);
     }
   }, [session, status, router]);
-  useEffect(() => {
-    let sortedNews = [...initialNewsList];
-
-    // Filter news based on search term
-    if (searchTerm) {
-      sortedNews = sortedNews.filter((news) =>
-        Object.values(news).some((value) =>
-          String(value).toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    }
-
-    // Sort news based on sortConfig
-    if (sortConfig) {
-      sortedNews.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key])
-          return sortConfig.direction === "asc" ? -1 : 1;
-        if (a[sortConfig.key] > b[sortConfig.key])
-          return sortConfig.direction === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
-
-    setFilteredNews(sortedNews);
-  }, [searchTerm, sortConfig]);
 
   // Guard rendering: Show loading spinner while the session is loading
   if (status === "loading") {
     return <LoadingSpinner />;
   }
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  const handleSearch = debounce((value: string) => {
+    setSearch(value);
+  }, 500);
 
-  const handleSort = (key: keyof NewsListType) => {
-    setSortConfig((prevSortConfig) => {
-      if (prevSortConfig && prevSortConfig.key === key) {
-        return {
-          key,
-          direction: prevSortConfig.direction === "asc" ? "desc" : "asc",
-        };
-      } else {
-        return { key, direction: "asc" };
-      }
-    });
+  const columns = [
+    {
+      name: "ID",
+      selector: (row: NewsListType) => row.Id,
+      sortable: true,
+    },
+    {
+      name: "Title",
+      selector: (row: NewsListType) => row.title,
+      sortable: true,
+      grow: 0,
+    },
+    // {
+    //   name: "Categories",
+    //   selector: (row: NewsListType) => row.Categories,
+    //   sortable: true,
+    // },
+    // {
+    //   name: "Reporter",
+    //   selector: (row: NewsListType) => row.Reporter || "N/A",
+    //   sortable: true,
+    //   grow: 0,
+    // },
+    {
+      name: "Status",
+      selector: (row: NewsListType) => row.Status || "N/A",
+      sortable: true,
+    },
+    // {
+    //   name: "Posted By",
+    //   selector: (row: NewsListType) => row.PostedBy || "N/A",
+    //   sortable: true,
+    // },
+    // {
+    //   name: "Published By",
+    //   selector: (row: NewsListType) => row.PublishedBy || "N/A",
+    //   sortable: false,
+    // },
+
+    // {
+    //   name: "PosTime",
+    //   selector: (row: NewsListType) =>
+    //     row.PosTime
+    //       ? new Date(row.PosTime).toLocaleDateString("en-US", {
+    //           day: "numeric",
+    //           month: "long",
+    //           year: "numeric",
+    //         })
+    //       : "N/A",
+    //   sortable: true,
+    // },
+    // {
+    //   name: "PublishedTime",
+    //   selector: (row: NewsListType) =>
+    //     row.PublishedTime
+    //       ? new Date(row.PublishedTime).toLocaleDateString("en-US", {
+    //           day: "numeric",
+    //           month: "long",
+    //           year: "numeric",
+    //         })
+    //       : "N/A",
+    //   sortable: true,
+    // },
+    // {
+    //   name: "ModifyTime",
+    //   selector: (row: NewsListType) =>
+    //     row.ModifyTime
+    //       ? new Date(row.ModifyTime).toLocaleDateString("en-US", {
+    //           day: "numeric",
+    //           month: "long",
+    //           year: "numeric",
+    //         })
+    //       : "N/A",
+    //   sortable: true,
+    // },
+
+    {
+      name: "Actions",
+      cell: () => (
+        <div className="flex space-x-3 text-lg">
+          <FaRegEye className="text-green-600 cursor-pointer" />
+          <BiEdit className="text-blue-600 cursor-pointer" />
+          <MdDelete className="text-red-600 cursor-pointer" />
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+      grow: 0,
+    },
+  ];
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: "rgb(44, 62, 80 / var(--tw-bg-opacity))",
+        fontSize: "16px",
+        fontWeight: "bold",
+      },
+    },
   };
 
   return (
@@ -162,73 +229,34 @@ const NewsScroll: React.FC = () => {
           </div>
         </div>
         <div className="w-full md:w-2/3">
-          <div className=" w-full">
-            <div className="flex flex-col md:flex-row justify-between items-center w-full mt-4 md:mt-0">
+          <div className="w-full bg-white shadow-md rounded-md ">
+            <div className="flex flex-col md:flex-row justify-between items-center w-full mt-4 md:mt-0 py-4 px-4 ">
               <h6 className="text-base  text-gray-900">Scroll Items </h6>
-
               <input
                 type="text"
-                placeholder="Search by title, ID, etc."
-                className="border border-gray-300 rounded-md p-2 w-full lg:w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                value={searchTerm}
-                onChange={handleSearchChange}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="Search..."
+                className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
             </div>
 
             {/* News Table */}
-            <div className=" py-3  grid lg:grid-cols-1 grid-cols-1 ">
-              <div className=" overflow-x-auto  ">
-                <div className="inline-block  py-2 align-middle ">
-                  <div className="overflow-hidden ring-1 ring-black ring-opacity-5 shadow-md rounded-md ">
-                    <table className="min-w-full divide-y divide-gray-300 ">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          {["ID", "Title", "Status"].map((heading, index) => (
-                            <th
-                              key={index}
-                              onClick={() =>
-                                handleSort(heading as keyof NewsListType)
-                              }
-                              className="px-3 min-w-[150px] py-3.5 text-left  text-gray-600"
-                            >
-                              <h6> {heading}</h6>
-                            </th>
-                          ))}
-                          <th className="px-3 py-3.5 text-left  text-gray-700">
-                            Action
-                          </th>
-                        </tr>
-                      </thead>
 
-                      <tbody className="divide-y divide-gray-100 bg-white">
-                        {filteredNews.map((news) => (
-                          <tr key={news.Id} className="hover:bg-gray-50">
-                            <td className=" whitespace-nowrap py-4 pl-4 pr-3 text-lg font-medium text-gray-900 lg:pl-6">
-                              {news.Id}
-                            </td>
-                            <td className=" whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                              {news.title}
-                            </td>
+            {loadingSearch && (
+              <p className="text-gray-600 mb-4">Searching...</p>
+            )}
 
-                            <td className="whitespace-nowrap px-3 py-4 text-lg text-gray-500">
-                              {news.Status}
-                            </td>
-
-                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-lg font-medium lg:pr-6">
-                              <div className="flex space-x-3">
-                                <BiEdit className="w-6 h-6 cursor-pointer" />
-                                <MdDelete className="w-6 h-6 cursor-pointer" />
-                                <FaRegEye className="w-6 h-6 cursor-pointer" />
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <Pagination />
-                  </div>
-                </div>
-              </div>
+            <div className="mt-8 py-3  grid lg:grid-cols-1 grid-cols-1 ">
+              <DataTable
+                columns={columns}
+                data={filteredNews}
+                pagination
+                highlightOnHover
+                pointerOnHover={false}
+                responsive
+                striped
+                customStyles={customStyles}
+              />
             </div>
           </div>
         </div>
