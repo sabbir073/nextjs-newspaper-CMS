@@ -22,7 +22,7 @@ const NationalNewsSection: React.FC = () => {
           <div className=" w-full xl:w-[67%]">
             <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 ">
               <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-                জাতীয়
+              রাজনীতি
               </div>
               <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
                 আরও
@@ -80,7 +80,7 @@ const NationalNewsSection: React.FC = () => {
             {/* right side  */}
             <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
               <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-                রাজনীতি
+              অর্থনীতি
               </div>
               <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
                 আরও

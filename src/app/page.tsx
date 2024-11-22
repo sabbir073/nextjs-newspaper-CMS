@@ -29,12 +29,16 @@ export default function DashboardPage() {
         priority // Optional: Loads the image with higher priority
       /> */}
       <NewsFeatureSection />
-      <VideoSection />
-      <NationalNewsSection />
-      <OpinionSection />
       <CountryNewsSection />
-      <InternationlNews />
+      <NationalNewsSection />
       <SportsNewsSection />
+      <InternationlNews />
+      
+      <VideoSection />
+      <OpinionSection />
+      
+      
+      
       <Entertainment/>
       <EcomomyNews />
       <TechnologyNews/>

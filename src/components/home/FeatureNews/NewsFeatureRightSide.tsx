@@ -56,9 +56,9 @@ const TabComponent: React.FC = () => {
         </ul>
 
         {/* Tab Content */}
-        <div className=" bg-white rounded-md ">
+        <div className="bg-white rounded-md ">
           {activeTab === "সর্বশেষ" && (
-            <div className="h-[360px]  overflow-y-auto">
+            <div className="h-[450px]  overflow-y-auto">
               <NewsItem
                 text="মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
                 onClick={() =>
@@ -136,7 +136,16 @@ const TabComponent: React.FC = () => {
       </div>
 
       <div className="max-w-[400px] mx-auto w-full">
-        <AreaNews />
+      <div className="flex flex-col space-y-1 lg:flex-col md:space-x-0">
+        <Image
+          width={400}
+          height={400}
+          src={Ad}
+          alt="Blog Image"
+          className=" xl:w-full xl:h-full rounded-xl mx-auto bg-gray-50 object-cover "
+          priority
+        />
+      </div>
       </div>
 
 
