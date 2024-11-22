@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import Image from "next/image";
+
+import { YouTubeEmbed } from '@next/third-parties/google'
 
 import NewsItem from "./NewsItem";
 import Btn from "../../common/Btn";
@@ -19,16 +22,14 @@ const TabComponent: React.FC = () => {
 
   return (
     <div className="w-full h-full md:pt-2 lg:pt-0 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-0 gap-4 lg:flex lg:flex-col">
+      <div className="flex items-center justify-center border bg-base-content shadow-md rounded-xl">
+        <div className="max-w-[400px] text-white text-2xl py-2 cursor-pointer">
+          ভিডিও স্টোরি
+        </div>
+      </div>
      
-      <div className="flex flex-col space-y-1 lg:flex-col md:space-x-0">
-        <Image
-          width={400}
-          height={400}
-          src={Ad}
-          alt="Blog Image"
-          className=" xl:w-full xl:h-full rounded-xl mx-auto bg-gray-50 object-cover "
-          priority
-        />
+      <div className="flex flex-col space-y-1 lg:flex-col md:space-x-0 shadow p-2 rounded">
+      <YouTubeEmbed videoid="KVN3fPlA_OU" />
       </div>
 
       <div className=" max-w-[400px] mx-auto relative right-0 rounded-md shadow-md w-full">
