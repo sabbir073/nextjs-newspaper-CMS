@@ -3,9 +3,10 @@ import Btn from "../../common/Btn";
 const AreaNews: React.FC = () => {
   return (
     <div>
-      <div className=" flex items-center justify-center border bg-base-content shadow-md rounded-xl mb-3">
-        <div className="max-w-[400px] text-white text-xl md:text-xl px-4  ml-4  cursor-pointer">
-          এলাকার খবর
+      
+      <div className="flex items-center justify-center border bg-base-content shadow-md rounded-xl mb-2">
+        <div className="max-w-[400px] text-white text-2xl py-2 cursor-pointer">
+        এলাকার খবর
         </div>
       </div>
       <div className=" max-w-[400px] mx-auto  bg-white rounded-xl shadow-md px-4 py-4">
