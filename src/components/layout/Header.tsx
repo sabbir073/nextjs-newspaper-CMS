@@ -45,11 +45,11 @@ const Header: React.FC = () => {
     { text: "অর্থনীতি", link: "/category/economy" },
     { text: "আন্তর্জাতিক", link: "/category/international" },
     { text: "সারাদেশ", link: "/category/crime-news" },
+    { text: "শিক্ষা", link: "/category/education" },
     { text: "মতামত", link: "/category/opinion" },
     { text: "খেলা", link: "/category/sports" },
     { text: "বিনোদন", link: "/category/entertainment" },
     { text: "সাহিত্য", link: "/category/literature" },
-    { text: "গণমাধ্যম", link: "/category/mass-media" },
   ];
 
   const megaMenuItems = [

@@ -17,7 +17,7 @@ const EcomomyNews: React.FC = () => {
         <div className=" w-full md:w-1/2 lg:w-[35%] xl:w-[33%] ">
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 mt-4 sm:mt-0">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              অর্থনীতি
+            ফিচার
             </div>
 
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
@@ -63,7 +63,7 @@ const EcomomyNews: React.FC = () => {
         <div className="block md:w-1/2 lg:w-[65%] xl:w-[66%]">
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              ফিচার
+            বিনোদন
             </div>
 
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">

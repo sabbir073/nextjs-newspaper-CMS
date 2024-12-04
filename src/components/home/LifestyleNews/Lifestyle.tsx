@@ -128,7 +128,7 @@ const LifestyleNews: React.FC = () => {
         <div className="w-full  sm:pt- ">
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              প্রবাস
+            প্রবাসে বাংলাদেশ
             </div>
             <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
               আরও

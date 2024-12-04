@@ -9,7 +9,7 @@ const EntertainmentNews: React.FC = () => {
     <BodyContainer>
       <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-3 mt-6">
         <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-          বিনোদন
+        খেলা
         </div>
         <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
           আরও

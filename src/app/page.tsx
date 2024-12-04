@@ -33,13 +33,9 @@ export default function DashboardPage() {
       <NationalNewsSection />
       <SportsNewsSection />
       <InternationlNews />
-      
       <VideoSection />
-      <OpinionSection />
-      
-      
-      
       <Entertainment/>
+      <OpinionSection />      
       <EcomomyNews />
       <TechnologyNews/>
       <LifestyleNews/>
