@@ -54,7 +54,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-weight: bold !important;
+  font-weight: 300;
 }
 
 .fbCommentBox::-webkit-scrollbar {

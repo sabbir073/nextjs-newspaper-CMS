@@ -127,7 +127,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
           {/* Role-based Dashboard Label */}
           <div className="px-8 pb-3 text-gray-300 text-lg  font-normal">
-            Hi, {user.display_name}
+          Hi, {session?.user.display_name}
           </div>
           {/* Sidebar Menu */}
           {/* <div className={`bg-gray-500   flex items-cente  py-2 `}>

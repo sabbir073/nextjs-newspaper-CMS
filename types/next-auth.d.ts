@@ -6,19 +6,22 @@ export type Role = "ADMIN" | "EDITOR" | "USER";
 
 declare module "next-auth" {
   interface User extends DefaultUser {
-    id: string; // Ensure id is a string
-    role: Role; // Role-based access control
+    id: string;
+    role: Role;
+    display_name: string; // Add display_name to User
   }
 
   interface Session {
     user: {
       id: string;
       role: Role;
+      display_name: string; // Add display_name to Session
     } & DefaultSession["user"];
   }
 
   interface JWT {
     id: string;
     role: Role;
+    display_name: string; // Add display_name to JWT
   }
 }
