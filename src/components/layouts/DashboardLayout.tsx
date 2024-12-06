@@ -19,6 +19,7 @@ import { LuBoxSelect } from "react-icons/lu";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Footer from "../layout/adminFooter";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 interface User {
   role: string;
@@ -66,7 +67,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         items.push({
           title: "views-all-news",
           icon: FiList,
-          path: `${basePath}/views-all-news`,
+          path: `${basePath}/news`,
         });
         items.push({
           title: "Add News",
@@ -94,6 +95,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           icon: PiNewspaper,
           path: `${basePath}/featured-news`,
         });
+        items.push({
+          title: "users",
+          icon: FaUserCircle,
+          path: `${basePath}/users`,
+        });
       }
 
       return items;
@@ -117,6 +123,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           } md:translate-x-0 transition-transform duration-300 ease-in-out`}
         >
           <div className="p-6 pt-4 flex justify-between items-center">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/logo-white.png`}
+            alt="Logo"
+            width={150}
+            height={80}
+            className="h-12 w-auto object-cover cursor-pointer"
+          />
             <button
               onClick={toggleSidebar}
               className="md:hidden text-white focus:outline-none"

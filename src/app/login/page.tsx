@@ -63,7 +63,7 @@ export default function LoginPage() {
       setLoggingIn(false);
     } else if (session?.user?.role) {
       setSuccess(true); // Success state to show "Successfully logged in"
-      setTimeout(() => redirectToDashboard(session.user.role), 2000);
+      setTimeout(() => redirectToDashboard(session.user.role), 1000);
     }
   };
 

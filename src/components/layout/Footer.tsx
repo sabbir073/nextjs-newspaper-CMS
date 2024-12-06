@@ -1,7 +1,6 @@
 import BodyContainer from '../common/BodyContainer';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from "@/assets/logo2.png";
 import StayTuned from '../common/StayTuned';
 import DownloadApp from '../common/DownloadApp';
 
@@ -18,8 +17,10 @@ const Footer: React.FC = () => {
                             <Link href={"/"}>
                                 <Image 
                                     className='lg:w-[220px] md:w-[200px] w-[140px] lg:mx-auto md:ml-auto md:mx-0 mx-auto md:mt-0 mt-4' 
-                                    src={logo} 
-                                    alt='logo' 
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/logo2.png`}
+                                    alt='logo'
+                                    width={220}
+                                    height={150}
                                 />
                                 {/* <h5 className='md:text-3xl text-2xl md:text-right lg:text-center text-center'>সংবাদ কথা বলে</h5> */}
                             </Link>

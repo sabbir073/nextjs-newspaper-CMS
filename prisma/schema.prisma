@@ -66,23 +66,23 @@ model Category {
 model News {
   id                 Int        @id @default(autoincrement())
   title              String
-  description        String     // Markdown content using SimpleMdeReact
-  highlight_text     String?
-  reporter_name      String
+  description        String?    // Make this optional
+  highlight_text     String?    // Make this optional
+  reporter_name      String?    // Make this optional
   publish_status     PublishStatus @default(DRAFT)
   tag                String?    // Tags, comma-separated if multiple
   categories         Category[] // Implicit many-to-many relation
-  featured_image     String?
-  meta_title         String?
-  meta_description   String?
-  meta_image         String?    // Image name for SEO
-  focus_keyword      String?
+  featured_image     String?    // Make this optional
+  meta_title         String?    // Make this optional
+  meta_description   String?    // Make this optional
+  meta_image         String?    // Make this optional
+  focus_keyword      String?    // Make this optional
   created_at         DateTime   @default(now())
   updated_at         DateTime   @updatedAt
-  created_by         User       @relation("NewsCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
-  updated_by         User       @relation("NewsUpdatedBy", fields: [updated_by_id], references: [id], onDelete: Cascade)
+  created_by         User       @relation("NewsCreatedBy", fields: [created_by_id], references: [id])
+  updated_by         User?      @relation("NewsUpdatedBy", fields: [updated_by_id], references: [id])
   created_by_id      Int
-  updated_by_id      Int
+  updated_by_id      Int?       // Make this field nullable
 }
 
 // Enum for publish status

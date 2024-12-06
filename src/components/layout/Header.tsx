@@ -1,5 +1,4 @@
 "use client";
-import logo from "@/assets/logo2.png";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa6";
@@ -105,9 +104,11 @@ const Header: React.FC = () => {
               <Link href="/">
                 <Image
                   className="lg:w-[230px] md:w-[160px] w-[160px] mx-auto ml-0"
-                  src={logo}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/logo2.png`}
                   alt="logo"
                   priority={true}
+                  width={230}
+                  height={150}
                 />
               </Link>
             </div>
@@ -142,8 +143,10 @@ const Header: React.FC = () => {
               <Link href="/">
                 <Image
                   className="w-[130px] mx-auto lg:ml-14 md:ml-14 ml-0"
-                  src={logo}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/logo2.png`}
                   alt="logo"
+                  width={130}
+                  height={80}
                 />
               </Link>
             </div>
@@ -209,8 +212,10 @@ const Header: React.FC = () => {
                           <Link href={"/"} onClick={() => closeDialog()}>
                             <Image
                               className="md:w-[180px] w-[150px]"
-                              src={logo}
+                              src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/logo2.png`}
                               alt="logo"
+                              width={180}
+                              height={90}
                             />
                           </Link>
                           <form method="dialog">
