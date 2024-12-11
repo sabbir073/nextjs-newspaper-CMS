@@ -1,91 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-// User model with role management
 model User {
-  id                    Int      @id @default(autoincrement())
+  id                    Int       @id @default(autoincrement())
   name                  String
-  email                 String   @unique
-  password              String   // Store bcrypt hashed password
-  role                  Role     @default(USER) // Role-based access
+  email                 String    @unique
+  created_at            DateTime  @default(now())
   display_name          String?
-  created_at            DateTime @default(now())
-  updated_at            DateTime @updatedAt
-  sessions              Session[]
+  forget_password_token String?
+  password              String
+  updated_at            DateTime  @updatedAt
+  role                  Role      @default(USER)
   accounts              Account[]
-  forget_password_token String?  // Password recovery flow
-  news_created          News[]   @relation("NewsCreatedBy")
-  news_updated          News[]   @relation("NewsUpdatedBy")
+  news_created          News[]    @relation("NewsCreatedBy")
+  news_updated          News[]    @relation("NewsUpdatedBy")
+  sessions              Session[]
 }
 
-// Session model for NextAuth.js
 model Session {
   id           String   @id @default(cuid())
   userId       Int
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expires      DateTime
   sessionToken String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// OAuth account model (optional for future integrations)
 model Account {
-  id                 Int      @id @default(autoincrement())
-  userId             Int
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  provider           String
-  providerAccountId  String   @unique
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
+  id                Int     @id @default(autoincrement())
+  userId            Int
+  provider          String
+  providerAccountId String  @unique
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Enum for role management
-enum Role {
-  ADMIN
-  EDITOR
-  USER
-}
-
-// Category model
 model Category {
-  id        Int      @id @default(autoincrement())
-  title     String
-  slug      String   @unique
+  id         Int      @id @default(autoincrement())
+  title      String
+  slug       String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  news      News[]   // Implicit many-to-many relation
+  news       News[]   @relation("CategoryToNews")
 }
 
-// News model
 model News {
-  id                 Int        @id @default(autoincrement())
-  title              String
-  description        String?    // Make this optional
-  highlight_text     String?    // Make this optional
-  reporter_name      String?    // Make this optional
-  publish_status     PublishStatus @default(DRAFT)
-  tag                String?    // Tags, comma-separated if multiple
-  categories         Category[] // Implicit many-to-many relation
-  featured_image     String?    // Make this optional
-  meta_title         String?    // Make this optional
-  meta_description   String?    // Make this optional
-  meta_image         String?    // Make this optional
-  focus_keyword      String?    // Make this optional
-  created_at         DateTime   @default(now())
-  updated_at         DateTime   @updatedAt
-  created_by         User       @relation("NewsCreatedBy", fields: [created_by_id], references: [id])
-  updated_by         User?      @relation("NewsUpdatedBy", fields: [updated_by_id], references: [id])
-  created_by_id      Int
-  updated_by_id      Int?       // Make this field nullable
+  id               Int               @id @default(autoincrement())
+  title            String
+  description      String?
+  highlight_text   String?
+  reporter_name    String?
+  publish_status   PublishStatus     @default(DRAFT)
+  tag              String?
+  featured_image   String?
+  meta_title       String?
+  meta_description String?
+  meta_image       String?
+  focus_keyword    String?
+  created_at       DateTime          @default(now())
+  updated_at       DateTime          @updatedAt
+  created_by_id    Int
+  updated_by_id    Int?
+  featuredSections FeaturedSection[]
+  created_by       User              @relation("NewsCreatedBy", fields: [created_by_id], references: [id])
+  updated_by       User?             @relation("NewsUpdatedBy", fields: [updated_by_id], references: [id])
+  categories       Category[]        @relation("CategoryToNews")
 }
 
-// Enum for publish status
+model FeaturedSection {
+  id         Int      @id @default(autoincrement())
+  title      String   @unique
+  news_id    Int?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  news       News?    @relation(fields: [news_id], references: [id])
+}
+
+model VideoStory {
+  id         Int      @id @default(autoincrement())
+  title      String   @unique
+  video_url  String?  @db.VarChar(255)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  USER
+  EDITOR
+}
+
 enum PublishStatus {
   PUBLISHED
   DRAFT

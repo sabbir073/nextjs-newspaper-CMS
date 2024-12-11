@@ -65,7 +65,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       if (typedSession.user.role === "ADMIN") {
         items.push({
-          title: "views-all-news",
+          title: "View All News",
           icon: FiList,
           path: `${basePath}/news`,
         });
@@ -91,12 +91,17 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           path: `${basePath}/event-news`,
         });
         items.push({
-          title: "featured-news",
+          title: "Featured Section",
           icon: PiNewspaper,
           path: `${basePath}/featured-news`,
         });
         items.push({
-          title: "users",
+          title: "Video Story",
+          icon: PiNewspaper,
+          path: `${basePath}/video-story`,
+        });
+        items.push({
+          title: "Manage Users",
           icon: FaUserCircle,
           path: `${basePath}/users`,
         });
