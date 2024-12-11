@@ -83,7 +83,7 @@ const NewsFeatureRightSide: React.FC = () => {
           {videoUrl ? (
             <YouTubeEmbed videoid={videoUrl} />
           ) : (
-            <div className="text-center text-gray-500">No video story available.</div>
+            <div/>
           )}
         </div>
 
@@ -138,7 +138,7 @@ const NewsFeatureRightSide: React.FC = () => {
                   />
                 ))
               ) : (
-                <div className="text-center text-gray-500">No news available.</div>
+                <div/>
               )}
             </div>
           )}
