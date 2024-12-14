@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import BodyContainer from "../../common/BodyContainer";
 import NewsCard from "../FeatureNews/NewsCard";
@@ -37,26 +38,29 @@ const SportsNewsSection: React.FC = () => {
     { id: 9, name: "সিলেট" },
   ];
 
-  const fetchCategoryNews = async (categoryId: number) => {
-    if (newsData[categoryId]) return; // Skip API call if data is already cached
+  const fetchCategoryNews = useCallback(
+    async (categoryId: number) => {
+      if (newsData[categoryId]) return; // Skip API call if data is already cached
 
-    setLoading(true);
-    try {
-      const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=9`);
-      if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
-      const data: NewsItem[] = await response.json();
-      setNewsData((prevData) => ({ ...prevData, [categoryId]: data }));
-    } catch (error) {
-      console.error(`Error fetching news for category ${categoryId}:`, error);
-    } finally {
-      setLoading(false);
-    }
-  };
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=9`);
+        if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
+        const data: NewsItem[] = await response.json();
+        setNewsData((prevData) => ({ ...prevData, [categoryId]: data }));
+      } catch (error) {
+        console.error(`Error fetching news for category ${categoryId}:`, error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [newsData]
+  );
 
   useEffect(() => {
     // Fetch data for the default active tab
     fetchCategoryNews(activeTab);
-  }, [activeTab]);
+  }, [activeTab, fetchCategoryNews]);
 
   const handleTabClick = (categoryId: number) => {
     setActiveTab(categoryId);
@@ -130,7 +134,7 @@ const SportsNewsSection: React.FC = () => {
             {/* Left Side */}
             {newsData[activeTab]?.[0] && (
               <>
-                <Link href={`/news/details/${newsData[activeTab][0].id}`} passHref>
+                <Link href={`/news/details/${newsData[activeTab][0].id}`} passHref key={newsData[activeTab][0].id}>
                   <NewsCard
                     title={newsData[activeTab][0].title}
                     description={newsData[activeTab][0]?.description}
@@ -161,9 +165,8 @@ const SportsNewsSection: React.FC = () => {
               <div className="flex flex-col md:flex-row md:space-x-4">
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-1 gap-2">
                   {newsData[activeTab]?.slice(1, 3).map((newsItem) => (
-                    <Link href={`/news/details/${newsItem.id}`} passHref>
+                    <Link href={`/news/details/${newsItem.id}`} passHref key={newsItem.id}>
                       <ShortNewsCard
-                        key={newsItem.id}
                         title={newsItem.title}
                         imageSrc={`${imageBaseURL}/${newsItem?.featured_image}`}
                         highlight={newsItem?.highlight_text}
@@ -184,9 +187,8 @@ const SportsNewsSection: React.FC = () => {
 
             <div className="w-full md:w-[50%] lg:w-[40%] xl:w-full grid grid-cols-1 md:pt-0 md:pl-4">
               {newsData[activeTab]?.slice(3).map((newsItem) => (
-                <Link href={`/news/details/${newsItem.id}`} passHref>
+                <Link href={`/news/details/${newsItem.id}`} passHref key={newsItem.id}>
                   <NewsCardHorizontal
-                    key={newsItem.id}
                     imageSrc={`${imageBaseURL}/${newsItem?.featured_image}`}
                     highlight={newsItem?.highlight_text}
                     title={newsItem.title}
