@@ -1,110 +1,204 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import BodyContainer from "../../common/BodyContainer";
 import NewsCard from "../FeatureNews/NewsCard";
 import NewsCardHorizontal from "../HorizontalCard";
 import ShortNewsCard from "../FeatureNews/ShortNewsCard";
 import SideAds from "../../../assets/sideAd.png";
+import { FaBars } from "react-icons/fa";
+import Link from "next/link";
+
+interface NewsItem {
+  id: number;
+  title: string;
+  description?: string;
+  highlight_text?: string;
+  featured_image?: string;
+}
+
+const imageBaseURL = process.env.NEXT_PUBLIC_IMAGE_URL;
 
 const SportsNewsSection: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<number>(1); // Default active tab is সারাদেশ
+  const [newsData, setNewsData] = useState<{ [key: number]: NewsItem[] }>({});
+  const [loading, setLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(false); // Toggle for mobile menu
+
+  const categories = [
+    { id: 1, name: "সারাদেশ" },
+    { id: 2, name: "ঢাকা" },
+    { id: 3, name: "চট্টগ্রাম" },
+    { id: 4, name: "খুলনা" },
+    { id: 5, name: "বরিশাল" },
+    { id: 6, name: "রাজশাহী" },
+    { id: 7, name: "রংপুর" },
+    { id: 8, name: "ময়মনসিংহ" },
+    { id: 9, name: "সিলেট" },
+  ];
+
+  const fetchCategoryNews = async (categoryId: number) => {
+    if (newsData[categoryId]) return; // Skip API call if data is already cached
+
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=9`);
+      if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
+      const data: NewsItem[] = await response.json();
+      setNewsData((prevData) => ({ ...prevData, [categoryId]: data }));
+    } catch (error) {
+      console.error(`Error fetching news for category ${categoryId}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data for the default active tab
+    fetchCategoryNews(activeTab);
+  }, [activeTab]);
+
+  const handleTabClick = (categoryId: number) => {
+    setActiveTab(categoryId);
+    fetchCategoryNews(categoryId); // Fetch data for the selected category if not already fetched
+    setShowMenu(false); // Hide the menu on mobile after selecting a tab
+  };
+
   return (
     <BodyContainer>
-      <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-3">
-        <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-        সারাদেশ
+      {/* Tabs Section */}
+      <div className="flex flex-wrap items-center border bg-base-content shadow-md rounded-xl py-1 my-3 gap-2 px-4">
+        <button
+          onClick={() => handleTabClick(1)}
+          className={`text-white text-2xl px-4 cursor-pointer ${
+            activeTab === 1 ? "bg-gray-700 rounded-md" : ""
+          }`}
+        >
+          সারাদেশ
+        </button>
+
+        {/* Mobile Hamburger Menu */}
+        <div className="lg:hidden flex-1 text-right">
+          <button
+            onClick={() => setShowMenu(!showMenu)}
+            className="text-white text-xl p-2"
+          >
+            <FaBars />
+          </button>
         </div>
-        <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-          আরও
+
+        {/* Desktop Tabs */}
+        <div className="hidden lg:flex gap-2">
+          {categories.slice(1).map((category) => (
+            <button
+              key={category.id}
+              onClick={() => handleTabClick(category.id)}
+              className={`text-white text-xl px-3 mx-3 cursor-pointer ${
+                activeTab === category.id ? "bg-gray-700 rounded-md" : ""
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className=" lg:flex space-y-4 md:space-y-4 lg:space-y-0 pt-4 lg:space-x-4  ">
-        <div className=" w-full lg:w-1/3">
-          {/* left side  */}
-          <NewsCard
-            title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
-            description="
-                        বাংলাদেশ ফুটবল দল বর্তমানে কুয়েতে অবস্থান করছে। আগামীকাল কুয়েতের সময় রাত সাড়ে নয়টায় মাঠে ফিলিস্তিনের বিপক্ষে বিশ্বকাপের বাছাইপর্বের ম্যাচ খেলবেন জামাল ভূঁইয়ারা। সৌদিতে দুই সপ্তাহ ক্যাপ শেষে এবার কুয়েতের আবহাওয়া কন্ডিশনে এবং ফিলিস্তিনের বিপক্ষে ম্যাচকে সামনে রেখে শেষবারের মতো নিজেদের ঝালিয়ে নিতে অনুশীলনে ব্যস্ত সময় পার করছে বাংলাদেশ দল। আসন্ন ম্যাচে ফিলিস্তিনের আক্রমণভাগই আগামীকাল কুয়েতের সময় রাত   আগামীকাল কুয়েতের সময় রাত আগামীকাল কুয়েতের সময় রাত আগামীকাল কুয়েতের সময় রাত আগামীকাল কুয়েতের সময় রাত "
-            imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-            clamp={6}
-            maxLength={340}
-            onClick={() => alert("News card clicked!")}
-          />
+      {/* Mobile Menu */}
+      {showMenu && (
+        <div className="lg:hidden flex flex-col gap-2 bg-gray-800 text-white rounded-md p-4">
+          {categories.slice(1).map((category) => (
+            <button
+              key={category.id}
+              onClick={() => handleTabClick(category.id)}
+              className={`text-xl ${
+                activeTab === category.id ? "bg-gray-700 rounded-md" : ""
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
+      )}
 
-        <div className="block lg:w-2/3 bg-red-40 md:flex">
-          {/* right side  */}
+      {/* Loading Indicator */}
+      {loading && <div className="text-center text-black">Loading...</div>}
 
-          <div className="w-full md:w-[60%] lg:w-[60%] xl:w-full ">
-            <div className="flex flex-col md:flex-row md:space-x-4">
+      {/* Content Section */}
+      {!loading && newsData[activeTab] && (
+        <div className="lg:flex space-y-4 md:space-y-4 lg:space-y-0 pt-4 lg:space-x-4">
+          <div className="w-full lg:w-1/3">
+            {/* Left Side */}
+            {newsData[activeTab]?.[0] && (
+              <>
+                <Link href={`/news/details/${newsData[activeTab][0].id}`} passHref>
+                  <NewsCard
+                    title={newsData[activeTab][0].title}
+                    description={newsData[activeTab][0]?.description}
+                    imageSrc={`${imageBaseURL}/${newsData[activeTab][0]?.featured_image}`}
+                    highlight={newsData[activeTab][0]?.highlight_text}
+                    clamp={3}
+                    maxLength={150}
+                  />
+                </Link>
+                {/* Ad Section */}
+                <div className="hidden w-full lg:block mt-4">
+                  <Image
+                    src="https://placehold.co/400X80/png"
+                    alt="Advertisement"
+                    width={450}
+                    height={100}
+                    className="rounded-md shadow-md"
+                    priority
+                  />
+                </div>
+              </>
+            )}
+          </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-                <ShortNewsCard
-                  title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
-                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                  onClick={() => alert("News card clicked!")}
-                  highlight=""
-                />
-                <ShortNewsCard
-                  title="ইসরায়েলি হামলায় এক সপ্তাহে শতাধিক ত্রাণকর্মী নিহত"
-                  imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-                  onClick={() => alert("News card clicked!")}
-                  highlight=""
+          <div className="block lg:w-2/3 bg-red-40 md:flex">
+            {/* Right Side */}
+            <div className="w-full md:w-[60%] lg:w-[60%] xl:w-full">
+              <div className="flex flex-col md:flex-row md:space-x-4">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-1 gap-2">
+                  {newsData[activeTab]?.slice(1, 3).map((newsItem) => (
+                    <Link href={`/news/details/${newsItem.id}`} passHref>
+                      <ShortNewsCard
+                        key={newsItem.id}
+                        title={newsItem.title}
+                        imageSrc={`${imageBaseURL}/${newsItem?.featured_image}`}
+                        highlight={newsItem?.highlight_text}
+                      />
+                    </Link>
+                  ))}
+                </div>
+                <Image
+                  width={400}
+                  height={400}
+                  src={SideAds}
+                  alt="Blog Image"
+                  className="hidden md:flex md:w-[100px] lg:w-[90px] xl:w-[110px] object-fill mb-4"
+                  priority
                 />
               </div>
-              <Image
-                width={400}
-                height={400}
-                src={SideAds}
-                alt="Blog Image"
-                className="hidden md:flex md:w-[100px] lg:w-[90px] xl:w-[110px] object-fill mb-4"
-                priority
-              />
+            </div>
+
+            <div className="w-full md:w-[50%] lg:w-[40%] xl:w-full grid grid-cols-1 md:pt-0 md:pl-4">
+              {newsData[activeTab]?.slice(3).map((newsItem) => (
+                <Link href={`/news/details/${newsItem.id}`} passHref>
+                  <NewsCardHorizontal
+                    key={newsItem.id}
+                    imageSrc={`${imageBaseURL}/${newsItem?.featured_image}`}
+                    highlight={newsItem?.highlight_text}
+                    title={newsItem.title}
+                    right={false}
+                    left={false}
+                  />
+                </Link>
+              ))}
             </div>
           </div>
-
-          <div className=" w-full md:w-[50%] lg:w-[40%] xl:w-full grid grid-cols-1 pt-4 md:pt-0 md:pl-4  space-y-4">
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={false}
-            />
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={false}
-            />
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={false}
-            />
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={false}
-            />
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={false}
-            />
-          </div>
-
-
         </div>
-      </div>
+      )}
     </BodyContainer>
   );
 };

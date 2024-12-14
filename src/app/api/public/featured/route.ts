@@ -4,15 +4,19 @@ import prisma from "../../../../../prisma/prisma";
 
 export async function GET() {
   try {
-    // Fetch featured sections with related news data
+    // Fetch featured sections with related published news data
     const featuredNews = await prisma.featuredSection.findMany({
       include: {
         news: {
+          where: {
+            publish_status: "PUBLISHED", // Filter by published status
+          },
           select: {
             id: true,
             title: true,
             description: true,
             featured_image: true,
+            highlight_text: true, // Include highlight_text
           },
         },
       },

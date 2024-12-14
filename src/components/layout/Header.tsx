@@ -120,7 +120,7 @@ const Header: React.FC = () => {
               {/* <div>
                                 <Link href={'#'} className='flex items-center gap-2 md:leading-[2px] leading-[2px] text-lg md:text-xl font-bold px-[12px]'><FaCertificate /> সার্টিফিকেট</Link>
                             </div> */}
-              <div className="divider w-0 mx-0 divider-neutral divider-horizontal"></div>
+              
               <div>
                 <Link
                   onClick={() => {
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
                     modal?.showModal();
                   }}
                   href={"#"}
-                  className="flex items-center gap-1 md:leading-[2px] leading-[2px] text-xl font-bold pl-2"
+                  className="flex items-center gap-1 md:leading-[2px] leading-[2px] text-xl font-medium pl-2"
                 >
                   <IoSearchSharp /> খুঁজুন
                 </Link>
@@ -182,7 +182,7 @@ const Header: React.FC = () => {
                 {menuItems.map((menuItem) => (
                   <li key={menuItem.text}>
                     <Link
-                      className="hover:text-primary rounded-none md:text-left text-center sm:inline-block hidden text-dark text-xl md:text-[22px] font-semibold"
+                      className="hover:text-primary rounded-none md:text-left text-center sm:inline-block hidden text-dark text-xl md:text-[22px] font-medium"
                       href={menuItem.link}
                       replace={false}
                     >
@@ -229,7 +229,7 @@ const Header: React.FC = () => {
                     {/* mega modal */}
                     <BodyContainer>
                       <div className="flex md:flex-row flex-col md:gap-6 gap-4 py-6">
-                        <div className="lg:w-[65%] md:w-[100%] sm:w-[620px] sm:mx-auto w-full grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-4 grid-cols-2 lg:gap-1 md:gap-6 sm:gap-0 gap-6 text-xl md:text-2xl font-bold">
+                        <div className="lg:w-[65%] md:w-[100%] sm:w-[620px] sm:mx-auto w-full grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-4 grid-cols-2 lg:gap-1 md:gap-6 sm:gap-0 gap-6 text-xl md:text-2xl font-medium">
                           <ul>
                             {megaMenuItems.slice(0, 6).map((megaMenuItem) => (
                               <li key={megaMenuItem.text}>
@@ -300,7 +300,7 @@ const Header: React.FC = () => {
                           {/* important links */}
                           <ul
                             style={{ listStyleType: "disc" }}
-                            className="flex flex-wrap text-lg md:text-[23px] font-bold gap-y-0 list-disc border-t border-black pt-3 justify-between"
+                            className="flex flex-wrap text-lg md:text-[23px] font-medium gap-y-0 list-disc border-t border-black pt-3 justify-between"
                           >
                             <li>
                               <Link
@@ -390,7 +390,7 @@ const Header: React.FC = () => {
               ✕
             </button>
           </form>
-          <h3 className="font-bold text-3xl text-center">কি খুজতে চান?</h3>
+          <h3 className="font-medium text-3xl text-center">কি খুজতে চান?</h3>
           <form className="space-y-3 mt-4">
             <input
               type="text"

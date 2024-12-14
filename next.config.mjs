@@ -14,6 +14,10 @@ const nextConfig = {
             protocol: 'https',
             hostname: "dainikdhaka24.com" ,
           },
+          {
+            protocol: 'https',
+            hostname: "placehold.co" ,
+          },
         ],
       },
       async headers() {

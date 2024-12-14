@@ -11,8 +11,9 @@ import ad from "../../../assets/bangla-bid-ad.jpg";
 interface NewsData {
   id: number;
   title: string;
-  description: string;
-  featured_image: string;
+  highlight_text?: string;
+  description?: string;
+  featured_image?: string;
 }
 
 interface FeaturedNews {
@@ -81,12 +82,15 @@ const NewsFeatureSection: React.FC = () => {
                     />
                   </div>
                   <div className="px-2">
-                    <h1 className="text-light pt-3 text-2xl xl:text-4xl font-bold group-hover:text-red-500 line-clamp-2">
+                      <h5 className="text-red-500 font-semibold text-md md:text-md line-clamp-1 mb-1 pt-3">
+                        {featuredNews[0].news?.highlight_text}
+                      </h5>
+                    <h1 className="text-medium text-3xl xl:text-4xl group-hover:text-red-500 line-clamp-2">
                       {featuredNews[0].news?.title}
                     </h1>
                     <article className="text-wrap py-2">
                       <p className="line-clamp-3 text-xl">
-                        {truncateString(featuredNews[0].news?.description, 200)}
+                        {truncateString(featuredNews[0].news?.description, 150)}
                       </p>
                     </article>
                   </div>
@@ -95,7 +99,7 @@ const NewsFeatureSection: React.FC = () => {
             </div>
 
             {/* Short News Cards 2 & 3 */}
-            <div className="w-full grid grid-cols-2 md:grid-cols-1 gap-4">
+            <div className="w-full grid grid-cols-2 md:grid-cols-1 gap-2">
               {featuredNews.slice(1, 3).map((item) =>
                 item.news ? (
                   <ShortNewsCard
@@ -103,7 +107,7 @@ const NewsFeatureSection: React.FC = () => {
                     title={item.news.title}
                     imageSrc={`${imageBaseURL}/${item.news.featured_image}`}
                     onClick={() => (window.location.href = `/news/details/${item?.news?.id}`)}
-                    highlight=""
+                    highlight={item.news?.highlight_text}
                   />
                 ) : null
               )}
@@ -120,7 +124,7 @@ const NewsFeatureSection: React.FC = () => {
                     title={item.news.title}
                     imageSrc={`${imageBaseURL}/${item.news.featured_image}`}
                     onClick={() => (window.location.href = `/news/details/${item?.news?.id}`)}
-                    highlight=""
+                    highlight={item.news?.highlight_text}
                   />
                 ) : null
               )}

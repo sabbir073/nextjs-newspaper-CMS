@@ -25,7 +25,7 @@ const Dropdown: React.FC = () => {
         <div className="dropdown relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 text-lg md:text-xl font-bold pr-2 cursor-pointer md:leading-[2px] leading-[2px]"
+                className="flex items-center justify-center gap-2 text-xl pr-2 cursor-pointer leading-[5px]"
             >
                 <FaThumbsUp /> সঙ্গে থাকুন
             </button>

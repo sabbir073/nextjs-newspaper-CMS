@@ -94,7 +94,7 @@ export default function AddNewsPage() {
     setActive((oldValue) => (oldValue === value ? 0 : value));
   };
 
-  const handleSubmit = async (values: NewsFormValues, { resetForm }: { resetForm: () => void }) => {
+  const handleSubmit = async (values: NewsFormValues, { resetForm, setFieldValue }: { resetForm: () => void; setFieldValue: (field: string, value: any) => void }) => {
     setSubmitting(true);
   
     try {
@@ -164,10 +164,33 @@ export default function AddNewsPage() {
           text: "News added successfully!",
         });
   
-        // Reset form data after success
-        resetForm();
-        setEditorValue(""); // Clear the editor content
-        setSelectedCategories([]); // Clear selected categories
+        // Reset Formik fields
+      resetForm();
+      setEditorValue(""); // Clear the editor content
+      setSelectedCategories([]); // Clear selected categories
+
+      // Explicitly reset specific fields
+      setFieldValue("publish_status", "DRAFT");
+      setFieldValue("featured_image", null);
+      setFieldValue("meta_image", null);
+
+      // Clear file inputs manually
+      const featuredImageInput = document.getElementById("featured_image") as HTMLInputElement;
+      const metaImageInput = document.getElementById("meta_image") as HTMLInputElement;
+      if (featuredImageInput) featuredImageInput.value = "";
+      if (metaImageInput) metaImageInput.value = "";
+
+      // Reset `categories` inputs manually
+      const categoryInputs = document.querySelectorAll(".form-checkbox") as NodeListOf<HTMLInputElement>;
+      categoryInputs.forEach((input) => {
+        input.checked = false; // Uncheck category checkboxes
+      });
+
+      // Reset `publish_status` input manually
+      const publishStatusSelect = document.getElementById("publish_status") as HTMLSelectElement;
+      if (publishStatusSelect) {
+        publishStatusSelect.value = "DRAFT";
+      }
       } else {
         throw new Error(newsData.message || "Failed to add news.");
       }

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { YouTubeEmbed } from "@next/third-parties/google";
 
@@ -23,8 +24,7 @@ const NewsFeatureRightSide: React.FC = () => {
   const [hasFetchedVideoStory, setHasFetchedVideoStory] = useState(false);
   const [hasFetchedLatestNews, setHasFetchedLatestNews] = useState(false);
 
-
-  const tabs = [{ name: "সর্বশেষ" }, { name: "পঠিত" }];
+  const tabs = [{ name: "সর্বশেষ" }, { name: "জনপ্রিয়" }];
 
   const fetchVideoStory = async () => {
     if (hasFetchedVideoStory) return; // Skip fetch if already fetched
@@ -42,7 +42,6 @@ const NewsFeatureRightSide: React.FC = () => {
       setHasFetchedVideoStory(true); // Mark as fetched
     }
   };
-  
 
   const fetchLatestNews = async () => {
     if (hasFetchedLatestNews) return; // Skip fetch if already fetched
@@ -60,17 +59,12 @@ const NewsFeatureRightSide: React.FC = () => {
       setHasFetchedLatestNews(true); // Mark as fetched
     }
   };
-  
 
   useEffect(() => {
     fetchVideoStory();
     fetchLatestNews();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleItemClick = (text: string) => {
-    alert(`You clicked on: ${text}`);
-  };
 
   return (
     <div className="w-full h-full md:pt-2 lg:pt-0 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 lg:flex lg:flex-col">
@@ -83,20 +77,23 @@ const NewsFeatureRightSide: React.FC = () => {
           {videoUrl ? (
             <YouTubeEmbed videoid={videoUrl} />
           ) : (
-            <div/>
+            <div />
           )}
         </div>
 
         {/* Ad Section for Tablet */}
-        <div className="shadow-md rounded-xl hidden sm:block md:block lg:hidden mt-1">
-          <Image
-            width={250}
-            height={250}
-            src={Ad}
-            alt="Ad"
-            className="rounded-xl object-cover w-full"
-            priority
-          />
+        <div className="hidden sm:block md:block lg:hidden mt-1">
+          <center>
+            <Image
+              width={250}
+              height={220}
+              src={Ad}
+              alt="Ad"
+              className="object-cover w-[250px] h-[220px]"
+              priority
+              quality={100}
+            />
+          </center>
         </div>
       </div>
 
@@ -112,8 +109,8 @@ const NewsFeatureRightSide: React.FC = () => {
                 onClick={() => setActiveTab(tab.name)}
                 className={`w-full px-2 py-2 rounded-md ${
                   activeTab === tab.name
-                    ? "text-red-800 bg-white shadow-md text-xl font-medium"
-                    : "text-slate-600 bg-inherit text-xl font-medium"
+                    ? "text-red-800 bg-white shadow-md text-2xl font-medium"
+                    : "text-slate-600 bg-inherit text-2xl font-medium"
                 }`}
                 role="tab"
                 aria-selected={activeTab === tab.name}
@@ -130,24 +127,25 @@ const NewsFeatureRightSide: React.FC = () => {
             <div className="h-[490px] overflow-y-auto p-2">
               {latestNews.length > 0 ? (
                 latestNews.map((news) => (
-                  <NewsItem
-                    key={news.id}
-                    text={news.title}
-                    onClick={() => handleItemClick(news.title)}
-                    Icon={true}
-                  />
+                  <Link href={`/news/details/${news.id}`} key={news.id} passHref>
+                      <NewsItem
+                        text={news.title}
+                        onClick={() => console.log(`Navigating to: ${news.id}`)}
+                        Icon={true}
+                      />
+                  </Link>
                 ))
               ) : (
-                <div/>
+                <div />
               )}
             </div>
           )}
-          {activeTab === "পঠিত" && (
+          {activeTab === "জনপ্রিয়" && (
             <div className="h-[490px] overflow-y-auto p-2">
               <NewsItem
                 text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
                 onClick={() =>
-                  handleItemClick(
+                  console.log(
                     "৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
                   )
                 }
@@ -159,15 +157,17 @@ const NewsFeatureRightSide: React.FC = () => {
       </div>
 
       {/* Ad Section for Desktop and Mobile */}
-      <div className="shadow-md rounded-xl block md:hidden sm:hidden lg:block">
-        <Image
-          width={250}
-          height={250}
-          src={Ad}
-          alt="Ad"
-          className="rounded-xl object-cover w-full sm:w-[300px] sm:h-[300px]"
-          priority
-        />
+      <div className="block md:hidden sm:hidden lg:block">
+        <center>
+          <Image
+            width={250}
+            height={220}
+            src={Ad}
+            alt="Ad"
+            className="object-cover w-[250px] h-[220px]"
+            priority
+          />
+        </center>
       </div>
     </div>
   );

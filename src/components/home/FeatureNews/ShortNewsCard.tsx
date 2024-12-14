@@ -5,7 +5,7 @@ import Image from "next/image";
 interface BlogCardProps {
   imageSrc: string;
   title: string;
-  highlight: string;
+  highlight?: string;
   onClick?: () => void;
 }
 
@@ -17,10 +17,10 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
 }) => {
   return (
     <div
-      className="mx-auto w-full md:h-[280px] xl:w-full cursor-pointer bg-white rounded-xl shadow-md group"
+      className="mx-auto w-full xl:w-full cursor-pointer bg-white rounded-xl shadow-md group"
       onClick={onClick}
     >
-      <div className="relative w-full md:w-full h-[180px] md:h-[180px] xl:w-full rounded-t-lg overflow-hidden">
+      <div className="relative w-full md:w-full h-[130px] md:h-[180px] xl:w-full rounded-t-lg overflow-hidden">
         <Image
           src={imageSrc} // Path to your image
           alt="Blog Image"
@@ -32,13 +32,13 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
           className="object-fill w-full h-full rounded-t-xl transform transition-transform duration-300 group-hover:scale-105" // Adds hover zoom effect
         />
       </div>
-      <div className="py-4">
+      <div className="py-2">
         {highlight && (
-          <h1 className="text-red-500 text-xl lg:text-2xl font-bold line-clamp-2">
+          <h5 className="text-red-500 text-md md:text-md font-semibold line-clamp-1 ml-1">
             {highlight}
-          </h1>
+          </h5>
         )}
-        <h2 className="text-light mt-1 text-lg md:text-xl lg:text-2xl font-semibold group-hover:text-red-500">
+        <h2 className="text-medium text-xl lg:text-2xl group-hover:text-red-500 line-clamp-3 ml-1">
           {title}
         </h2>
       </div>
