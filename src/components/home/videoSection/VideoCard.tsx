@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { FaPlay } from "react-icons/fa";
+import Link from "next/link";
 
 interface VideoCardProps {
   videoUrl: string;
   title: string;
+  imgSrc: string;
+  linkTo: number;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ videoUrl, title }) => {
+const VideoCard: React.FC<VideoCardProps> = ({ videoUrl, title, imgSrc, linkTo }) => {
   const [playing, setPlaying] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -28,7 +31,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoUrl, title }) => {
           className="absolute top-0 left-0"
           playing={playing}
           controls={true} // Enable YouTube controls
-          light
+          light={imgSrc}
         />
 
         {/* Play button overlay */}
@@ -44,8 +47,10 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoUrl, title }) => {
         )}
       </div>
 
-      <div className="bg-white text-center py-2 line-clamp-2">
-        <h3 className="text-lg font-semibold text-black">{title}</h3>
+      <div className="bg-white text-center py-2 line-clamp-3">
+      <Link href={`/news/details/${linkTo}`}>
+        <h3 className="text-medium text-xl md:text-xl lg:text-2xl font-medium line-clamp-3 hover:text-red-500 px-2">{title}</h3>
+      </Link>
       </div>
     </div>
   );

@@ -7,13 +7,12 @@ import { FaChevronRight } from 'react-icons/fa';
 interface NewsItemProps {
     text: string;
     Icon:boolean;
-    onClick: () => void;
 }
 
-const NewsItem: React.FC<NewsItemProps> = ({ text,Icon, onClick }) => {
+const NewsItem: React.FC<NewsItemProps> = ({ text,Icon }) => {
     return (
         <div 
-            onClick={onClick} 
+            
             className="flex w-full px-4 items-start py-2 shadow-md rounded-xl  cursor-pointer hover:bg-gray-100"
         >
             {

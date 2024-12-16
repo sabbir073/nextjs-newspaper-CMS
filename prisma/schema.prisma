@@ -64,6 +64,7 @@ model News {
   meta_description String?
   meta_image       String?
   focus_keyword    String?
+  video_url        String?
   created_at       DateTime          @default(now())
   updated_at       DateTime          @updatedAt
   created_by_id    Int

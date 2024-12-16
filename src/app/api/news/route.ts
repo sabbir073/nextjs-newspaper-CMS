@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
     const {
       title,
       description,
+      video_url,
       highlight_text,
       reporter_name,
       publish_status,
@@ -53,6 +54,7 @@ export async function POST(req: NextRequest) {
         meta_title: meta_title || null,
         meta_description: meta_description || null,
         focus_keyword: focus_keyword || null,
+        video_url: video_url || null,
         meta_image: meta_image || null,
         created_by_id: created_by_id,
       },

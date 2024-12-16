@@ -25,19 +25,23 @@ const NationalNewsSection: React.FC = () => {
   const [categoryTwoNews, setCategoryTwoNews] = useState<NewsItem[]>([]);
   const [categoryThreeNews, setCategoryThreeNews] = useState<NewsItem[]>([]);
   const [hasFetched, setHasFetched] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (hasFetched) return; // Prevent multiple API calls
 
     const fetchCategoryNews = async (categoryId: number, item: number) => {
       try {
-        const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=${item}`);
+        const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=${item}&video=false`);
         if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
         const data: NewsItem[] = await response.json();
         return data;
       } catch (error) {
         console.error(`Error fetching news for category ${categoryId}:`, error);
         return [];
+      }
+      finally{
+        setLoading(false);
       }
     };
 
@@ -53,6 +57,10 @@ const NationalNewsSection: React.FC = () => {
 
     fetchAllNews();
   }, [hasFetched]);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <BodyContainer>

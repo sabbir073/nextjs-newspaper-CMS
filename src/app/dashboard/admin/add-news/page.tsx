@@ -19,6 +19,7 @@ const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), {
 type NewsFormValues = {
   title: string;
   description: string;
+  video_url: string;
   highlight_text: string;
   reporter_name: string;
   publish_status: string;
@@ -73,6 +74,7 @@ export default function AddNewsPage() {
   const initialValues: NewsFormValues = {
     title: "",
     description: "",
+    video_url: "",
     highlight_text: "",
     reporter_name: "",
     publish_status: "DRAFT",
@@ -136,6 +138,7 @@ export default function AddNewsPage() {
       const payload = {
         title: values.title,
         description: editorValue || null,
+        video_url: values.video_url || null,
         highlight_text: values.highlight_text || null,
         reporter_name: values.reporter_name || null,
         publish_status: values.publish_status,
@@ -250,6 +253,17 @@ export default function AddNewsPage() {
                       value={editorValue}
                       onChange={onChangeEditor}
                       className="appearance-none block w-full bg-white text-gray-700 border rounded-md py-3 px-4 mb-3 focus:outline-none focus:border-gray-500"
+                    />
+                    {/* video url */}
+                    <label htmlFor="video_url" className="pb-2">
+                      Youtube Video URL
+                    </label>
+                    <Field
+                      name="video_url"
+                      type="text"
+                      id="video_url"
+                      placeholder="Enter Youtube Video URL"
+                      className="form-input h-12 block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 focus:outline-none focus:border-gray-500"
                     />
                   </div>
                 </div>

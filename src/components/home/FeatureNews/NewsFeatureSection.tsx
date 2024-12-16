@@ -54,7 +54,7 @@ const NewsFeatureSection: React.FC = () => {
   }, []); // Dependency array ensures this runs once
 
   if (loading) {
-    return null;
+    return <div className="text-center"><span className="loading loading-spinner loading-lg"></span></div>;
   }
 
   return (

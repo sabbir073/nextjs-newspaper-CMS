@@ -3,14 +3,15 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { YouTubeEmbed } from "@next/third-parties/google";
 
 import NewsItem from "./NewsItem";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import Btn from "../../common/Btn";
 
 import Ad from "../../../assets/super-white-ad.webp";
+
+import TailwindDatePicker from "../../common/Datepicker";
 
 interface LatestNews {
   id: number;
@@ -23,7 +24,11 @@ const NewsFeatureRightSide: React.FC = () => {
   const [latestNews, setLatestNews] = useState<LatestNews[]>([]);
   const [hasFetchedVideoStory, setHasFetchedVideoStory] = useState(false);
   const [hasFetchedLatestNews, setHasFetchedLatestNews] = useState(false);
+  const router = useRouter(); // Next.js router for navigation
 
+  const [selectedDate, setSelectedDate] = useState<any>(null);
+
+  
   const tabs = [{ name: "সর্বশেষ" }, { name: "জনপ্রিয়" }];
 
   const fetchVideoStory = async () => {
@@ -63,17 +68,24 @@ const NewsFeatureRightSide: React.FC = () => {
   useEffect(() => {
     fetchVideoStory();
     fetchLatestNews();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleDateSubmit = () => {
+    if (selectedDate) {
+      const formattedDate = selectedDate.toString(); // Parse and convert date to string
+      alert("You have selected:" + formattedDate);
+      //router.push(`/archive/${formattedDate}`); // Navigate without reloading the page
+    }
+  };
 
   return (
     <div className="w-full h-full md:pt-2 lg:pt-0 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 lg:flex lg:flex-col">
       {/* Video Story Section */}
-      <div className="shadow-md">
+      <div className="shadow-md px-2">
         <div className="bg-base-content text-white text-xl md:text-2xl p-2 text-center rounded-t-xl rounded-xl my-2 lg:my-0">
           ভিডিও স্টোরি
         </div>
-        <div className="flex flex-col py-3">
+        <div className="flex flex-col py-3 px-1">
           {videoUrl ? (
             <YouTubeEmbed videoid={videoUrl} />
           ) : (
@@ -98,7 +110,7 @@ const NewsFeatureRightSide: React.FC = () => {
       </div>
 
       {/* Tabs Section */}
-      <div className="relative shadow-md rounded-md">
+      <div className="relative shadow-md rounded-md px-1 pb-3">
         <ul
           className="flex justify-between bg-slate-100 rounded-t-md p-2"
           role="list"
@@ -124,15 +136,11 @@ const NewsFeatureRightSide: React.FC = () => {
         {/* Tab Content */}
         <div className="bg-white rounded-b-md">
           {activeTab === "সর্বশেষ" && (
-            <div className="h-[490px] overflow-y-auto p-2">
+            <div className="h-[350px] overflow-y-auto p-2">
               {latestNews.length > 0 ? (
                 latestNews.map((news) => (
                   <Link href={`/news/details/${news.id}`} key={news.id} passHref>
-                      <NewsItem
-                        text={news.title}
-                        onClick={() => console.log(`Navigating to: ${news.id}`)}
-                        Icon={true}
-                      />
+                    <NewsItem text={news.title} Icon={true} />
                   </Link>
                 ))
               ) : (
@@ -141,19 +149,20 @@ const NewsFeatureRightSide: React.FC = () => {
             </div>
           )}
           {activeTab === "জনপ্রিয়" && (
-            <div className="h-[490px] overflow-y-auto p-2">
+            <div className="h-[350px] overflow-y-auto p-2">
               <NewsItem
                 text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-                onClick={() =>
-                  console.log(
-                    "৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-                  )
-                }
                 Icon={true}
               />
             </div>
           )}
         </div>
+
+        <Link href="/latest" passHref>
+          <button className="btn w-full btn-outline text-xl font-medium mt-3">
+            সর্বশেষ সব খবর
+          </button>
+        </Link>
       </div>
 
       {/* Ad Section for Desktop and Mobile */}
@@ -169,6 +178,11 @@ const NewsFeatureRightSide: React.FC = () => {
           />
         </center>
       </div>
+
+      {/* Archive Section */}
+      <TailwindDatePicker />
+
+
     </div>
   );
 };

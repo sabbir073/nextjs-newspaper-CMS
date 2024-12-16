@@ -44,7 +44,7 @@ const SportsNewsSection: React.FC = () => {
 
       setLoading(true);
       try {
-        const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=9`);
+        const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=9&video=false`);
         if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
         const data: NewsItem[] = await response.json();
         setNewsData((prevData) => ({ ...prevData, [categoryId]: data }));
@@ -125,7 +125,8 @@ const SportsNewsSection: React.FC = () => {
       )}
 
       {/* Loading Indicator */}
-      {loading && <div className="text-center text-black">Loading...</div>}
+      {loading && <div className="text-center"><span className="loading loading-spinner loading-lg"></span></div>}
+      
 
       {/* Content Section */}
       {!loading && newsData[activeTab] && (

@@ -30,7 +30,7 @@ const CountryNewsSection: React.FC = () => {
 
     const fetchNews = async () => {
       try {
-        const response = await fetch(`/api/public/news/category?categoryId=1&newsItem=7`);
+        const response = await fetch(`/api/public/news/category?categoryId=1&newsItem=7&video=false`);
         if (!response.ok) throw new Error("Failed to fetch news");
         const data: NewsItem[] = await response.json();
         setNews(data);
@@ -46,7 +46,7 @@ const CountryNewsSection: React.FC = () => {
   }, [hasFetched]);
 
   if (isLoading) {
-    return;
+    return null;
   }
 
   return (
@@ -98,19 +98,8 @@ const CountryNewsSection: React.FC = () => {
 
           {/* Right Side */}
           <div className="w-full flex flex-col justify-between xl:w-[32%] md:pt-4 xl:pt-0">
-            <center>
-              <Image
-                width={250}
-                height={250}
-                src={ad2}
-                alt="Ad Image"
-                className="w-full h-[220px] w-[250px] mb-4 rounded-md shadow-md"
-                priority
-                quality={100}
-              />
-            </center>
-
-            <div className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1">
+          
+          <div className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1">
               {news.slice(5).map((item, index) => (
                 <Link href={`/news/details/${item.id}`} key={index} passHref>
                  
@@ -124,6 +113,18 @@ const CountryNewsSection: React.FC = () => {
                 </Link>
               ))}
             </div>
+
+
+            <center>
+              <Image
+                width={250}
+                height={220}
+                src={ad2}
+                alt="Ad"
+                className="object-cover w-[250px] h-[220px]"
+                priority
+              />
+            </center>
           </div>
         </div>
       </div>

@@ -1,23 +1,63 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BodyContainer from "@/components/common/BodyContainer";
-import VideoCard from './VideoCard'
+import VideoCard from "./VideoCard";
+import Link from "next/link";
+
+interface VideoNewsItem {
+  id: number;
+  title: string;
+  video_url: string;
+  featured_image?: string;
+}
+
 const VideoSection: React.FC = () => {
+  const [videos, setVideos] = useState<VideoNewsItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasFetched, setHasFetched] = useState(false); // Prevent multiple API calls
+
+  useEffect(() => {
+    if (hasFetched) return; // Prevent additional API calls if already fetched
+
+    const fetchVideoNews = async () => {
+      try {
+        const response = await fetch(`/api/public/news/category?categoryId=&newsItem=4&video=true`);
+        if (!response.ok) throw new Error("Failed to fetch video news");
+        const data: VideoNewsItem[] = await response.json();
+        setVideos(data);
+        setHasFetched(true); // Mark as fetched
+      } catch (error) {
+        console.error("Error fetching video news:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVideoNews();
+  }, [hasFetched]);
+
+  if (isLoading) {
+    return null; // Optionally, return a spinner or loader component here
+  }
+
   return (
     <BodyContainer>
       <div className="pt-5">
-        <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl  py-1">
-          <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-          ভিডিও
-          </div>
-          <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-            আরও
-          </div>
+        <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
+          <Link href="/videos" passHref>
+            <div className="text-white text-2xl px-4 ml-4 cursor-pointer">ভিডিও নিউজ</div>
+          </Link>
         </div>
-        <div className="w-full grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-7 mt-5 ">
-          <VideoCard videoUrl="https://youtu.be/G1lAfJ5QJh4" title="মার্কিন নির্বাচন: এগিয়ে আছেন ট্রাম্প | US Presidential Election 2024" />
-          <VideoCard videoUrl="https://youtu.be/G1lAfJ5QJh4" title="মার্কিন নির্বাচন: এগিয়ে আছেন ট্রাম্প | US Presidential Election 2024" />
-          <VideoCard videoUrl="https://youtu.be/G1lAfJ5QJh4" title="মার্কিন নির্বাচন: এগিয়ে আছেন ট্রাম্প | US Presidential Election 2024" />
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-4 mt-5">
+          {videos.map((video) => (
+            <VideoCard
+              key={video.id}
+              videoUrl={video?.video_url}
+              title={video.title}
+              imgSrc={video.featured_image ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/${video.featured_image}` : ""}
+              linkTo={video.id}
+            />
+          ))}
         </div>
       </div>
     </BodyContainer>
