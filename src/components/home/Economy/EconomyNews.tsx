@@ -6,6 +6,7 @@ import NewsCard from "../FeatureNews/NewsCard";
 import NewsItem from "../FeatureNews/NewsItem";
 
 const EcomomyNews: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleItemClick = (text: string) => {
     alert(`You clicked on: ${text}`);
     // You could also navigate to a new page, fetch more details, etc.
@@ -39,20 +40,12 @@ const EcomomyNews: React.FC = () => {
             <div className="space-y-5 sm:w-1/2 md:w-full">
               <NewsItem
                 text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-                onClick={() =>
-                  handleItemClick(
-                    "মাত্র চার মাস বয়সেই বিলিয়নিয়ার, কে সেই সৌভাগ্যবান শিশু?"
-                  )
-                }
+                
                 Icon={false}
               />
               <NewsItem
                 text="৯০ হাজার বছরের পুরোনো ‘মানুষের পায়ের ছাপ’ মিললো মরক্কোতে"
-                onClick={() =>
-                  handleItemClick(
-                    "বোরকা পরে নারীর বেশে ভিক্ষা করেছিলেন পুরুষ, অতঃপর..."
-                  )
-                }
+                
                 Icon={false}
               />
             </div>
