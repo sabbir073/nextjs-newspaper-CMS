@@ -10,9 +10,13 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Field, Form, Formik } from "formik";
 
-import ReactQuill from 'react-quill-new';
+const ReactQuill = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
+
 import 'react-quill-new/dist/quill.snow.css'; // ReactQuill theme
 import DOMPurify from "dompurify"; // For sanitization
+import dynamic from "next/dynamic";
 
 const modules = {
   toolbar: [
