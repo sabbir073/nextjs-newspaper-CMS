@@ -113,7 +113,6 @@ const formats = [
   "strike",
   "script",
   "list",
-  "bullet",
   "indent",
   "align",
   "link",
