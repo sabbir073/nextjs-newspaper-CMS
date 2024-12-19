@@ -23,8 +23,10 @@ const VideoStorySection: React.FC = () => {
   });
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const fetchVideoStory = async () => {
+    if(hasFetched) return;
     try {
       setLoading(true);
       const response = await fetch("/api/video-story");
@@ -34,6 +36,7 @@ const VideoStorySection: React.FC = () => {
       }
 
       const data = await response.json();
+      setHasFetched(true);
       if (!data || typeof data !== "object") {
         throw new Error("Unexpected API response format.");
       }

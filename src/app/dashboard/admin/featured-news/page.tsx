@@ -16,6 +16,7 @@ interface FeaturedField {
 const FeaturedSection: React.FC = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [hasFetched, setHasFetched] = useState(false);
 
   // Initialize with 9 default fields
   const [fields, setFields] = useState<FeaturedField[]>(
@@ -28,6 +29,7 @@ const FeaturedSection: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const fetchFeaturedSection = async () => {
+    if(hasFetched) return;
     try {
       setLoading(true);
       const response = await fetch("/api/featured-section");
@@ -37,6 +39,7 @@ const FeaturedSection: React.FC = () => {
       }
   
       const data = await response.json();
+      setHasFetched(true);
   
       if (!Array.isArray(data)) {
         throw new Error("Unexpected API response format.");

@@ -9,6 +9,7 @@ import DataTable from "react-data-table-component";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import debounce from "lodash.debounce";
 
 interface User {
   id: number;
@@ -28,11 +29,32 @@ export default function AdminManageUsers() {
   const [loadingSearch, setLoadingSearch] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [search, setSearch] = useState("");
+  const [hasFetched, setHasFetched] = useState(false);
+
 
   // Fetch all users
   const fetchUsers = async () => {
+    if(hasFetched) return;
     try {
       setLoading(true);
+      const response = await fetch("/api/users");
+      const data = await response.json();
+      if (data.success) {
+        setUsersData(data.users);
+        setHasFetched(true);
+      } else {
+        console.error("Error fetching users:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchUsers2 = async () => {
+    try {
+      setLoadingSearch(true);
       const response = await fetch("/api/users");
       const data = await response.json();
       if (data.success) {
@@ -43,7 +65,7 @@ export default function AdminManageUsers() {
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
-      setLoading(false);
+      setLoadingSearch(false);
     }
   };
 
@@ -73,14 +95,14 @@ export default function AdminManageUsers() {
     }
   }, [status, router, session]);
 
-  const handleSearch = (value: string) => {
-    setSearch(value);
-    if (value) {
-      fetchSearchData(value);
-    } else {
-      fetchUsers();
-    }
-  };
+  const handleSearch = debounce((value: string) => {
+      setSearch(value);
+      if (value) {
+        fetchSearchData(value);
+      } else {
+        fetchUsers2(); // Re-fetch initial data only when search is cleared
+      }
+    }, 500);
 
   const handleDelete = async (id: number) => {
     const result = await Swal.fire({

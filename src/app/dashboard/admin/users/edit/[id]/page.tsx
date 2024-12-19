@@ -32,6 +32,7 @@ export default function AdminEditUser() {
   const [passwordVisible, setPasswordVisible] = useState(false); // State for toggling password visibility
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
@@ -48,6 +49,7 @@ export default function AdminEditUser() {
   }, [status, router]);
 
   useEffect(() => {
+    if(hasFetched) return;
     // Fetch user data to populate form
     async function fetchUser() {
       try {
@@ -61,6 +63,7 @@ export default function AdminEditUser() {
             role: data.user.role || "",
             display_name: data.user.display_name || "",
           });
+          setHasFetched(true);
         } else {
           Swal.fire("Error", "User not found.", "error");
           router.push("/dashboard/admin/users");
