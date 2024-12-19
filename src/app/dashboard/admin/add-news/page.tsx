@@ -3,18 +3,53 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import AnimateHeight from "react-animate-height";
-import "easymde/dist/easymde.min.css";
 import Swal from "sweetalert2";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Field, Form, Formik } from "formik";
 
-const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css'; // ReactQuill theme
+import DOMPurify from "dompurify"; // For sanitization
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, 4, 5, 6, false] }], // Headers (h1 - h6)
+    ["bold", "italic", "underline", "strike"], // Text styles
+    [{ script: "sub" }, { script: "super" }], // Subscript/Superscript
+    [{ list: "ordered" }, { list: "bullet" }], // Lists
+    [{ indent: "-1" }, { indent: "+1" }], // Indent/Outdent
+    [{ direction: "rtl" }], // Right-to-left text direction
+    [{ color: [] }, { background: [] }], // Text color and background color
+    [{ align: [] }], // Text alignment
+    ["link", "image", "video", "blockquote", "code-block"], // Media and block types
+    ["clean"], // Remove formatting
+  ],
+};
+
+
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "script",
+  "list",
+  "bullet",
+  "indent",
+  "align",
+  "link",
+  "image",
+  "video",
+  "blockquote",
+  "code-block",
+  "table",
+  "background",
+  "color",
+];
 
 type NewsFormValues = {
   title: string;
@@ -41,9 +76,7 @@ export default function AddNewsPage() {
   const [categories, setCategories] = useState<{ id: string; title: string }[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
-  const onChangeEditor = useCallback((value: string) => {
-    setEditorValue(value);
-  }, []);
+
 
   useEffect(() => {
     async function fetchCategories() {
@@ -137,7 +170,7 @@ export default function AddNewsPage() {
   
       const payload = {
         title: values.title,
-        description: editorValue || null,
+        description: DOMPurify.sanitize(editorValue) || null, // Sanitize HTML
         video_url: values.video_url || null,
         highlight_text: values.highlight_text || null,
         reporter_name: values.reporter_name || null,
@@ -249,10 +282,12 @@ export default function AddNewsPage() {
                     <label htmlFor="description" className="pb-2">
                       Description
                     </label>
-                    <SimpleMdeReact
+                    <ReactQuill
                       value={editorValue}
-                      onChange={onChangeEditor}
-                      className="appearance-none block w-full bg-white text-gray-700 border rounded-md py-3 px-4 mb-3 focus:outline-none focus:border-gray-500"
+                      onChange={setEditorValue} // Handle Quill value
+                      modules={modules}
+                      formats={formats}
+                      className="quill-editor h-[300px] bg-white text-gray-700 border rounded-md mb-3"
                     />
                     {/* video url */}
                     <label htmlFor="video_url" className="pb-2">
