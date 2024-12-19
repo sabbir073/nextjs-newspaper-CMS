@@ -10,13 +10,23 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Field, Form, Formik } from "formik";
 
-const ReactQuill = dynamic(() => import("react-quill-new"), {
-  ssr: false,
-});
-
 import 'react-quill-new/dist/quill.snow.css'; // ReactQuill theme
 import DOMPurify from "dompurify"; // For sanitization
 import dynamic from "next/dynamic";
+
+// Dynamically import ReactQuill and register plugins
+const ReactQuill = dynamic(async () => {
+  const quillModule = await import("react-quill-new");
+  const Quill = quillModule.Quill;
+
+  // Import and register plugins
+  const QuillResizeImage = (await import("quill-resize-image")).default;
+  Quill.register("modules/resize", QuillResizeImage);
+
+  return quillModule.default; // Return ReactQuill component
+}, {
+  ssr: false, // Disable server-side rendering
+});
 
 const modules = {
   toolbar: [
@@ -31,6 +41,7 @@ const modules = {
     ["link", "image", "video", "blockquote", "code-block"], // Media and block types
     ["clean"], // Remove formatting
   ],
+  resize: {},
 };
 
 
