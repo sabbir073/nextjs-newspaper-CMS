@@ -1,4 +1,5 @@
 // app/dashboard/admin/AdminEditUser.tsx
+/* eslint-disable react-hooks/exhaustive-deps */
 
 "use client";
 
