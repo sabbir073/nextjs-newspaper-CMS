@@ -4,8 +4,8 @@ import prisma from "../../../../../../prisma/prisma";
 
 export async function GET(request: NextRequest) {
   try {
-    // Extract query parameters
-    const { searchParams } = new URL(request.url);
+    // Extract query parameters using request.nextUrl.searchParams
+    const searchParams = request.nextUrl.searchParams;
     const categoryId = searchParams.get("categoryId");
     const newsItem = searchParams.get("newsItem");
     const video = searchParams.get("video"); // Get the 'video' parameter
