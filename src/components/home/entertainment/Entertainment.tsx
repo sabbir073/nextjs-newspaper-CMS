@@ -32,7 +32,7 @@ const EntertainmentNews: React.FC = () => {
           },
           body: JSON.stringify({
             categoryId: 1,
-            newsItem: 7,
+            newsItem: 9,
             video: false,
           }),
         });
