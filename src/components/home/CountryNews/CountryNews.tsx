@@ -27,10 +27,21 @@ const CountryNewsSection: React.FC = () => {
 
   useEffect(() => {
     if (hasFetched) return; // Prevent multiple API calls
-
+  
     const fetchNews = async () => {
       try {
-        const response = await fetch(`/api/public/news/category?categoryId=1&newsItem=7&video=false`);
+        const response = await fetch(`/api/public/news/category`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: 1,
+            newsItem: 7,
+            video: false,
+          }),
+        });
+  
         if (!response.ok) throw new Error("Failed to fetch news");
         const data: NewsItem[] = await response.json();
         setNews(data);
@@ -41,7 +52,7 @@ const CountryNewsSection: React.FC = () => {
         setIsLoading(false);
       }
     };
-
+  
     fetchNews();
   }, [hasFetched]);
 

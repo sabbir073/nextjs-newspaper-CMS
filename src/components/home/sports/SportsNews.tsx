@@ -41,10 +41,21 @@ const SportsNewsSection: React.FC = () => {
   const fetchCategoryNews = useCallback(
     async (categoryId: number) => {
       if (newsData[categoryId]) return; // Skip API call if data is already cached
-
+  
       setLoading(true);
       try {
-        const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=9&video=false`);
+        const response = await fetch(`/api/public/news/category`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: categoryId,
+            newsItem: 9, // Number of news items to fetch
+            video: false, // Additional parameter
+          }),
+        });
+  
         if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
         const data: NewsItem[] = await response.json();
         setNewsData((prevData) => ({ ...prevData, [categoryId]: data }));
@@ -56,6 +67,7 @@ const SportsNewsSection: React.FC = () => {
     },
     [newsData]
   );
+  
 
   useEffect(() => {
     // Fetch data for the default active tab

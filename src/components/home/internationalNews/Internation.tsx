@@ -27,12 +27,21 @@ const DynamicNewsSection: React.FC = () => {
 
   useEffect(() => {
     if (hasFetched) return; // Prevent multiple API calls
-
+  
     const fetchCategoryNews = async (categoryId: number, limit: number) => {
       try {
-        const response = await fetch(
-          `/api/public/news/category?categoryId=${categoryId}&newsItem=${limit}&video=false`
-        );
+        const response = await fetch(`/api/public/news/category`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: categoryId,
+            newsItem: limit,
+            video: false, // Pass additional parameters as needed
+          }),
+        });
+  
         if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
         const data: NewsItem[] = await response.json();
         return data;
@@ -41,7 +50,7 @@ const DynamicNewsSection: React.FC = () => {
         return [];
       }
     };
-
+  
     const fetchAllNews = async () => {
       const [newsForLeftSection, newsForRightSection] = await Promise.all([
         fetchCategoryNews(4, 6), // Category ID for left section
@@ -52,9 +61,10 @@ const DynamicNewsSection: React.FC = () => {
       setHasFetched(true);
       setLoading(false);
     };
-
+  
     fetchAllNews();
   }, [hasFetched]);
+  
 
   if (loading) {
     return null;

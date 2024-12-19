@@ -29,34 +29,45 @@ const NationalNewsSection: React.FC = () => {
 
   useEffect(() => {
     if (hasFetched) return; // Prevent multiple API calls
-
+  
     const fetchCategoryNews = async (categoryId: number, item: number) => {
       try {
-        const response = await fetch(`/api/public/news/category?categoryId=${categoryId}&newsItem=${item}&video=false`);
+        const response = await fetch(`/api/public/news/category`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: categoryId,
+            newsItem: item,
+            video: false, // Pass additional parameters as needed
+          }),
+        });
+  
         if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
         const data: NewsItem[] = await response.json();
         return data;
       } catch (error) {
         console.error(`Error fetching news for category ${categoryId}:`, error);
         return [];
-      }
-      finally{
+      } finally {
         setLoading(false);
       }
     };
-
+  
     const fetchAllNews = async () => {
       const [newsForCategoryTwo, newsForCategoryThree] = await Promise.all([
-        fetchCategoryNews(2,5),
-        fetchCategoryNews(3,5),
+        fetchCategoryNews(2, 5), // Category ID 2 with 5 items
+        fetchCategoryNews(3, 5), // Category ID 3 with 5 items
       ]);
       setCategoryTwoNews(newsForCategoryTwo);
       setCategoryThreeNews(newsForCategoryThree);
       setHasFetched(true); // Mark as fetched
     };
-
+  
     fetchAllNews();
   }, [hasFetched]);
+  
 
   if (loading) {
     return null;

@@ -18,23 +18,36 @@ const VideoSection: React.FC = () => {
 
   useEffect(() => {
     if (hasFetched) return; // Prevent additional API calls if already fetched
-
+  
     const fetchVideoNews = async () => {
+      setIsLoading(true);
       try {
-        const response = await fetch(`/api/public/news/category?categoryId=&newsItem=4&video=true`);
+        const response = await fetch(`/api/public/news/category`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: null, // Empty category as per your query
+            newsItem: 4, // Limit the number of news items
+            video: true, // Fetch only video news
+          }),
+        });
+  
         if (!response.ok) throw new Error("Failed to fetch video news");
         const data: VideoNewsItem[] = await response.json();
-        setVideos(data);
+        setVideos(data); // Store the fetched data
         setHasFetched(true); // Mark as fetched
       } catch (error) {
         console.error("Error fetching video news:", error);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Stop the loading indicator
       }
     };
-
+  
     fetchVideoNews();
   }, [hasFetched]);
+  
 
   if (isLoading) {
     return null; // Optionally, return a spinner or loader component here

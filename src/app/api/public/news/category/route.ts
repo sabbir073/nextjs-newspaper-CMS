@@ -2,23 +2,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../../prisma/prisma";
 
-export async function GET(request: NextRequest) {
-  try {
-    // Extract query parameters using request.nextUrl.searchParams
-    const searchParams = request.nextUrl.searchParams;
-    const categoryId = searchParams.get("categoryId");
-    const newsItem = searchParams.get("newsItem");
-    const video = searchParams.get("video"); // Get the 'video' parameter
+export const dynamic = "force-dynamic";
 
-    // Build the where clause dynamically
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json(); // Parse JSON body
+    const { categoryId, newsItem, video } = body; // Extract data
+
     const whereClause: any = {
-      publish_status: "PUBLISHED", // Only published news
+      publish_status: "PUBLISHED",
       featuredSections: {
-        none: {}, // Exclude news with a relation in FeaturedSection
+        none: {},
       },
     };
 
-    // Add category filtering if categoryId is provided
     if (categoryId) {
       whereClause.categories = {
         some: {
@@ -27,16 +24,12 @@ export async function GET(request: NextRequest) {
       };
     }
 
-    // Add video conditions based on the 'video' parameter
-    if (video === "true") {
-      whereClause.video_url = {
-        not: null, // Video URL must not be null
-      };
-    } else if (video === "false") {
-      whereClause.video_url = null; // Video URL must be null
+    if (video === true) {
+      whereClause.video_url = { not: null };
+    } else if (video === false) {
+      whereClause.video_url = null;
     }
 
-    // Fetch the latest news based on the dynamically built where clause
     const news = await prisma.news.findMany({
       where: whereClause,
       select: {
@@ -48,9 +41,9 @@ export async function GET(request: NextRequest) {
         video_url: true,
       },
       orderBy: {
-        created_at: "desc", // Order by creation date
+        created_at: "desc",
       },
-      take: Number(newsItem), // Limit to news items
+      take: Number(newsItem),
     });
 
     return NextResponse.json(news, { status: 200 });
