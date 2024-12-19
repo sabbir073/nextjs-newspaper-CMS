@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 "use client";
-import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -11,17 +9,32 @@ import Swal from "sweetalert2";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Field, Form, Formik } from "formik";
-import DOMPurify from "dompurify"; // For sanitization
-import 'quill-paste-smart';
 
 // Dynamic Import of ReactQuill and Quill
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-let Quill;
+
+import  { Quill } from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css'; // ReactQuill theme
+import DOMPurify from "dompurify"; // For sanitization
+
+
+// Plugins
+import QuillResizeImage from 'quill-resize-image';
+import 'quill-paste-smart';
+import dynamic from "next/dynamic";
+// import QuillTableBetter from "quill-table-better";
+// import 'quill-table-better/dist/quill-table-better.css'
+
+
+// Register Plugins
 if (typeof window !== "undefined") {
-  Quill = require("react-quill-new").Quill;
-  const QuillResizeImage = require("quill-resize-image").default;
   Quill.register("modules/resize", QuillResizeImage);
+  // Quill.register({
+  //   'modules/table-better': QuillTableBetter
+  // }, true);
 }
+
+
 
 const modules = {
   toolbar: [
@@ -349,16 +362,13 @@ export default function AddNewsPage() {
                     <label htmlFor="description" className="pb-2 text-xl">
                       Description
                     </label>
-                    {ReactQuill && (
-                      <ReactQuill
+                    <ReactQuill
                       value={editorValue}
                       onChange={onChangeEditor} // Handle Quill value
                       modules={modules}
                       formats={formats}
                       className="quill-editor h-[300px] bg-white text-gray-700 border rounded-md mb-3"
                     />
-                    )}
-                    
                     {/* video url */}
                     <label htmlFor="video_url" className="pb-2 text-xl mt-[70px]">
                       Youtube Video URL
