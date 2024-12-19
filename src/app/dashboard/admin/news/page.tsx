@@ -1,4 +1,3 @@
-// app/dashboard/admin/AdminSeeNews.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import debounce from "lodash.debounce";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
 
 interface News {
   id: number;
@@ -29,13 +29,32 @@ export default function AdminSeeNews() {
   const [newsData, setNewsData] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingSearch, setLoadingSearch] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [search, setSearch] = useState("");
+  const [hasFetchedInitialData, setHasFetchedInitialData] = useState(false);
 
   // Fetch initial data without search query
   const fetchInitialData = async () => {
+    if (hasFetchedInitialData) return; // Avoid multiple fetches for initial data
     try {
       setLoading(true);
+      const response = await fetch("/api/news");
+      const data = await response.json();
+      if (data.success) {
+        setNewsData(data.news);
+        setHasFetchedInitialData(true); // Mark initial data as fetched
+      } else {
+        console.error("Error fetching initial data:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching initial data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchInitialData2 = async () => {
+    try {
+      setLoadingSearch(true);
       const response = await fetch("/api/news");
       const data = await response.json();
       if (data.success) {
@@ -46,7 +65,7 @@ export default function AdminSeeNews() {
     } catch (error) {
       console.error("Error fetching initial data:", error);
     } finally {
-      setLoading(false);
+      setLoadingSearch(false);
     }
   };
 
@@ -71,17 +90,17 @@ export default function AdminSeeNews() {
   useEffect(() => {
     if (status === "unauthenticated") {
       router.replace("/login");
-    } else if (status === "authenticated" && session?.user.role === "ADMIN") {
+    } else if (status === "authenticated" && session?.user.role === "ADMIN" && !hasFetchedInitialData) {
       fetchInitialData();
     }
-  }, [status, router, session]);
+  }, [status, router, session, hasFetchedInitialData]);
 
   const handleSearch = debounce((value: string) => {
     setSearch(value);
     if (value) {
       fetchSearchData(value);
     } else {
-      fetchInitialData();
+      fetchInitialData2(); // Re-fetch initial data only when search is cleared
     }
   }, 500);
 
@@ -115,7 +134,7 @@ export default function AdminSeeNews() {
   };
 
   const handleView = (id: number) => {
-    window.open(`/news/details/${id}`, '_blank'); // Open the news view page in a new tab
+    window.open(`/news/details/${id}`, "_blank"); // Open the news view page in a new tab
   };
 
   const handleEdit = (id: number) => {
@@ -126,10 +145,14 @@ export default function AdminSeeNews() {
   if (status === "unauthenticated" || session?.user.role !== "ADMIN") return null;
 
   const columns = [
-    { name: "ID", selector: (row: News) => row.id, sortable: true, grow: 0 },
-    { name: "Title", selector: (row: News) => row.title, sortable: true },
-    { name: "Reporter", selector: (row: News) => row.reporter_name || "N/A", sortable: true, grow: 0 },
-    { name: "Status", selector: (row: News) => row.publish_status, sortable: true },
+    { name: "ID", selector: (row: News) => row.id, sortable: true, grow: 0, minWidth: "70px" },
+    { name: "Title", selector: (row: News) => row.title, sortable: true, wrap: true, minWidth: "300px" },
+    { name: "Reporter", selector: (row: News) => row.reporter_name || "N/A", sortable: true, grow: 0, wrap: true, minWidth: "120px" },
+    { 
+      name: "Status", 
+      selector: (row: News) => row.publish_status.charAt(0).toUpperCase() + row.publish_status.slice(1).toLowerCase(), 
+      sortable: true,
+    },
     {
       name: "Categories",
       selector: (row: News) =>
@@ -138,15 +161,11 @@ export default function AdminSeeNews() {
     },
     {
       name: "Created At",
-      selector: (row: News) =>
-        new Date(row.created_at).toLocaleDateString("en-US", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }),
+      selector: (row: News) => format(new Date(row.created_at), "dd-MM-yyyy hh:mm a"),
       sortable: true,
+      minWidth: "210px",
     },
-    { name: "Created By", selector: (row: News) => row.created_by.name, sortable: false },
+    { name: "Created By", selector: (row: News) => row.created_by.name, sortable: false, minWidth: "200px", wrap: true, },
     {
       name: "Actions",
       cell: (row: News) => (
@@ -169,6 +188,12 @@ export default function AdminSeeNews() {
         backgroundColor: "rgb(134 239 172 / var(--tw-bg-opacity))",
         fontSize: "16px",
         fontWeight: "bold",
+      },
+    },
+    cells: {
+      style: {
+        fontSize: "18px",
+        minHeight: "50px",
       },
     },
   };

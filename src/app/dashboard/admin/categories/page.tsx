@@ -25,13 +25,16 @@ const Categories: React.FC = () => {
   const [newCategoryTitle, setNewCategoryTitle] = useState("");
   const [newCategorySlug, setNewCategorySlug] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const fetchCategories = async () => {
+    if(hasFetched) return;
     try {
       setLoading(true);
       const response = await fetch("/api/category");
       const categories = await response.json();
       setCategories(categories);
+      setHasFetched(true);
     } catch (error) {
       console.error("Error fetching categories:", error);
     } finally {
