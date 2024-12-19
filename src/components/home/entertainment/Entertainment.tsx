@@ -1,102 +1,107 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NewsCard from "../FeatureNews/NewsCard";
 import NewsCardHorizontal from "../HorizontalCard";
 import BodyContainer from "@/components/common/BodyContainer";
+import Link from "next/link";
+
+const imageBaseURL = process.env.NEXT_PUBLIC_IMAGE_URL;
+
+interface NewsItem {
+  id: number;
+  title: string;
+  description?: string;
+  highlight_text?: string;
+  featured_image?: string;
+}
 
 const EntertainmentNews: React.FC = () => {
+  const [entertainmentNews, setEntertainmentNews] = useState<NewsItem[]>([]);
+  const [hasFetched, setHasFetched] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (hasFetched) return; // Prevent multiple API calls
+
+    const fetchNews = async () => {
+      try {
+        const response = await fetch(`/api/public/news/category?categoryId=1&newsItem=9&video=false`);
+        if (!response.ok) throw new Error("Failed to fetch news");
+        const data: NewsItem[] = await response.json();
+        setEntertainmentNews(data);
+        setHasFetched(true); // Mark as fetched
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, [hasFetched]);
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <BodyContainer>
       <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-3 mt-6">
-        <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-        খেলা
-        </div>
-        <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-          আরও
-        </div>
+        <Link href="/category/sports" passHref>
+          <div className="text-white text-2xl px-4 ml-4 cursor-pointer">খেলাধুলা</div>
+        </Link>
       </div>
 
-      <div className=" lg:flex space-y-5 md:space-y-0 pt-4 lg:space-x-4 ">
-      
-        <div className=" w-full lg:w-[30%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-          {/* left side  */}
-          <NewsCardHorizontal
-            imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-            highlight=""
-            title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-            right={false}
-            left={true}
-          />
-          <NewsCardHorizontal
-            imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-            highlight=""
-            title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-            right={false}
-            left={true}
-          />
-          <NewsCardHorizontal
-            imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-            highlight=""
-            title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-            right={false}
-            left={true}
-          />
-          <NewsCardHorizontal
-            imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-            highlight=""
-            title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-            right={false}
-            left={true}
-          />
+      <div className="lg:flex space-y-3 md:space-y-0 pt-2 lg:space-x-4">
+        {/* Left Side */}
+        <div className="w-full lg:w-[30%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-5">
+          {entertainmentNews.slice(1, 5).map((news) => (
+            <Link href={`/news/details/${news.id}`} key={news.id} passHref>
+              <NewsCardHorizontal
+                imageSrc={`${imageBaseURL}/${news.featured_image}`}
+                highlight={news.highlight_text || ""}
+                title={news.title}
+                right={false}
+                left={true}
+              />
+            </Link>
+          ))}
         </div>
 
-        <div className="space-y-4 md:space-y-0 md:space-x-4 md:flex md:pt-6 lg:pt-0 lg:w-[70%] ">
-          <div className="w-full  md:w-[50%] lg:w-[55%]">
-            {/* Main  */}
-            <NewsCard
-              title="চোরাচালানের পেঁয়াজে বাজার সয়লাব, খাতুনগঞ্জেও বড় দরপতন"
-              description="
-                        বাংলাদেশ ফুটবল দল বর্তমানে কুয়েতে অবস্থান করছে। আগামীকাল কুয়েতের সময় রাত সাড়ে নয়টায় মাঠে ফিলিস্তিনের বিপক্ষে বিশ্বকাপের বাছাইপর্বের ম্যাচ খেলবেন জামাল ভূঁইয়ারা। সৌদিতে দুই সপ্তাহ ক্যাপ শেষে এবার কুয়েতের আবহাওয়া কন্ডিশনে এবং ফিলিস্তিনের বিপক্ষে ম্যাচকে সামনে রেখে শেষবারের মতো নিজেদের ঝালিয়ে নিতে অনুশীলনে ব্যস্ত সময় পার করছে বাংলাদেশ দল। আসন্ন ম্যাচে ফিলিস্তিনের আক্রমণভাগই ... "
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              clamp={4}
-              maxLength={140}
-              onClick={() => alert("News card clicked!")}
-            />
-          </div>
+        {/* Right Side */}
+        <div className="space-y-3 md:space-y-0 md:space-x-4 md:flex md:pt-6 lg:pt-0 lg:w-[70%]">
+          {/* Main News */}
+          {entertainmentNews[0] && (
+            <div className="w-full md:w-[50%] lg:w-[55%]">
+              <Link href={`/news/details/${entertainmentNews[0].id}`} passHref>
+                <NewsCard
+                  title={entertainmentNews[0].title}
+                  description={entertainmentNews[0].description || ""}
+                  imageSrc={`${imageBaseURL}/${entertainmentNews[0].featured_image}`}
+                  clamp={4}
+                  maxLength={140}
+                  highlight={entertainmentNews[0].highlight_text || ""}
+                  onClick={() => {}}
+                />
+              </Link>
+            </div>
+          )}
 
-          <div className="block md:w-[50%] lg:w-[45%] space-y-4 md:space-y-5">
-            {/* right side  */}
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={true}
-            />
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={true}
-            />
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={true}
-            />
-            <NewsCardHorizontal
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              highlight=""
-              title="জিম্মিদের উদ্ধারে ‘মধ্যস্থতাকারী’র সঙ্গে যোগাযোগ রাখছে বাংলাদেশ"
-              right={false}
-              left={true}
-            />
+          {/* Additional News */}
+          <div className="block md:w-[50%] space-y-2 md:space-y-3 grid gap-2">
+            {entertainmentNews.slice(5, 9).map((news) => (
+              <Link href={`/news/details/${news.id}`} key={news.id} passHref>
+                <NewsCardHorizontal
+                  imageSrc={`${imageBaseURL}/${news.featured_image}`}
+                  highlight={news.highlight_text || ""}
+                  title={news.title}
+                  right={false}
+                  left={true}
+                />
+              </Link>
+            ))}
           </div>
         </div>
-
       </div>
     </BodyContainer>
   );

@@ -483,3 +483,7 @@ h5 {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+.ql-editor {
+  font-size: 20px; /* Adjust editor content font size */
+}

@@ -48,7 +48,7 @@ const VideoSection: React.FC = () => {
             <div className="text-white text-2xl px-4 ml-4 cursor-pointer">ভিডিও নিউজ</div>
           </Link>
         </div>
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-4 mt-5">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-4 mt-5">
           {videos.map((video) => (
             <VideoCard
               key={video.id}

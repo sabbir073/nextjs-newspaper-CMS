@@ -23,10 +23,22 @@ interface FeaturedNews {
   news: NewsData | null;
 }
 
-const truncateString = (input: string | undefined, maxLength: number): string => {
-  if (!input) return "";
-  return input.length > maxLength ? `${input.substring(0, maxLength)}...` : input;
+const stripHtml = (html: string): string => {
+  // Use a regular expression to remove all HTML tags
+  return html.replace(/<\/?[^>]+(>|$)/g, "").trim();
 };
+
+const truncateText = (text: string, maxLength: number): string => {
+  if (!text) return "";
+  return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+};
+
+// Combined function
+const truncateString = (html: string, maxLength: number): string => {
+  const plainText = stripHtml(html); // Convert HTML to plain text
+  return truncateText(plainText, maxLength); // Truncate to desired length
+};
+
 
 const NewsFeatureSection: React.FC = () => {
   const [featuredNews, setFeaturedNews] = useState<FeaturedNews[]>([]);
@@ -87,7 +99,7 @@ const NewsFeatureSection: React.FC = () => {
                       </h1>
                       <article className="text-wrap py-2">
                         <p className="line-clamp-3 text-xl">
-                          {truncateString(featuredNews[0].news.description, 150)}
+                          {truncateString(featuredNews[0].news.description || "", 150)}
                         </p>
                       </article>
                     </div>

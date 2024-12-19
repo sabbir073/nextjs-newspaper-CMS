@@ -12,10 +12,20 @@ interface BlogCardProps {
   onClick?: () => void;
 }
 
-const truncateString = (input: string, maxLength: number): string => {
-  return input.length > maxLength
-    ? `${input.substring(0, maxLength)}...`
-    : input;
+const stripHtml = (html: string): string => {
+  // Use a regular expression to remove all HTML tags
+  return html.replace(/<\/?[^>]+(>|$)/g, "").trim();
+};
+
+const truncateText = (text: string, maxLength: number): string => {
+  if (!text) return "";
+  return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+};
+
+// Combined function
+const truncateString = (html: string, maxLength: number): string => {
+  const plainText = stripHtml(html); // Convert HTML to plain text
+  return truncateText(plainText, maxLength); // Truncate to desired length
 };
 
 const NewsCard: React.FC<BlogCardProps> = ({

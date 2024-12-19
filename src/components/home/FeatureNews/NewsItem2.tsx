@@ -14,7 +14,7 @@ const NewsItem2: React.FC<NewsItemProps> = ({ text, Icon, highlight, onClick }) 
   return (
     <div
       onClick={onClick}
-      className="flex w-full px-2 py-2 shadow-md rounded-xl cursor-pointer hover:bg-gray-100"
+      className="flex w-full px-2 py-2 shadow-md rounded-xl cursor-pointer"
     >
       {Icon && (
         <div className="mr-2 mt-1.5">

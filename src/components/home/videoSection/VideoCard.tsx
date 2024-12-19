@@ -21,7 +21,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoUrl, title, imgSrc, linkTo }
   if (!isMounted) return null; // Skip rendering until mounted
 
   return (
-    <div className="relative w-full  bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    <div className="relative w-full rounded-lg overflow-hidden shadow-lg">
       <div className="relative h-48 w-full">
         {/* Video player */}
         <ReactPlayer

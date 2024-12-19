@@ -162,7 +162,7 @@ const SportsNewsSection: React.FC = () => {
 
           <div className="block lg:w-2/3 bg-red-40 md:flex">
             {/* Right Side */}
-            <div className="w-full md:w-[60%] lg:w-[60%] xl:w-full">
+            <div className="w-full md:w-[60%] lg:w-[60%] xl:w-full mb-3 md:mb-0">
               <div className="flex flex-col md:flex-row md:space-x-4">
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-1 gap-2">
                   {newsData[activeTab]?.slice(1, 3).map((newsItem) => (
@@ -186,7 +186,7 @@ const SportsNewsSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="w-full md:w-[50%] lg:w-[40%] xl:w-full grid grid-cols-1 md:pt-0 md:pl-4">
+            <div className="w-full md:w-[50%] lg:w-[40%] xl:w-full grid grid-cols-1 md:pl-4 gap-2">
               {newsData[activeTab]?.slice(3).map((newsItem) => (
                 <Link href={`/news/details/${newsItem.id}`} passHref key={newsItem.id}>
                   <NewsCardHorizontal

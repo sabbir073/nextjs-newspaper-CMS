@@ -4,17 +4,128 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import AnimateHeight from "react-animate-height";
-import "easymde/dist/easymde.min.css";
 import Swal from "sweetalert2";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Field, Form, Formik } from "formik";
 
-const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
+import ReactQuill, { Quill } from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css'; // ReactQuill theme
+import DOMPurify from "dompurify"; // For sanitization
+
+
+
+// Plugins
+import QuillResizeImage from 'quill-resize-image';
+import 'quill-paste-smart';
+// import QuillTableBetter from "quill-table-better";
+// import 'quill-table-better/dist/quill-table-better.css'
+
+
+// Register Plugins
+if (typeof window !== "undefined") {
+  Quill.register("modules/resize", QuillResizeImage);
+  // Quill.register({
+  //   'modules/table-better': QuillTableBetter
+  // }, true);
+}
+
+
+
+const modules = {
+  toolbar: [
+    // ['table-better'],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }], // Headers (h1 - h6)
+    ["bold", "italic", "underline", "strike"], // Text styles
+    [{ script: "sub" }, { script: "super" }], // Subscript/Superscript
+    [{ list: "ordered" }, { list: "bullet" }], // Lists
+    [{ indent: "-1" }, { indent: "+1" }], // Indent/Outdent
+    [{ direction: "rtl" }], // Right-to-left text direction
+    [{ color: [] }, { background: [] }], // Text color and background color
+    [{ align: [] }], // Text alignment
+    ["link", "image", "video", "blockquote", "code-block"], // Media and block types
+    ["clean"], // Remove formatting
+  ],
+
+  resize: {
+    locale: {},
+  },
+
+  clipboard: {
+    allowed: {
+        tags: ['a', 'b', 'strong', 'u', 's', 'i', 'p', 'br', 'ul', 'ol', 'li', 'span'],
+        attributes: ['href', 'rel', 'target', 'class']
+    },
+    customButtons: [
+        {
+            module: 'quillEmbeds',
+            allowedTags: ['embed'],
+            allowedAttr: ['width', 'height'],
+        }
+    ],
+    keepSelection: true,
+    substituteBlockElements: true,
+    magicPasteLinks: true,
+    hooks: {
+        uponSanitizeElement(node: any, data: any, config: any) {
+            console.log(node);
+        },
+    },
+
+    handleImagePaste(image: any) {
+        console.log("Image file pasted", image);
+    },
+    removeConsecutiveSubstitutionTags: true
+},
+
+  // 'table-better': {
+  //     language: 'en_US',
+  //     menus: ['column', 'row', 'merge', 'table', 'cell', 'wrap', 'copy', 'delete'],
+  //     toolbarButtons: {
+  //       whiteList: [
+  //         'bold',
+  //         'italic',
+  //         'underline',
+  //         'strike',
+  //         'size',
+  //         'color',
+  //         'background',
+  //         'font',
+  //         'list',
+  //         'header',
+  //         'align',
+  //         'link',
+  //         'image'
+  //       ],
+  //       singleWhiteList: ['link', 'image']
+  //     },
+  //     toolbarTable: true,
+  //   },
+};
+
+
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "script",
+  "list",
+  "bullet",
+  "indent",
+  "align",
+  "link",
+  "image",
+  "video",
+  "blockquote",
+  "code-block",
+  "table",
+  "background",
+  "color",
+];
+
 
 type NewsFormValues = {
   title: string;
@@ -137,7 +248,7 @@ export default function AddNewsPage() {
   
       const payload = {
         title: values.title,
-        description: editorValue || null,
+        description: DOMPurify.sanitize(editorValue) || null, // Sanitize HTML
         video_url: values.video_url || null,
         highlight_text: values.highlight_text || null,
         reporter_name: values.reporter_name || null,
@@ -230,10 +341,10 @@ export default function AddNewsPage() {
               <div className="grid xl:grid-cols-4 gap-x-6 w-full">
                 <div className="xl:col-span-3 lg:col-span-2 md:col-span-2">
                   <div className="flex flex-col">
-                    <h6 className="text-base py-2 text-gray-900 text-xl">Add News</h6>
+                    <h6 className="py-2 text-gray-900 text-3xl text-primary">Add News</h6>
 
                     {/* Title */}
-                    <label htmlFor="title" className="pb-2">
+                    <label htmlFor="title" className="pb-2 text-xl">
                       Title
                     </label>
                     <Field
@@ -242,20 +353,22 @@ export default function AddNewsPage() {
                       id="title"
                       placeholder="Enter News Title"
                       required
-                      className="form-input h-12 block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 focus:outline-none focus:border-gray-500"
+                      className="form-input text-2xl block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 focus:outline-none focus:border-gray-500"
                     />
 
                     {/* Description */}
-                    <label htmlFor="description" className="pb-2">
+                    <label htmlFor="description" className="pb-2 text-xl">
                       Description
                     </label>
-                    <SimpleMdeReact
+                    <ReactQuill
                       value={editorValue}
-                      onChange={onChangeEditor}
-                      className="appearance-none block w-full bg-white text-gray-700 border rounded-md py-3 px-4 mb-3 focus:outline-none focus:border-gray-500"
+                      onChange={onChangeEditor} // Handle Quill value
+                      modules={modules}
+                      formats={formats}
+                      className="quill-editor h-[300px] bg-white text-gray-700 border rounded-md mb-3"
                     />
                     {/* video url */}
-                    <label htmlFor="video_url" className="pb-2">
+                    <label htmlFor="video_url" className="pb-2 text-xl mt-[70px]">
                       Youtube Video URL
                     </label>
                     <Field
@@ -263,7 +376,7 @@ export default function AddNewsPage() {
                       type="text"
                       id="video_url"
                       placeholder="Enter Youtube Video URL"
-                      className="form-input h-12 block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 focus:outline-none focus:border-gray-500"
+                      className="form-input block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 focus:outline-none focus:border-gray-500 text-xl"
                     />
                   </div>
                 </div>
@@ -277,7 +390,7 @@ export default function AddNewsPage() {
                       }`}
                       onClick={() => togglePara(1)}
                     >
-                      <span>General</span>
+                      <span className="text-xl">General</span>
                       <svg
                         className={`h-5 w-5 ${
                           active === 1 ? "rotate-180" : ""
@@ -297,29 +410,29 @@ export default function AddNewsPage() {
                     </div>
                     <AnimateHeight duration={50} height={active === 1 ? "auto" : 0}>
                       <div className="p-4 pt-2">
-                        <label htmlFor="highlight_text">Highlight Text</label>
+                        <label className="text-lg" htmlFor="highlight_text">Highlight Text</label>
                         <Field
                           name="highlight_text"
                           type="text"
                           id="highlight_text"
                           placeholder="Enter highlight text"
-                          className="form-input h-12 mb-2 block w-full bg-gray-100 border rounded py-3 px-4"
+                          className="form-input mb-2 block w-full bg-gray-100 border rounded py-3 px-4 focus:outline-none focus:border-gray-500 text-xl"
                         />
 
-                        <label htmlFor="reporter_name">Reporter Name</label>
+                        <label className="text-lg" htmlFor="reporter_name">Reporter Name</label>
                         <Field
                           name="reporter_name"
                           type="text"
                           id="reporter_name"
                           placeholder="Enter reporter name"
-                          className="form-input h-12 mb-2 block w-full bg-gray-100 border rounded py-3 px-4"
+                          className="form-input mb-2 block w-full bg-gray-100 border rounded py-3 px-4 focus:outline-none focus:border-gray-500 text-xl"
                         />
 
-                        <label htmlFor="publish_status">Publish Status</label>
+                        <label className="text-lg" htmlFor="publish_status">Publish Status</label>
                         <select
                           name="publish_status"
                           id="publish_status"
-                          className="form-select block w-full bg-gray-100 border rounded py-2 px-4"
+                          className="form-select block w-full bg-gray-100 border rounded py-2 px-4 focus:outline-none text-lg"
                           defaultValue="DRAFT" // Default to "DRAFT" in uppercase
                           onChange={(e) => setFieldValue("publish_status", e.target.value.toUpperCase())} // Ensure uppercase value
                         >
@@ -339,7 +452,7 @@ export default function AddNewsPage() {
                       }`}
                       onClick={() => togglePara(2)}
                     >
-                      <span>Tags</span>
+                      <span className="text-xl">Tags</span>
                       <svg
                         className={`h-5 w-5 ${
                           active === 2 ? "rotate-180" : ""
@@ -364,7 +477,7 @@ export default function AddNewsPage() {
                           type="text"
                           id="tag"
                           placeholder="separated by comma"
-                          className="form-input h-12 block w-full bg-gray-100 border rounded py-3 px-4"
+                          className="form-input block w-full bg-gray-100 border rounded py-3 px-4 focus:outline-none focus:border-gray-500 text-xl"
                         />
                       </div>
                     </AnimateHeight>
@@ -376,7 +489,7 @@ export default function AddNewsPage() {
                       }`}
                       onClick={() => togglePara(3)}
                     >
-                      <span>Categories</span>
+                      <span className="text-xl">Categories</span>
                       <svg
                         className={`h-5 w-5 ${
                           active === 3 ? "rotate-180" : ""
@@ -401,12 +514,12 @@ export default function AddNewsPage() {
                             <label
                               key={category.id}
                               htmlFor={`category_${category.id}`}
-                              className="flex items-center gap-2"
+                              className="flex items-center gap-2 text-2xl"
                             >
                               <input
                                 type="checkbox"
                                 id={`category_${category.id}`}
-                                className="form-checkbox"
+                                className="form-checkbox text-3xl"
                                 value={category.id}
                                 onChange={(e) => {
                                   if (e.target.checked) {
@@ -418,11 +531,11 @@ export default function AddNewsPage() {
                                   }
                                 }}
                               />
-                              <span className="text-xl">{category.title}</span>
+                              <span className="text-2xl">{category.title}</span>
                             </label>
                           ))
                         ) : (
-                          <p>No categories available</p>
+                          <p className="text-xl">No categories available</p>
                         )}
                       </div>
                     </AnimateHeight>
@@ -434,7 +547,7 @@ export default function AddNewsPage() {
                       }`}
                       onClick={() => togglePara(4)}
                     >
-                      <span>Featured Image</span>
+                      <span className="text-xl">Featured Image</span>
                       <svg
                         className={`h-5 w-5 ${
                           active === 4 ? "rotate-180" : ""
@@ -476,7 +589,7 @@ export default function AddNewsPage() {
                       }`}
                       onClick={() => togglePara(5)}
                     >
-                      <span>SEO</span>
+                      <span className="text-xl">SEO</span>
                       <svg
                         className={`h-5 w-5 ${
                           active === 5 ? "rotate-180" : ""
@@ -496,34 +609,34 @@ export default function AddNewsPage() {
                     </div>
                     <AnimateHeight duration={50} height={active === 5 ? "auto" : 0}>
                       <div className="p-4">
-                        <label htmlFor="meta_title">Meta Title</label>
+                        <label className="text-lg" htmlFor="meta_title">Meta Title</label>
                         <Field
                           name="meta_title"
                           type="text"
                           id="meta_title"
                           placeholder="Enter meta title"
-                          className="form-input h-12 mb-2 block w-full bg-gray-100 border rounded py-3 px-4"
+                          className="form-input mb-2 block w-full bg-gray-100 border rounded py-3 px-4 focus:outline-none focus:border-gray-500 text-xl"
                         />
 
-                        <label htmlFor="meta_description">Meta Description</label>
+                        <label className="text-lg" htmlFor="meta_description">Meta Description</label>
                         <Field
                           name="meta_description"
                           type="text"
                           id="meta_description"
                           placeholder="Enter meta description"
-                          className="form-input h-12 mb-2 block w-full bg-gray-100 border rounded py-3 px-4"
+                          className="form-input mb-2 block w-full bg-gray-100 border rounded py-3 px-4 focus:outline-none focus:border-gray-500 text-xl"
                         />
 
-                        <label htmlFor="focus_keyword">Focus Keyword</label>
+                        <label className="text-lg" htmlFor="focus_keyword">Focus Keyword</label>
                         <Field
                           name="focus_keyword"
                           type="text"
                           id="focus_keyword"
                           placeholder="Enter focus keyword"
-                          className="form-input h-12 mb-2 block w-full bg-gray-100 border rounded py-3 px-4"
+                          className="form-input text-xl mb-2 block w-full bg-gray-100 border rounded py-3 px-4 focus:outline-none focus:border-gray-500"
                         />
 
-                        <label htmlFor="meta_image">Meta Image</label>
+                        <label className="text-lg" htmlFor="meta_image">Meta Image</label>
                         <input
                           name="meta_image"
                           type="file"

@@ -25,3 +25,4 @@ declare module "next-auth" {
     display_name: string; // Add display_name to JWT
   }
 }
+
