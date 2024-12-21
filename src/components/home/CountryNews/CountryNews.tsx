@@ -132,7 +132,7 @@ const CountryNewsSection: React.FC = () => {
                 height={220}
                 src={ad2}
                 alt="Ad"
-                className="object-cover w-[250px] h-[220px]"
+                className="object-cover w-[250px] h-[220px] mt-5"
                 priority
               />
             </center>

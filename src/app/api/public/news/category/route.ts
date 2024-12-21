@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
         highlight_text: true,
         featured_image: true,
         video_url: true,
+        reporter_name: true,
       },
       orderBy: {
         created_at: "desc",

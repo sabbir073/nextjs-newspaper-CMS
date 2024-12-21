@@ -26,7 +26,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
         alt="Blog Image"
         width={130}
         height={100}
-        className="object-cover w-full h-full"
+        className="object-cover w-full h-full transform transition-transform duration-300 group-hover:scale-105"
         quality={100}
         priority
       />

@@ -20,7 +20,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
       className="mx-auto w-full xl:w-full cursor-pointer bg-white rounded-xl shadow-md group"
       onClick={onClick}
     >
-      <div className="relative w-full md:w-full h-[130px] md:h-[180px] xl:w-full rounded-t-lg overflow-hidden">
+      <div className="relative w-full md:w-full h-[120px] sm:h-[200px] md:h-[180px] xl:w-full rounded-t-lg overflow-hidden">
         <Image
           src={imageSrc} // Path to your image
           alt="Blog Image"

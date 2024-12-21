@@ -1,177 +1,122 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React from "react";
-import Image from "next/image";
-import SubtitleTitle from "../SubtitleTitle";
+
+import React, { useEffect, useState } from "react";
+import NewsCard from "../FeatureNews/NewsCard";
+import NewsItem2 from "../FeatureNews/NewsItem2";
 import BodyContainer from "@/components/common/BodyContainer";
-interface BlogCardProps {
-  imageSrc: string;
-  title?: string;
-  description?: string;
-  clamp?: number;
-  maxLength?: number;
-  onClick?: () => void;
+import Link from "next/link";
+
+const imageBaseURL = process.env.NEXT_PUBLIC_IMAGE_URL;
+
+interface NewsItem {
+  id: number;
+  title: string;
+  highlight_text?: string;
+  featured_image?: string;
 }
 
-const stripHtml = (html: string): string => {
-  // Use a regular expression to remove all HTML tags
-  return html.replace(/<\/?[^>]+(>|$)/g, "").trim();
-};
+const LifestyleNews: React.FC = () => {
+  const [healthNews, setHealthNews] = useState<NewsItem[]>([]);
+  const [lifestyleNews, setLifestyleNews] = useState<NewsItem[]>([]);
+  const [expatNews, setExpatNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasFetched, setHasFetched] = useState(false);
 
-const truncateText = (text: string, maxLength: number): string => {
-  if (!text) return "";
-  return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
-};
+  useEffect(() => {
+    if (hasFetched) return;
 
-// Combined function
-const truncateString = (html: string, maxLength: number): string => {
-  const plainText = stripHtml(html); // Convert HTML to plain text
-  return truncateText(plainText, maxLength); // Truncate to desired length
-};
+    const fetchCategoryNews = async (categoryId: number, limit: number) => {
+      try {
+        const response = await fetch(`/api/public/news/category`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: categoryId,
+            newsItem: limit,
+            video: false,
+          }),
+        });
 
-const NewsCard: React.FC<BlogCardProps> = ({
-  imageSrc,
-  title,
-  description = "",
-  clamp = 2,
-  maxLength = 100,
-  onClick,
-}) => {
-  return (
-    <div
-      // md:w-[398px]
-      className="w-full  pb-4 group cursor-pointer  shadow-md rounded-xl "
-      onClick={onClick}
-    >
-      <Image
-        width={900}
-        height={900}
-        src={imageSrc}
-        alt="Blog Image"
-        className="w-full h-[200px] xl:h-[240px] object-fill rounded-t-xl"
-        priority
-      />
-      <div className="px-2">
-        <h1 className="text-black pt-3 px-2 text-2xl xl:text-4xl font-bold group-hover:text-red-500 line-clamp-2">
-          {title}
-        </h1>
-        <article className="text-wrap px-2 py-2">
-          <p className={`line-clamp-${clamp} text-xl`}>
-            {truncateString(description, maxLength)}
-          </p>
-        </article>
+        if (!response.ok) throw new Error(`Failed to fetch news for category ${categoryId}`);
+        const data: NewsItem[] = await response.json();
+        return data;
+      } catch (error) {
+        console.error(`Error fetching news for category ${categoryId}:`, error);
+        return [];
+      }
+    };
+
+    const fetchAllNews = async () => {
+      const [healthData, lifestyleData, expatData] = await Promise.all([
+        fetchCategoryNews(1, 4), // Health category ID
+        fetchCategoryNews(2, 4), // Lifestyle category ID
+        fetchCategoryNews(3, 4), // Expatriate category ID
+      ]);
+
+      setHealthNews(healthData);
+      setLifestyleNews(lifestyleData);
+      setExpatNews(expatData);
+      setHasFetched(true);
+      setLoading(false);
+    };
+
+    fetchAllNews();
+  }, [hasFetched]);
+
+  if (loading) {
+    return null;
+  }
+
+  const renderCategorySection = (title: string, link: string, news: NewsItem[]) => (
+    <div className="w-full sm:pt-">
+      <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0">
+        <Link href={link} passHref>
+          <div className="text-white text-2xl px-4 ml-4 cursor-pointer">{title}</div>
+        </Link>
+      </div>
+
+      <div className="space-y-2 sm:mt-4">
+        {/* First News Item */}
+        {news[0] && (
+          <Link href={`/news/details/${news[0].id}`} passHref>
+            <NewsCard
+              title={news[0].title}
+              imageSrc={`${imageBaseURL}/${news[0].featured_image}`}
+              highlight={news[0].highlight_text || ""}
+              onClick={() => {}}
+            />
+          </Link>
+        )}
+
+        {/* Bottom News Items */}
+        <div className="space-y-4">
+          {news.slice(1).map((item) => (
+            <Link href={`/news/details/${item.id}`} key={item.id} passHref>
+              <NewsItem2
+                text={item.title}
+                highlight={item.highlight_text || ""}
+                Icon={false}
+                onClick={() => {}}
+              />
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
 
-const LifestyleNews: React.FC = () => {
   return (
     <BodyContainer>
       <div className="pt-5 md:pt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className=" w-full  sm:pt- ">
-          {/* left side  */}
-          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              স্বাস্থ্য
-            </div>
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              আরও
-            </div>
-          </div>
-
-          <div className="space-y-4 sm:mt-4">
-            <NewsCard
-              title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
-              description=""
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              clamp={3}
-              maxLength={180}
-              onClick={() => alert("News card clicked!")}
-            />
-
-            <div className="space-y-4 ">
-              <SubtitleTitle
-                subtitle=""
-                title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
-              />
-
-              <SubtitleTitle
-                subtitle=""
-                title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'"
-              />
-
-              <SubtitleTitle
-                subtitle=""
-                title="ঢাকার নদী, লেক, টিউবওয়েলের পানি ও পোশাকে 'রাসায়নিক'!"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="w-full  sm:pt- ">
-          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              লাইফস্টাইল
-            </div>
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              আরও
-            </div>
-          </div>
-
-          <div className="space-y-4 sm:mt-4">
-            <NewsCard
-              title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
-              description=""
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              clamp={3}
-              maxLength={180}
-              onClick={() => alert("News card clicked!")}
-            />
-            <SubtitleTitle subtitle="" title="সানবার্ন এবং সান পয়জনিং কী? " />
-
-            <SubtitleTitle subtitle="" title="সানবার্ন এবং সান পয়জনিং কী? " />
-
-            <SubtitleTitle subtitle="" title="সানবার্ন এবং সান পয়জনিং কী? " />
-          </div>
-        </div>
-
-        <div className="w-full  sm:pt- ">
-          <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1 my-2 sm:my-0 ">
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-            প্রবাসে বাংলাদেশ
-            </div>
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              আরও
-            </div>
-          </div>
-
-          <div className="space-y-4 sm:mt-4">
-            <NewsCard
-              title="ইউটিউব সার্চ হিস্ট্রি মুছে ফেলার উপায়"
-              description=""
-              imageSrc={`https://d1uo68v5hl2ge5.cloudfront.net/selfie.png`}
-              clamp={3}
-              maxLength={180}
-              onClick={() => alert("News card clicked!")}
-            />
-
-            <div className="space-y-4">
-              <SubtitleTitle
-                subtitle=""
-                title="শ্রমিকদের ১৮ দফা দাবি বাস্তবায়নে সম্মত হয়েছে"
-              />
-
-              <SubtitleTitle
-                subtitle=""
-                title="শ্রমিকদের ১৮ দফা দাবি বাস্তবায়নে সম্মত হয়েছে"
-              />
-              <SubtitleTitle
-                subtitle=""
-                title="শ্রমিকদের ১৮ দফা দাবি বাস্তবায়নে সম্মত হয়েছে"
-              />
-            </div>
-          </div>
-        </div>
+        {/* First Two Categories */}
+        <div className="col-span-1">{renderCategorySection("স্বাস্থ্য", "/category/health", healthNews)}</div>
+        <div className="col-span-1">{renderCategorySection("লাইফস্টাইল", "/category/lifestyle", lifestyleNews)}</div>
+        
+        {/* Third Category */}
+        <div className="col-span-1 sm:col-span-2 lg:col-span-1">{renderCategorySection("প্রবাসে বাংলাদেশ", "/category/expat", expatNews)}</div>
       </div>
     </BodyContainer>
   );

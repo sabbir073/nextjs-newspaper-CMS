@@ -39,7 +39,7 @@ const NewsCard: React.FC<BlogCardProps> = ({
 }) => {
   return (
     <div
-      className="w-full pb-4 group cursor-pointer shadow-md rounded-xl"
+      className="w-full group cursor-pointer shadow-md rounded-xl"
       onClick={onClick}
     >
       <div className="relative w-full h-[250px] sm:h-[220px] md:h-[250px] lg:h-[250px] overflow-hidden rounded-t-xl">
@@ -48,7 +48,7 @@ const NewsCard: React.FC<BlogCardProps> = ({
           height={250}
           src={imageSrc}
           alt="Blog Image"
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full transform transition-transform duration-300 group-hover:scale-105"
           priority
         />
       </div>
