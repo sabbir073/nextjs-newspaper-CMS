@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState, useEffect } from "react";
-import Slider from "react-slick";
+import Slider, { CustomArrowProps } from "react-slick";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
 import { FaXTwitter, FaInstagram } from "react-icons/fa6";
 import BodyContainer from "@/components/common/BodyContainer";
 import Link from "next/link";
+import Image from "next/image";
 
 const imageBaseURL = process.env.NEXT_PUBLIC_IMAGE_URL;
 
@@ -44,7 +45,7 @@ interface NewsItem {
   featured_image: string;
 }
 
-const CustomNextArrow = (props: any) => {
+const CustomNextArrow: React.FC<CustomArrowProps> = (props) => {
   const { className, onClick } = props;
   return (
     <div
@@ -67,7 +68,7 @@ const CustomNextArrow = (props: any) => {
   );
 };
 
-const CustomPrevArrow = (props: any) => {
+const CustomPrevArrow: React.FC<CustomArrowProps> = (props) => {
   const { className, onClick } = props;
   return (
     <div
@@ -171,7 +172,9 @@ const SliderNews: React.FC = () => {
             <Slider {...settings}>
               {newsItems.map((item) => (
                 <div key={item.id} className="relative">
-                  <img
+                  <Image
+                    width={1000}
+                    height={800}
                     src={`${imageBaseURL}/${item.featured_image}`}
                     alt={item.title}
                     className="w-full h-[250px] md:h-[390px] lg:h-[450px] xl:h-[390px] object-cover rounded-md"
