@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
+import React, { useState, useEffect } from "react";
+import Slider from "react-slick";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
 import { FaXTwitter, FaInstagram } from "react-icons/fa6";
 import BodyContainer from "@/components/common/BodyContainer";
+import Link from "next/link";
+
+const imageBaseURL = process.env.NEXT_PUBLIC_IMAGE_URL;
 
 type ButtonProps = {
   url?: string;
@@ -36,188 +38,183 @@ const SocialButton: React.FC<ButtonProps> = ({
   );
 };
 
+interface NewsItem {
+  id: number;
+  title: string;
+  featured_image: string;
+}
+
+const CustomNextArrow = (props: any) => {
+  const { className, onClick } = props;
+  return (
+    <div
+      className={`${className} slick-next`}
+      style={{
+        display: "block",
+        position: "absolute",
+        right: "10px",
+        top: "50%",
+        transform: "translateY(-50%)",
+        zIndex: 2,
+        color: "black",
+        fontSize: "24px",
+        cursor: "pointer",
+      }}
+      onClick={onClick}
+    >
+      
+    </div>
+  );
+};
+
+const CustomPrevArrow = (props: any) => {
+  const { className, onClick } = props;
+  return (
+    <div
+      className={`${className} slick-prev`}
+      style={{
+        display: "block",
+        position: "absolute",
+        left: "10px",
+        top: "50%",
+        transform: "translateY(-50%)",
+        zIndex: 2,
+        color: "black",
+        fontSize: "24px",
+        cursor: "pointer",
+      }}
+      onClick={onClick}
+    >
+      
+    </div>
+  );
+};
+
 const SliderNews: React.FC = () => {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const desktopContent = [
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/album%2Fimages%2F63a21145-618e-47bc-924e-71afa4aea0fd.png?alt=media",
-      text: "ঘূর্ণিঝড় রিমালের ক্ষয়ক্ষতি",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/album%2Fimages%2F63a21145-618e-47bc-924e-71afa4aea0fd.png?alt=media",
-      text: "Second Image Text for Desktop",
-    },
-  ];
-
-  const mobileContent = [
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/album%2Fimages%2F63a21145-618e-47bc-924e-71afa4aea0fd.png?alt=media",
-      text: "ঘূর্ণিঝড় রিমালের ক্ষয়ক্ষতি",
-    },
-    {
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/eimattro.appspot.com/o/album%2Fimages%2F63a21145-618e-47bc-924e-71afa4aea0fd.png?alt=media",
-      text: "Second Image Text for Mobile",
-    },
-  ];
-
-  const nextImage = () => {
-    if (desktopContent.length - 1 > currentImage) {
-      setCurrentImage((prev) => prev + 1);
-    }
-  };
-
-  const prevImage = () => {
-    if (currentImage !== 0) {
-      setCurrentImage((prev) => prev - 1);
-    }
-  };
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (desktopContent.length - 1 > currentImage) {
-        nextImage();
-      } else {
-        setCurrentImage(0);
-      }
-    }, 5000);
+    const fetchNewsItems = async () => {
+      try {
+        const response = await fetch(`/api/public/news/category`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: 1, // Example category ID
+            newsItem: 10, // Limit to 10 news items
+            video: false,
+          }),
+        });
 
-    return () => clearInterval(interval);
-  }, [currentImage, desktopContent.length]);
+        if (!response.ok) throw new Error("Failed to fetch news items");
+        const data: NewsItem[] = await response.json();
+        setNewsItems(data);
+      } catch (error) {
+        console.error("Error fetching news items:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNewsItems();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    arrows: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
+    responsive: [
+      {
+        breakpoint: 768, // Tablet and below
+        settings: {
+          arrows: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 480, // Mobile
+        settings: {
+          arrows: true,
+          dots: false,
+        },
+      },
+    ],
+  };
 
   return (
     <BodyContainer>
-      <div className=" lg:flex md:space-x-2 lg:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-8 mb-4">
+      <div className="lg:flex md:space-x-2 lg:space-x-4 space-y-4 md:space-y-0 pt-2 md:pt-8 mb-4">
+        {/* Slider Section */}
         <div className="w-full lg:w-[68%]">
-      
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              ছবি
-            </div>
+            
+            <Link href="/photo" passHref>
+              <div className="text-white text-2xl px-4 ml-4 cursor-pointer">ছবি</div>
+            </Link>
           </div>
 
-          <div className="w-full grid grid-cols-1 pt-4  gap-4">
-            <div className="container rounded pb-5 flex flex-col justify-center sm:flex-row">
-              <div className="relative h-64 md:h-96 w-full bg-slate-200 overflow-hidden">
-                <div className="absolute z-10 h-full w-full md:flex items-center hidden">
-                  <div className="flex justify-between w-full text-2xl ml-2 mr-2">
-                    <button
-                      onClick={prevImage}
-                      className={`bg-indigo-100 shadow-md rounded-md px-1 py-3 hover:bg-indigo-200 ${
-                        currentImage === 0
-                          ? "opacity-50 cursor-not-allowed"
-                          : ""
-                      }`}
-                      disabled={currentImage === 0}
-                    >
-                      <FaAngleLeft className="p-0.5" />
-                    </button>
-                    <button
-                      onClick={nextImage}
-                      className={`bg-indigo-100 shadow-md rounded-md px-1 py-3 hover:bg-indigo-200 ${
-                        currentImage === desktopContent.length - 1
-                          ? "opacity-50 cursor-not-allowed"
-                          : ""
-                      }`}
-                      disabled={currentImage === desktopContent.length - 1}
-                    >
-                      <FaAngleRight className="p-0.5" />
-                    </button>
+          <div className="pt-4 md:mb-5">
+            <Slider {...settings}>
+              {newsItems.map((item) => (
+                <div key={item.id} className="relative">
+                  <img
+                    src={`${imageBaseURL}/${item.featured_image}`}
+                    alt={item.title}
+                    className="w-full h-[250px] md:h-[390px] lg:h-[450px] xl:h-[390px] object-cover rounded-md"
+                  />
+                  <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-2xl text-white p-2 rounded hover:text-gray-400">
+                  <Link href={`/news/details/${item.id}`} passHref>
+                    {item.title}
+                  </Link>
                   </div>
                 </div>
-
-                {/* Desktop and Tablet version */}
-                <div className="hidden md:flex h-full w-full overflow-hidden">
-                  {desktopContent.map((item, index) => (
-                    <div
-                      className="w-full h-full min-w-full min-h-full transition-transform duration-500 ease-in-out relative"
-                      key={index}
-                      style={{
-                        transform: `translateX(-${currentImage * 100}%)`,
-                      }}
-                    >
-                      <Image
-                        width={1600}
-                        height={1600}
-                        className="w-full h-full object-cover"
-                        alt="home page image"
-                        src={item.image}
-                      />
-                      <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white p-2 rounded">
-                        {item.text}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Mobile version */}
-                <div className="flex h-full w-full overflow-hidden md:hidden">
-                  {mobileContent.map((item, index) => (
-                    <div
-                      className="w-full h-full min-w-full min-h-full transition-transform duration-500 ease-in-out relative"
-                      key={index}
-                      style={{
-                        transform: `translateX(-${currentImage * 100}%)`,
-                      }}
-                    >
-                      <Image
-                        priority
-                        width={1600}
-                        height={1600}
-                        className="w-full h-full object-cover"
-                        alt="home page image"
-                        src={item.image}
-                      />
-                      <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white p-2 rounded">
-                        {item.text}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+              ))}
+            </Slider>
           </div>
         </div>
 
-        <div className="block lg:w-[32%] ">
+        {/* Social Media Section */}
+        <div className="block lg:w-[32%]">
           <div className="flex items-center justify-between border bg-base-content shadow-md rounded-xl py-1">
-            <div className=" text-white text-2xl md:text-3xl px-4  ml-4 cursor-pointer">
-              সঙ্গে থাকুন
-            </div>
+            
+              <div className="text-white text-2xl px-4 ml-4 cursor-pointer">সঙ্গে থাকুন</div>
+            
           </div>
 
-          <div className="w-full grid grid-cols-1 gap-1 pt-4 ">
+          <div className="w-full grid grid-cols-1 gap-1 pt-4">
             <SocialButton
               mediaName="Facebook"
               title="Like Us on"
-              Icon={
-                <FaFacebook className="text-blue-500 w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />
-              }
+              Icon={<FaFacebook className="text-blue-500 w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />}
             />
             <SocialButton
               mediaName="X (Twitter)"
-              title="follow us on "
-              Icon={
-                <FaXTwitter className="text-white w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />
-              }
+              title="Follow Us on"
+              Icon={<FaXTwitter className="text-white w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />}
             />
             <SocialButton
               mediaName="Instagram"
-              title="follow us on "
-              Icon={
-                <FaInstagram className="text-white w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />
-              }
+              title="Follow Us on"
+              Icon={<FaInstagram className="text-white w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />}
             />
             <SocialButton
               mediaName="Youtube"
-              title="subscribe us on"
-              Icon={
-                <FaYoutube className="text-red-500 w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />
-              }
+              title="Subscribe Us on"
+              Icon={<FaYoutube className="text-red-500 w-14 h-14 mr-4 md:w-20 md:h-20 md:mr-8" />}
             />
           </div>
         </div>

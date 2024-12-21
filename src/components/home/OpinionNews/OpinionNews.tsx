@@ -20,7 +20,7 @@ const OpinionCard: React.FC<OpinionCardProps> = ({
   highlight_text,
 }) => {
   return (
-    <div className="flex p-2 rounded-lg shadow-md bg-white border cursor-pointer">
+    <div className="flex p-1 rounded-lg shadow-md bg-white border cursor-pointer">
       <div className="relative h-[100px] w-[120px] rounded-lg overflow-hidden border-4 border-red-500 flex-shrink-0 my-auto">
         <Image
           src={imageUrl}

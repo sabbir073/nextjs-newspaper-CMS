@@ -35,7 +35,7 @@ const ShortNewsCard: React.FC<BlogCardProps> = ({
 
   return (
     <div
-      className="flex items-center w-full cursor-pointer bg-white border rounded-lg shadow-md group"
+      className="flex items-center w-full cursor-pointer bg-white border rounded-lg shadow-md group pt-1 pb-1 pl-1"
       onClick={onClick}
     >
       {left && SideImage}
