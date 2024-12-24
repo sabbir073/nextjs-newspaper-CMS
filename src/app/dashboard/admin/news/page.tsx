@@ -116,12 +116,19 @@ export default function AdminSeeNews() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     });
-
+  
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`/api/news/${id}`, { method: "DELETE" });
+        const response = await fetch(`/api/news/delete`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id }), // Sending `id` in the request body
+        });
+  
         const data = await response.json();
-
+  
         if (data.success) {
           setNewsData((prevData) => prevData.filter((news) => news.id !== id));
           Swal.fire("Deleted!", "The news has been deleted.", "success");
@@ -134,6 +141,7 @@ export default function AdminSeeNews() {
       }
     }
   };
+  
 
   const handleView = (id: number) => {
     window.open(`/news/details/${id}`, "_blank"); // Open the news view page in a new tab

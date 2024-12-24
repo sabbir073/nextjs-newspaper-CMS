@@ -14,7 +14,7 @@ import {
 import { FaUserCircle, FaRegNewspaper } from "react-icons/fa";
 import { PiNewspaper } from "react-icons/pi";
 
-import { LuBoxSelect } from "react-icons/lu";
+import { LuLassoSelect } from "react-icons/lu";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Footer from "../layout/adminFooter";
@@ -76,7 +76,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         });
         items.push({
           title: "News Categories",
-          icon: LuBoxSelect,
+          icon: LuLassoSelect,
           path: `${basePath}/categories`,
         });
         items.push({

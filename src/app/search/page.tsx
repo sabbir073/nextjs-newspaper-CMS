@@ -11,18 +11,11 @@ import Ad from "../../components/common/Ad";
 import CategoryCard from "../../components/category/CategoryCard";
 
 interface NewsCategoryProps {
-  params: {
-    category_slug: string;
-  };
-  searchParams?: {
-    [key: string]: string | string[] | undefined;
-  };
+  params?: any;
+  searchParams?: any;
 }
 
-const NewsCategory: React.FC<NewsCategoryProps> = ({
-  params,
-  searchParams,
-}) => {
+const NewsCategory: React.FC<NewsCategoryProps> = ({ params, searchParams }) => {
   return (
     <HomeLayout>
       <div className="xl:max-w-7xl lg:max-w-5xl md:max-w-[768px] sm:max-w-[640px] xl:px-4 md:mx-auto lg:px-6 sm:mx-auto sm:px-4 px-3 pt-4 mb-4 ">

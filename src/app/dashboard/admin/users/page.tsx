@@ -105,34 +105,43 @@ export default function AdminManageUsers() {
       }
     }, 500);
 
-  const handleDelete = async (id: number) => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    if (result.isConfirmed) {
-      try {
-        const response = await fetch(`/api/users/${id}`, { method: "DELETE" });
-        const data = await response.json();
-
-        if (data.success) {
-          setUsersData((prevData) => prevData.filter((user) => user.id !== id));
-          Swal.fire("Deleted!", "The user has been deleted.", "success");
-        } else {
-          Swal.fire("Error", data.error || "Failed to delete the user.", "error");
+    const handleDelete = async (id: number) => {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+    
+      if (result.isConfirmed) {
+        try {
+          // Send the `id` in the request body
+          const response = await fetch(`/api/users/delete`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id }),
+          });
+    
+          const data = await response.json();
+    
+          if (data.success) {
+            setUsersData((prevData) => prevData.filter((user) => user.id !== id));
+            Swal.fire("Deleted!", "The user has been deleted.", "success");
+          } else {
+            Swal.fire("Error", data.error || "Failed to delete the user.", "error");
+          }
+        } catch (error) {
+          Swal.fire("Error", "An error occurred while deleting the user.", "error");
+          console.error("Error deleting user:", error);
         }
-      } catch (error) {
-        Swal.fire("Error", "An error occurred while deleting the user.", "error");
-        console.error("Error deleting user:", error);
       }
-    }
-  };
+    };
+    
 
   const handleAddUser = () => {
     router.push("/dashboard/admin/users/add"); // Redirect to Add User page

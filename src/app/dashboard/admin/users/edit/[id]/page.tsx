@@ -50,11 +50,19 @@ export default function AdminEditUser() {
   }, [status, router]);
 
   useEffect(() => {
-    if(hasFetched) return;
+    if (hasFetched) return;
+  
     // Fetch user data to populate form
     async function fetchUser() {
       try {
-        const response = await fetch(`/api/users/${params.id}`);
+        const response = await fetch(`/api/users/single`, {
+          method: "POST", // Use POST method
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: params.id }), // Send the id in the body
+        });
+  
         const data = await response.json();
         if (data.success) {
           setFormData({
@@ -69,14 +77,13 @@ export default function AdminEditUser() {
           Swal.fire("Error", "User not found.", "error");
           router.push("/dashboard/admin/users");
         }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         Swal.fire("Error", "An error occurred while fetching user data.", "error");
       } finally {
         setLoading(false);
       }
     }
-
+  
     if (params.id) fetchUser();
   }, [params.id, router]);
 
@@ -95,23 +102,28 @@ export default function AdminEditUser() {
 
   const handleSubmit = async () => {
     setSubmitting(true);
-
+  
+    // Prepare the submission data
     const submissionData: Partial<FormDataType> = { ...formData };
-
+  
     // Include password only if it's not empty
     if (formData.password) {
       submissionData["password"] = formData.password;
     }
-
+  
     try {
-      const response = await fetch(`/api/users/${params.id}`, {
+      // Include the `id` in the body of the request
+      const response = await fetch(`/api/users/update`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(submissionData),
+        body: JSON.stringify({
+          id: params.id, // Pass the user ID
+          ...submissionData, // Merge with other form data
+        }),
       });
-
+  
       if (response.ok) {
         Swal.fire("Success", "User updated successfully!", "success");
         router.push("/dashboard/admin/users");
@@ -119,12 +131,13 @@ export default function AdminEditUser() {
         throw new Error("Failed to update user");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error updating user:", error);
       Swal.fire("Error", "An error occurred while updating the user.", "error");
     } finally {
       setSubmitting(false);
     }
   };
+  
 
   return (
     <DashboardLayout>

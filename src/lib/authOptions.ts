@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials";
 import { SessionStrategy } from "next-auth";
@@ -9,8 +10,10 @@ import { JWT } from "next-auth/jwt";
 import { Session } from "next-auth";
 import { User } from "next-auth";
 
+const prismaClient = prisma as unknown as PrismaClient;
+
 const authOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prismaClient),
   providers: [
     CredentialsProvider({
       name: "Credentials",

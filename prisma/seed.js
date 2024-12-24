@@ -1,46 +1,28 @@
 // seed.js
 
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+import { withAccelerate } from '@prisma/extension-accelerate';
+//import bcrypt from "bcrypt";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient().$extends(withAccelerate());
 
-async function main() {
-  // Hash passwords
-  const password = await bcrypt.hash("DemoPassword123!", 10);
-
-  // Create users with different roles
-  await prisma.user.createMany({
-    data: [
-      {
-        name: "Admin User",
-        email: "admin@example.com",
-        password: password,
-        role: "ADMIN",
-        display_name: "Admin",
+async function testQuery() {
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        email: {
+          contains: "emonju35", // Replace with an email that exists in your database
+        },
       },
-      {
-        name: "Editor User",
-        email: "editor@example.com",
-        password: password,
-        role: "EDITOR",
-        display_name: "Editor",
-      },
-      {
-        name: "Regular User",
-        email: "user@example.com",
-        password: password,
-        role: "USER",
-        display_name: "User",
-      },
-    ],
-  });
+      cacheStrategy: { ttl: 60 }, // Enable caching with a TTL of 60 seconds
+    });
 
-  console.log("Users created successfully");
+    console.log("Users:", users);
+  } catch (error) {
+    console.error("Error executing query:", error);
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
-main()
-  .catch((e) => console.error(e))
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+testQuery();

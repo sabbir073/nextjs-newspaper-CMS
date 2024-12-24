@@ -101,6 +101,7 @@ export async function GET(req: NextRequest) {
         created_by: { select: { name: true } },
       },
       orderBy: { created_at: "desc" },
+      
     });
 
     return NextResponse.json({ success: true, news });

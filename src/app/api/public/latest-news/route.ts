@@ -16,6 +16,9 @@ export async function GET() {
         id: true,
         title: true,
       },
+      cacheStrategy: {
+        ttl: 300, // Cache for 5 minutes (300 seconds)
+      },
     });
 
     return NextResponse.json(latestNews, { status: 200 });
