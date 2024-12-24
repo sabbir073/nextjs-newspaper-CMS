@@ -11,7 +11,7 @@ async function testQuery() {
     const users = await prisma.user.findMany({
       where: {
         email: {
-          contains: "emonju35", // Replace with an email that exists in your database
+          contains: "emonju35@gmail.com", // Replace with an email that exists in your database
         },
       },
       cacheStrategy: { ttl: 60 }, // Enable caching with a TTL of 60 seconds
