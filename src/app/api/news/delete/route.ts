@@ -3,10 +3,10 @@ import prisma from "../../../../../prisma/prisma";
 
 export async function DELETE(req: NextRequest) {
   try {
-    const body = await req.json();
-    const id = Number(body.id); // 🔥 Force cast to number
+    const body = await req.json(); // Parse the request body
+    const { id } = body;
 
-    if (!id || isNaN(id)) {
+    if (!id || typeof id !== "number") {
       return NextResponse.json(
         { success: false, error: "Invalid or missing news ID" },
         { status: 400 }
@@ -18,10 +18,10 @@ export async function DELETE(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    console.error("Error deleting news:", error.message, error);
+  } catch (error) {
+    console.error("Error deleting news:", error);
     return NextResponse.json(
-      { success: false, error: error.message || "Error deleting news" },
+      { success: false, error: "Error deleting news" },
       { status: 500 }
     );
   }
