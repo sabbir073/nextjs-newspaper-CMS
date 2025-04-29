@@ -19,6 +19,7 @@
     "@next/third-parties": "^15.1.2",
     "@prisma/client": "^6.1.0",
     "@prisma/extension-accelerate": "^1.2.1",
+    "@vercel/speed-insights": "^1.2.0",
     "aws-sdk": "^2.1692.0",
     "bangla-calendar": "^7.0.0",
     "bcrypt": "^5.1.1",
