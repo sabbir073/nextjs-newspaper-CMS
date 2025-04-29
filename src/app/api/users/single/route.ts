@@ -1,9 +1,8 @@
-// api/users/route.ts
+// src/app/api/users/single/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/prisma";
 
-// GET: Fetch a single user by ID
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const { id } = await req.json();
 
@@ -28,12 +27,18 @@ export async function GET(req: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ success: false, error: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, error: "User not found" },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json({ success: true, user });
   } catch (error) {
     console.error("Error fetching user:", error);
-    return NextResponse.json({ success: false, error: "Error fetching user" }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: "Error fetching user." },
+      { status: 500 }
+    );
   }
 }

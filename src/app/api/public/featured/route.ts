@@ -25,7 +25,13 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(featuredNews, { status: 200 });
+    // return NextResponse.json(featuredNews, { status: 200 });
+
+    return NextResponse.json(featuredNews, {
+      status: 200,
+      headers: { "Cache-Control": "public, s-maxage=300" }
+    });
+
   } catch (error) {
     console.error("Error fetching featured news:", error);
     return NextResponse.json(

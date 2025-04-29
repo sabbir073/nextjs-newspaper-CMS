@@ -13,7 +13,15 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(videoStory || { video_url: null }, { status: 200 });
+    // return NextResponse.json(videoStory || { video_url: null }, { status: 200 });
+
+    return NextResponse.json(videoStory || { video_url: null }, {
+      status: 200,
+      headers: {
+        "Cache-Control": "public, s-maxage=300", // Cache for 5 minutes
+      },
+    });
+    
   } catch (error) {
     console.error("Error fetching video story:", error);
     return NextResponse.json(
