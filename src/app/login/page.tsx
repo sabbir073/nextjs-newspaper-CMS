@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import logo from "@/assets/logo2.png";
+import logo from "@/assets/logocitynews.png";
 
 export default function LoginPage() {
   const router = useRouter();

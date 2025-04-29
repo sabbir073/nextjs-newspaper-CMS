@@ -12,7 +12,7 @@ const nextConfig = {
           },
           {
             protocol: 'https',
-            hostname: "dainikdhaka24.com" ,
+            hostname: "newscity24.com" ,
           },
           {
             protocol: 'https',

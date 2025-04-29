@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
                             <Link href={"/"}>
                                 <Image 
                                     className='lg:w-[220px] md:w-[200px] w-[140px] lg:mx-auto md:ml-auto md:mx-0 mx-auto md:mt-0 mt-4' 
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/logo2.png`}
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/logocitynews.png`}
                                     alt='logo'
                                     width={220}
                                     height={150}
@@ -45,10 +45,16 @@ const Footer: React.FC = () => {
                         </ul>
                     </BodyContainer>
                 </div>
-                <div className='text-center text-xl'>
+                {/* <div className='text-center text-xl'>
                     <p><b>সম্পাদক ও প্রকাশক:</b> খান মো: আক্তারুজ্জামান</p>
                     <p><b>নির্বাহী সম্পাদক:</b> ইমন রহমান</p>
                     <p>© ২০২৪ সর্বস্বত্ব সংরক্ষিত | অনলাইন গ্রুপের একটি প্রতিষ্ঠান <br/> কসমোপলিটন সেন্টার, ৫ম তলা, ২২/২ বাবর রোড, মোহাম্মদপুর, ঢাকা-১২০৭
+</p>
+                    
+                </div> */}
+                <div className='text-center text-xl'>
+                    <p><b>সম্পাদক ও প্রকাশক:</b> মতিউর রহমান টুকু</p>
+                    <p>© ২০২৫ সর্বস্বত্ব সংরক্ষিত
 </p>
                     
                 </div>
