@@ -68,12 +68,25 @@ const TailwindDatePicker: React.FC = () => {
               ref={popoverRef}
               className="absolute z-20 bg-white border border-gray-300 rounded-lg shadow-lg mt-2 w-full left-0 p-2"
             >
-              <DayPicker
+              {/* <DayPicker
                 mode="single"
                 selected={selectedDate ?? undefined}
                 onSelect={handleDateChange}
                 // 1) Show Month & Year as dropdown
                 captionLayout="dropdown"
+                timeZone="Asia/Dhaka"
+                weekStartsOn={0}
+                disabled={{ after: new Date(), before:  new Date(2024, 10, 1)}}
+              /> */}
+
+              <DayPicker
+                mode="single"
+                selected={selectedDate ?? undefined}
+                onSelect={handleDateChange}
+                fromYear={2024}
+                toYear={new Date().getFullYear()}
+                captionLayout="dropdown"
+                numberOfMonths={1}
                 timeZone="Asia/Dhaka"
                 weekStartsOn={0}
                 disabled={{ after: new Date(), before:  new Date(2024, 10, 1)}}
