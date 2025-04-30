@@ -1,8 +1,10 @@
-import { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../../prisma/prisma";
 
-export async function GET(request: NextRequest, context: { params: { slug: string } }) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { slug: string } }
+) {
   const { slug } = context.params;
 
   try {
